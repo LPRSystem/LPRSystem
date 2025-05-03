@@ -68,4 +68,14 @@
     <Folder Include="Tables\Schemas" />
     <Folder Include="Tables\Tables" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Tables\Schemas\api.sql" />
+    <None Include="Tables\Schemas\data.sql" />
+    <None Include="Tables\Schemas\lookup.sql" />
+    <None Include="Tables\Schemas\link.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Tables\Role.sql" />
+    <Build Include="Programmability\Stored Procedures\uspGetRoles.sql" />
+  </ItemGroup>
 </Project>
