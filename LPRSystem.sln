@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LPRSystem.Web.UI", "LPRSyst
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LPRSystem.Web.DB", "LPRSystem.Web.DB\LPRSystem.Web.DB.sqlproj", "{E632B174-00B4-495B-A4E9-1C50A1BD58EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPRSystem.Web.API.Tests", "LPRSystem.Web.API.Tests\LPRSystem.Web.API.Tests.csproj", "{3D6860DF-7EC7-474F-9ED5-B0A1245430E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LPRSystem.Web.API.Tests", "LPRSystem.Web.API.Tests\LPRSystem.Web.API.Tests.csproj", "{3D6860DF-7EC7-474F-9ED5-B0A1245430E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPRSystem.Web.API.Data.Manager", "LPRSystem.Web.API.Data.Manager\LPRSystem.Web.API.Data.Manager.csproj", "{8CBEFEBE-7AD9-40A9-B003-655211E41E52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{3D6860DF-7EC7-474F-9ED5-B0A1245430E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D6860DF-7EC7-474F-9ED5-B0A1245430E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D6860DF-7EC7-474F-9ED5-B0A1245430E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CBEFEBE-7AD9-40A9-B003-655211E41E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CBEFEBE-7AD9-40A9-B003-655211E41E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CBEFEBE-7AD9-40A9-B003-655211E41E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CBEFEBE-7AD9-40A9-B003-655211E41E52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
