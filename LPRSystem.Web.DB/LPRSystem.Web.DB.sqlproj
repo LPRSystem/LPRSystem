@@ -67,15 +67,22 @@
     <Folder Include="Tables\User-Defined-Types" />
     <Folder Include="Tables\Schemas" />
     <Folder Include="Tables\Tables" />
+    <Folder Include="Programmability\Stored Procedures\Role" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\Schemas\api.sql" />
     <None Include="Tables\Schemas\data.sql" />
     <None Include="Tables\Schemas\lookup.sql" />
     <None Include="Tables\Schemas\link.sql" />
+    <None Include="Tables\User-Defined-Types\Role.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />
-    <Build Include="Programmability\Stored Procedures\uspGetRoles.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspGetRoleById.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspGetRoles.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspInsertRole.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspUpdateRole.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspInsertOrUpdateRole.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspDeleteRole.sql" />
   </ItemGroup>
 </Project>
