@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LPRSystem.Web.API.Data.Mana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPRSystem.Web.API", "LPRSystem.Web.API\LPRSystem.Web.API.csproj", "{4F76FE4E-C387-4B0A-891D-DC52D571CF99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPRSystem.Web.API.Manager", "LPRSystem.Web.API.Manager\LPRSystem.Web.API.Manager.csproj", "{F436905E-6969-4714-8CB7-E193793A294D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{4F76FE4E-C387-4B0A-891D-DC52D571CF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F76FE4E-C387-4B0A-891D-DC52D571CF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F76FE4E-C387-4B0A-891D-DC52D571CF99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F436905E-6969-4714-8CB7-E193793A294D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F436905E-6969-4714-8CB7-E193793A294D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F436905E-6969-4714-8CB7-E193793A294D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F436905E-6969-4714-8CB7-E193793A294D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
