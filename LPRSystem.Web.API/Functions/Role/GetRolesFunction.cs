@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace LPRSystem.Web.API
 {
-    public class Function1
+    public class GetRolesFunction
     {
-        [Function("Function1")]
-        public async Task<IActionResult> Run(
+        [Function("GetRolesFunction")]
+        public async Task<IActionResult> GetRoles(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
