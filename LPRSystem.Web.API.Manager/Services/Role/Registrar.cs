@@ -11,7 +11,11 @@ namespace LPRSystem.Web.API.Manager.Services.Role
             ArgumentNullException.ThrowIfNull(services);
 
             services.AddTransient<IGetRolesRepository, GetRolesRepository>();
+            services.AddTransient<IGetRoleByIdRepository, GetRoleByIdRepository>();
+
+
             services.AddTransient<IGetRolesManager, GetRolesManager>();
+            services.AddTransient<IGetRoleByIdManager, GetRoleByIdManager>();
         }
     }
 }
