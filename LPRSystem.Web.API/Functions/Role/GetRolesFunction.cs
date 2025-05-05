@@ -1,3 +1,5 @@
+using LPRSystem.Web.API.Functions.Role;
+using LPRSystem.Web.API.Manager.Services.Role;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -8,24 +10,35 @@ namespace LPRSystem.Web.API
 {
     public class GetRolesFunction
     {
-        [Function("GetRoles")]
-        public async Task<IActionResult> GetRoles(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            ILogger log)
+        private readonly ILogger<GetRoleById> _logger;
+        private readonly IGetRolesManager _manager;
+
+        public GetRolesFunction(ILogger<GetRoleById> logger, IGetRolesManager manager)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _logger = logger;
+            _manager = manager;
+        }
+        [Function("GetRoles")]
+        public async Task<IActionResult> GetRoles([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, ILogger log)
+        {
+            _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
+            try
+            {
+                var response = await _manager.ExecuteAsync();
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
+                return new OkObjectResult(response);
+            }
+            catch (JsonException jsonEx)
+            {
+                _logger.LogError(jsonEx, "Error parsing the request body.");
+                return new BadRequestObjectResult("Invalid JSON in request body.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the request.");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
