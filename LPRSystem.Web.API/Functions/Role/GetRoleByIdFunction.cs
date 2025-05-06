@@ -1,23 +1,28 @@
 using LPRSystem.Web.API.Manager.Models.Role;
+using LPRSystem.Web.API.Manager.Services;
 using LPRSystem.Web.API.Manager.Services.Role;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace LPRSystem.Web.API.Functions.Role
 {
-    public class GetRoleById
+    public class GetRoleByIdFunction
     {
-        private readonly ILogger<GetRoleById> _logger;
+        private readonly ILogger<GetRoleByIdFunction> _logger;
         private readonly IGetRoleByIdManager _manager;
+        private readonly IRequestParser<GetRoleByIdRequest> _requestParser;
 
-        public GetRoleById(ILogger<GetRoleById> logger, IGetRoleByIdManager manager)
+        public GetRoleByIdFunction(
+            ILogger<GetRoleByIdFunction> logger,
+            IGetRoleByIdManager manager,
+            IRequestParser<GetRoleByIdRequest> requestParser)
         {
             _logger = logger;
             _manager = manager;
+            _requestParser = requestParser;
         }
 
         [Function("GetRoleById")]
@@ -27,21 +32,15 @@ namespace LPRSystem.Web.API.Functions.Role
 
             try
             {
-                // Read the roleId from the query parameters
-                var id = req.Query["roleId"].ToString();
+                // Use the parser to parse the request
+                var request = await _requestParser.ParseAsync(req);
 
-                // Validate the id
-                if (string.IsNullOrEmpty(id) || !long.TryParse(id, out long roleId))
+                // Validate the id (you might want to move this validation to the parser)
+                if (request.RoleId <= 0)
                 {
-                    _logger.LogWarning("Invalid roleId provided: {RoleId}", id);
+                    _logger.LogWarning("Invalid roleId provided: {RoleId}", request.RoleId);
                     return new BadRequestObjectResult("Invalid roleId parameter.");
                 }
-
-                // Create the request object
-                GetRoleByIdRequest request = new GetRoleByIdRequest()
-                {
-                    RoleId = roleId,
-                };
 
                 // Execute the manager method
                 var response = await _manager.ExecuteAsync(request);
@@ -49,8 +48,8 @@ namespace LPRSystem.Web.API.Functions.Role
                 // Check if the response is null or indicates an error
                 if (response == null)
                 {
-                    _logger.LogWarning("No role found for roleId: {RoleId}", roleId);
-                    return new NotFoundObjectResult($"No role found for roleId: {roleId}");
+                    _logger.LogWarning("No role found for roleId: {RoleId}", request.RoleId);
+                    return new NotFoundObjectResult($"No role found for roleId: {request.RoleId}");
                 }
 
                 // Return the successful response

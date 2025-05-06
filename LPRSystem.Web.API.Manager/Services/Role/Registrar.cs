@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LPRSystem.Web.API.Manager.Models.Role;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace LPRSystem.Web.API.Manager.Services.Role
@@ -10,12 +11,18 @@ namespace LPRSystem.Web.API.Manager.Services.Role
             ArgumentNullException.ThrowIfNull(context);
             ArgumentNullException.ThrowIfNull(services);
 
+            //repository
             services.AddTransient<IGetRolesRepository, GetRolesRepository>();
             services.AddTransient<IGetRoleByIdRepository, GetRoleByIdRepository>();
+            services.AddTransient<IRoleProcessRepository, RoleProcessRepository>();
 
-
+            //managers
             services.AddTransient<IGetRolesManager, GetRolesManager>();
             services.AddTransient<IGetRoleByIdManager, GetRoleByIdManager>();
+            services.AddTransient<IRoleProcessManager, RoleProcessManager>();
+
+            //parser
+            services.AddTransient<IRequestParser<GetRoleByIdRequest>, GetRoleByIdRequestParser>();
         }
     }
 }
