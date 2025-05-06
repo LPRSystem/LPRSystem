@@ -14,11 +14,12 @@ namespace LPRSystem.Web.API.Manager.Services.Role
             //repository
             services.AddTransient<IGetRolesRepository, GetRolesRepository>();
             services.AddTransient<IGetRoleByIdRepository, GetRoleByIdRepository>();
+            services.AddTransient<IRoleProcessRepository, RoleProcessRepository>();
 
             //managers
             services.AddTransient<IGetRolesManager, GetRolesManager>();
             services.AddTransient<IGetRoleByIdManager, GetRoleByIdManager>();
-
+            services.AddTransient<IRoleProcessManager, RoleProcessManager>();
 
             //parser
             services.AddTransient<IRequestParser<GetRoleByIdRequest>, GetRoleByIdRequestParser>();
