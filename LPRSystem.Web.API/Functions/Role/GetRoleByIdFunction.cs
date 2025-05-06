@@ -5,16 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace LPRSystem.Web.API.Functions.Role
 {
-    public class GetRoleById
+    public class GetRoleByIdFunction
     {
-        private readonly ILogger<GetRoleById> _logger;
+        private readonly ILogger<GetRoleByIdFunction> _logger;
         private readonly IGetRoleByIdManager _manager;
-
-        public GetRoleById(ILogger<GetRoleById> logger, IGetRoleByIdManager manager)
+        public GetRoleByIdFunction(ILogger<GetRoleByIdFunction> logger, IGetRoleByIdManager manager)
         {
             _logger = logger;
             _manager = manager;

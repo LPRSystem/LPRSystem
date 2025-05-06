@@ -10,10 +10,10 @@ namespace LPRSystem.Web.API
 {
     public class GetRolesFunction
     {
-        private readonly ILogger<GetRoleById> _logger;
+        private readonly ILogger<GetRoleByIdFunction> _logger;
         private readonly IGetRolesManager _manager;
 
-        public GetRolesFunction(ILogger<GetRoleById> logger, IGetRolesManager manager)
+        public GetRolesFunction(ILogger<GetRoleByIdFunction> logger, IGetRolesManager manager)
         {
             _logger = logger;
             _manager = manager;
