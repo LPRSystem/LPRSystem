@@ -68,6 +68,8 @@
     <Folder Include="Tables\Schemas" />
     <Folder Include="Tables\Tables" />
     <Folder Include="Programmability\Stored Procedures\Role" />
+    <Folder Include="Programmability\Stored Procedures\Vehicles" />
+    <Folder Include="Tables\Schema" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\Schemas\api.sql" />
@@ -84,5 +86,16 @@
     <Build Include="Programmability\Stored Procedures\Role\uspUpdateRole.sql" />
     <Build Include="Programmability\Stored Procedures\Role\uspInsertOrUpdateRole.sql" />
     <Build Include="Programmability\Stored Procedures\Role\uspDeleteRole.sql" />
+    <Build Include="Programmability\Stored Procedures\Vehicles\uspGetVehiclesById.sql" />
+    <Build Include="Tables\User-Defined-Types\Vehicles.sql" />
+    <Build Include="Tables\Tables\Vehicles.sql" />
+    <Build Include="Tables\Schema\api.sql" />
+    <Build Include="Tables\Schema\data.sql" />
+    <Build Include="Tables\Schema\link.sql" />
+    <Build Include="Tables\Schema\lookup.sql" />
+    <Build Include="Programmability\Stored Procedures\Vehicles\uspInsertVehicles.sql" />
+    <Build Include="Programmability\Stored Procedures\Vehicles\uspUpdateVehicles.sql" />
+    <Build Include="Programmability\Stored Procedures\Vehicles\uspdeleteVehicles.sql" />
+    <Build Include="Programmability\Stored Procedures\Vehicles\uspGetVehicles.sql" />
   </ItemGroup>
 </Project>
