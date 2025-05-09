@@ -26,12 +26,12 @@ namespace LPRSystem.Web.API.Functions.User
             IRequestParser<GetUserByIdRequest> requestParser)
         {
             _logger = logger;
-            _manager=manager;
+            _manager = manager;
             _requestParser = requestParser;
         }
 
         [Function("GetUserById")]
-        public async Task<IActionResult> GetUserById([HttpTrigger(AuthorizationLevel.Anonymous,"get",Route = null)] HttpRequest req)
+        public async Task<IActionResult> GetUserById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users/getuserbyid")] HttpRequest req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
             try
@@ -45,7 +45,7 @@ namespace LPRSystem.Web.API.Functions.User
                 }
                 var response = await _manager.ExecuteAsync(request);
 
-                if(response == null)
+                if (response == null)
                 {
                     _logger.LogWarning("No user found for userId: {UserId}", request.UserId);
                     return new NotFoundObjectResult($"No user found for userId: {request.UserId}");
@@ -53,7 +53,7 @@ namespace LPRSystem.Web.API.Functions.User
                 }
                 return new OkObjectResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the request.");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);

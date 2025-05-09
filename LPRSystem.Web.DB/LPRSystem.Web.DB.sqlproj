@@ -93,5 +93,6 @@
     <Build Include="Programmability\Stored Procedures\User\uspGetUsers.sql" />
     <Build Include="Programmability\Stored Procedures\User\uspGetUserById.sql" />
     <Build Include="Programmability\Stored Procedures\User\uspInsertOrUpdateUser.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspSaveUser.sql" />
   </ItemGroup>
 </Project>

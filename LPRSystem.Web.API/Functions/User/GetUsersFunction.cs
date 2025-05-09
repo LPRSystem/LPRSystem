@@ -1,31 +1,25 @@
-﻿using LPRSystem.Web.API.Functions.Role;
-using LPRSystem.Web.API.Manager.Services.Role;
-using LPRSystem.Web.API.Manager.Services.User;
+﻿using LPRSystem.Web.API.Manager.Services.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LPRSystem.Web.API.Functions.User
 {
     public class GetUsersFunction
     {
-        private readonly ILogger<GetRoleByIdFunction> _logger;
+        private readonly ILogger<GetUserByIdFunction> _logger;
         private readonly IGetUsersManager _manager;
 
-        public GetUsersFunction(ILogger<GetRoleByIdFunction> logger, IGetUsersManager manager)
+        public GetUsersFunction(ILogger<GetUserByIdFunction> logger, IGetUsersManager manager)
         {
             _logger = logger;
             _manager = manager;
         }
 
         [Function ("GetUsers")]
-        public async Task<IActionResult> GetUsers([HttpTrigger(AuthorizationLevel.Anonymous,"get",Route = null)] HttpRequest req, ILogger logger)
+        public async Task<IActionResult> GetUsers([HttpTrigger(AuthorizationLevel.Anonymous,"get", Route = "users")] HttpRequest req, ILogger logger)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
             try

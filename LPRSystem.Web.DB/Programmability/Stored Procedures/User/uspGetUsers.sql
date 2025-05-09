@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspGetUsers]
+﻿CREATE PROCEDURE [api].[uspGetUsers]
 
 WITH RECOMPILE
 
@@ -11,8 +11,6 @@ BEGIN
 		  [FirstName],
 		  [LastName],
 		  [Phone],
-		  [PasswordHash],
-		  [PasswordSalt],
 		  [RoleId],
 		  [IsBlocked],
 		  [LastPasswordChangedOn],
