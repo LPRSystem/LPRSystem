@@ -69,6 +69,7 @@
     <Folder Include="Programmability\Stored Procedures\Role" />
     <Folder Include="Security" />
     <Folder Include="Security\Schemas" />
+    <Folder Include="Programmability\Stored Procedures\User" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\User-Defined-Types\Role.sql" />
@@ -85,5 +86,12 @@
     <None Include="Security\Schemas\data.sql" />
     <None Include="Security\Schemas\link.sql" />
     <None Include="Security\Schemas\lookup.sql" />
+    <Build Include="Tables\Tables\User.sql" />
+    <Build Include="Tables\User-Defined-Types\User.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspActivateOrDeactivateUser.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspChangePassword.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspGetUsers.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspGetUserById.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspInsertOrUpdateUser.sql" />
   </ItemGroup>
 </Project>

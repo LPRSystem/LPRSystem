@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LPRSystem.Web.API.Manager.Services.Role;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace LPRSystem.Web.API.Manager.Services.User
@@ -9,6 +10,11 @@ namespace LPRSystem.Web.API.Manager.Services.User
         {
             ArgumentNullException.ThrowIfNull(context);
             ArgumentNullException.ThrowIfNull(services);
+            services.AddTransient<IGetUsersRepository, GetUsersRepository>();
+            services.AddTransient<IGetUserByIdRepository, GetUserByIdRepository>();
+
+
+            
         }
     }
 }
