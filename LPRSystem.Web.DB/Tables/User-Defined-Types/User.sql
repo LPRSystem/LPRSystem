@@ -1,5 +1,5 @@
 ﻿CREATE TYPE [api].[User] as Table(
-    [Id]				Bigint                NULL,
+    [Id]				bigint                          NULL,
 	[FirstName]         varchar(250)                    NULL,
 	[LastName]          varchar(250)                    NULL,
 	[Email]             varchar(250)                    NULL,
@@ -9,9 +9,9 @@
 	[RoleId]            bigint                          NULL,
 	[IsBlocked]         bit                             NULL,
 	[LastPasswordChangedOn] datetimeoffset              NULL,
-	[CreatedBy]			Bigint				NULL,
+	[CreatedBy]			bigint				NULL,
 	[CreatedOn]			datetimeoffset					NULL,
-	[ModifiedBy]		Bigint				NULL,
+	[ModifiedBy]		bigint				NULL,
 	[ModifiedOn]		datetimeoffset					NULL,
 	[IsActive]			bit								NULL
 )

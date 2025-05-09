@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspGetUserById]
+﻿CREATE PROCEDURE [api].[uspGetUserById]
 (
  @userId bigint
 )	
@@ -14,8 +14,6 @@ BEGIN
 		  [FirstName],
 		  [LastName],
 		  [Phone],
-		  [PasswordHash],
-		  [PasswordSalt],
 		  [RoleId],
 		  [IsBlocked],
 		  [LastPasswordChangedOn],

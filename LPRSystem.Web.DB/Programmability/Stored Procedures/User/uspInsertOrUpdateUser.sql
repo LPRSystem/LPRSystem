@@ -23,6 +23,7 @@ Using(
              ,input.[FirstName]
              ,input.[LastName]
              ,input.[Phone]
+             ,input.[Email]
              ,input.[PasswordHash]
              ,input.[PasswordSalt]
              ,input.[RoleId]

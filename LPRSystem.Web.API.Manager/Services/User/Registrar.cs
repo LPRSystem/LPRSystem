@@ -1,4 +1,4 @@
-﻿using LPRSystem.Web.API.Manager.Services.Role;
+﻿using LPRSystem.Web.API.Manager.Models.User;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -13,8 +13,10 @@ namespace LPRSystem.Web.API.Manager.Services.User
             services.AddTransient<IGetUsersRepository, GetUsersRepository>();
             services.AddTransient<IGetUserByIdRepository, GetUserByIdRepository>();
 
+            services.AddTransient<IGetUserByIdManager, GetUserByIdManager>();
+            services.AddTransient<IGetUsersManager, GetUsersManager>();
 
-            
+            services.AddTransient<IRequestParser<GetUserByIdRequest>, GetUserByIdRequestParser>();
         }
     }
 }
