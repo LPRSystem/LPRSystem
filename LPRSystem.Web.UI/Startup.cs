@@ -23,6 +23,7 @@ namespace LPRSystem.Web.UI
             });
 
             services.AddScoped<IUserService,UserService>();
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -68,7 +69,7 @@ namespace LPRSystem.Web.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
 

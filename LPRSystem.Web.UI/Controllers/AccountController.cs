@@ -17,7 +17,6 @@ namespace LPRSystem.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
-            var users = await _userService.FetchAllUser();
             return View();
         }
     }

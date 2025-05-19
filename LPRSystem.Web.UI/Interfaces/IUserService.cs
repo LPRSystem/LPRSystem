@@ -7,6 +7,6 @@ namespace LPRSystem.Web.UI.Interfaces
     public interface IUserService
     {
         Task<List<User>> FetchAllUser();
-        Task<bool> InsertOrUpdateUser(UserRegistration user);
+        Task<string> InsertOrUpdateUser(UserRegistration user);
     }
 }

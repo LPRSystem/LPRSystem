@@ -4,11 +4,11 @@
     self.ApplicationUser = [];
     var actions = [];
     var dataObject = [];
-    actions.push('/Role/FetchRoles');
+    //actions.push('/Role/FetchRoles');
 
     self.init = function () {
-        var appuser = storageService.get("ApplicationUser");
-        self.ApplicationUser = appuser;
+        //var appuser = storageService.get("ApplicationUser");
+        //self.ApplicationUser = appuser;
 
         self.usersgrid = new Tabulator("#usersgrid", {
             ajaxURL: '/User/FetchUsers',
@@ -31,40 +31,40 @@
             layout: "fitColumns",
             resizableColumnFit: true,
             columns: [
-                { title: "Name", field: "FullName" },
+                { title: "FirstName", field: "FirstName" },
+                { title: "LastName", field: "LastName" },
                 { title: "Email", field: "Email" },
                 { title: "Phone", field: "Phone" },
-                { title: "Role", field: "RoleName" },
-                { title: "IsBlocked", field: "IsBlocked" },
+                { title: "RoleId", field: "RoleId" },
                 { title: "IsActive", field: "IsActive" },
             ]
         });
 
-        var requests = actions.map((action, index) => {
-            var ajaxConfig = {
-                url: action,
-                method: 'GET'
-            };
-            if (index === 2) {
-                ajaxConfig.data = dataObjects[0];
-            }
-            return $.ajax(ajaxConfig);
-        });
+        //var requests = actions.map((action, index) => {
+        //    var ajaxConfig = {
+        //        url: action,
+        //        method: 'GET'
+        //    };
+        //    if (index === 2) {
+        //        ajaxConfig.data = dataObjects[0];
+        //    }
+        //    return $.ajax(ajaxConfig);
+        //});
 
-        $.when.apply($, requests).done(function (...responses) {
-            self.coreDBRoles = responses[0][0]?.data || [];
-            self.coreDBDealers = responses[2][0]?.data || [];
+        //$.when.apply($, requests).done(function (...responses) {
+        //    self.coreDBRoles = responses[0][0]?.data || [];
+        //    self.coreDBDealers = responses[2][0]?.data || [];
 
-            var loggedInUserRole = self.coreDBRoles.find(role => role.Id === self.ApplicationUser.RoleId);
-            if (loggedInUserRole) {
-                var userRoles = self.filterRoles(loggedInUserRole.Name, self.coreDBRoles);
-                genarateDropdown("RoleId", userRoles, "Id", "Name");
-            }
+        //    var loggedInUserRole = self.coreDBRoles.find(role => role.Id === self.ApplicationUser.RoleId);
+        //    if (loggedInUserRole) {
+        //        var userRoles = self.filterRoles(loggedInUserRole.Name, self.coreDBRoles);
+        //        genarateDropdown("RoleId", userRoles, "Id", "Name");
+        //    }
 
-            hideLoader();
-        }).fail(function () {
-            console.log('One or more requests failed.');
-        });
+        //    hideLoader();
+        //}).fail(function () {
+        //    console.log('One or more requests failed.');
+        //});
 
         self.filterRoles = function (loggedInRole, roles) {
             if (loggedInRole === 'Administrator') {
