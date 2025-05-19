@@ -9,19 +9,19 @@ namespace LPRSystem.Web.UI.Repository
     public class UserService : IUserService
     {
         private HttpClient _httpClient;
-        public UserService() 
+        public UserService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:7165/api/");
             _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.Timeout = new TimeSpan(0,0,120);
+            _httpClient.Timeout = new TimeSpan(0, 0, 120);
         }
 
         public async Task<List<User>> FetchAllUser()
         {
             List<User> users = new List<User>();
             var response = await _httpClient.GetAsync("users");
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
                 users = JsonConvert.DeserializeObject<List<User>>(responseContent);
@@ -30,25 +30,25 @@ namespace LPRSystem.Web.UI.Repository
             return users;
         }
 
-        public async Task<bool> InsertOrUpdateUser(UserRegistration user)
+        public async Task<string> InsertOrUpdateUser(UserRegistration user)
         {
             var inputUser = JsonConvert.SerializeObject(user);
 
             var requestUser = new StringContent(inputUser, Encoding.UTF8, "application/json");
 
-            var responce = await _httpClient.PostAsync("User/InsertOrUpdateUser", requestUser);
+            var responce = await _httpClient.PostAsync("User/saveuser", requestUser);
 
             if (responce.IsSuccessStatusCode)
             {
                 var content = await responce.Content.ReadAsStringAsync();
 
-                var responceUser = JsonConvert.DeserializeObject<bool>(content);
+                var responceUser = JsonConvert.DeserializeObject<string>(content);
 
-                return responceUser ? responceUser : false;
+                return responceUser;
 
             }
 
-            return false;
+            return string.Empty;
         }
     }
 }
