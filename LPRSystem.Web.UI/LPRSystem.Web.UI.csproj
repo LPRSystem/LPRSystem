@@ -13,8 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Repository\" />
+    <ProjectReference Include="..\LPRSystem.Web.Utility\LPRSystem.Web.Utility.csproj" />
   </ItemGroup>
 
 </Project>

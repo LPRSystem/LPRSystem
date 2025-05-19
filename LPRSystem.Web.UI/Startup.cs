@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
-
+using LPRSystem.Web.UI.Interfaces;
+using LPRSystem.Web.UI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Newtonsoft.Json.Serialization;
 
@@ -20,6 +21,8 @@ namespace LPRSystem.Web.UI
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
+
+            services.AddScoped<IUserService,UserService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
