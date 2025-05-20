@@ -1,9 +1,9 @@
-﻿.centered-checkbox {
+﻿﻿.centered-checkbox {
     /* display: flex !important;*/
     justify-content: center !important;
     align-items: center !important;
 }
 
-    .centered-checkbox input[type="checkbox"] {
-        margin: 0;
-    }
+.centered-checkbox input[type="checkbox"] {
+    margin: 0;
+}
