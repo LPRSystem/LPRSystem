@@ -23,6 +23,7 @@ namespace LPRSystem.Web.UI
             });
 
             services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IRoleService,RoleService>();
 
             services.AddSession(options =>
             {

@@ -3,7 +3,7 @@
     self.coreDBRoles = [];
     self.ApplicationUser = {};
     var actions = [];
-    var dataObjects = [];
+    //var dataObjects = [];
     actions.push('/Role/FetchRoles');
     self.init = function () {
         var appuser = storageService.get("ApplicationUser");
@@ -12,7 +12,7 @@
         }
         self.usersgrid = new Tabulator("#usersgrid", {
             ajaxURL: '/User/FetchUsers',
-            ajaxParams: {  },
+            ajaxParams: {},
             ajaxConfig: {
                 method: 'GET',
                 headers: {
@@ -20,6 +20,7 @@
                 },
             },
             ajaxResponse: function (url, params, response) {
+                console.log(response);
                 return response.data;
             },
             height: "600px",
@@ -45,25 +46,25 @@
                 }
             ]
         });
-        //var requests = actions.map((action, index) => {
-        //    var ajaxConfig = {
-        //        url: action,
-        //        method: 'GET'
-        //    };
-        //    return $.ajax(ajaxConfig);
-        //});
+        var requests = actions.map((action, index) => {
+            var ajaxConfig = {
+                url: action,
+                method: 'GET'
+            };
+            return $.ajax(ajaxConfig);
+        });
 
-        //$.when.apply($, requests).done(function (...responses) {
-        //    self.coreDBRoles = responses[0]?.data || [];
-        //    var loggedInUserRole = self.coreDBRoles.find(role => role.RoleId === self.ApplicationUser.RoleId);
-        //    if (loggedInUserRole) {
-        //        var userRoles = self.filterRoles(loggedInUserRole.Name, self.coreDBRoles);
-        //        genarateDropdown("RoleId", userRoles, "RoleId", "Name");
-        //    }
-        //    hideLoader();
-        //}).fail(function () {
-        //    console.log('One or more requests failed.');
-        //});
+        $.when.apply($, requests).done(function (...responses) {
+            self.coreDBRoles = responses[0][0]?.data || [];
+            var loggedInUserRole = self.coreDBRoles.find(role => role.RoleId === self.ApplicationUser.RoleId);
+            if (loggedInUserRole) {
+                var userRoles = self.filterRoles(loggedInUserRole.Name, self.coreDBRoles);
+                genarateDropdown("RoleId", userRoles, "RoleId", "Name");
+            }
+            hideLoader();
+        }).fail(function () {
+            console.log('One or more requests failed.');
+        });
 
         self.filterRoles = function (loggedInRole, roles) {
             if (loggedInRole === 'Administrator') {
