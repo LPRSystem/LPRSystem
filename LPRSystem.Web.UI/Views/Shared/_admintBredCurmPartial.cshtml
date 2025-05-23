@@ -46,18 +46,6 @@
         envVersionButton.textContent = `${environment} - ${version}`;
 
 
-         const userTenantButton = document.getElementById("tenantButton");
-
-         userTenantButton.textContent = `${applicationUser.HospitalName}`;
-
-        // Check if the hostname is localhost or production and update the button class accordingly
-        const hostname = window.location.hostname;
-        if (hostname === 'localhost') {
-            envVersionButton.classList.add('btn-warning');
-            envVersionButton.classList.remove('btn-primary');
-        } else {
-            envVersionButton.classList.add('btn-primary');
-            envVersionButton.classList.remove('btn-warning');
-        }
+        
     });
 </script>

@@ -1,36 +1,36 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
+using LPRSystem.Web.UI.Repository;
 using LPRSystem.Web.Utility;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace LPRSystem.Web.UI.Controllers
 {
-    public class UserController : Controller
+    public class RoleController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IRoleService _roleService;
         private readonly INotyfService _notyfService;
-        
-        public UserController(IUserService userService, INotyfService notyfService, IHttpContextAccessor httpContextAccessor)
-        {
-            _userService = userService;
-            _notyfService = notyfService;
-            string appUser = httpContextAccessor.HttpContext.Session.GetString("ApplicationUser");
+        List<Role> roles = new List<Role>();
 
+        public RoleController(IRoleService roleService, INotyfService notyfService, IHttpContextAccessor httpContextAccessor)
+        {
+            _notyfService = notyfService;
+            _roleService = roleService;
+           
         }
         public IActionResult Index()
         {
-            return View();
+            return View(roles);
         }
 
         [HttpGet]
-        public async Task<IActionResult> FetchUsers()
+        public async Task<IActionResult> FetchRoles()
         {
             try
             {
-                var response = await _userService.FetchAllUser();
-                return Json(new { data = response });
+                var response = await _roleService.GetRolesAsync();
+                return Json(new { data = roles });
             }
             catch (Exception ex)
             {
@@ -40,12 +40,12 @@ namespace LPRSystem.Web.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertOrUpdateUser([FromBody] UserRegistration registration)
+        public async Task<IActionResult> InsertOrUpdateRole([FromBody] RoleManagement role)
         {
             try
             {
-                await _userService.InsertOrUpdateUser(registration);
-                _notyfService.Success("User Created Successfully");
+                await _roleService.InsertOrUpdateRole(role);
+                _notyfService.Success("Insert/update role successfully");
                 return Json(new { data = true });
             }
             catch (Exception ex)
@@ -54,5 +54,6 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
+
     }
 }
