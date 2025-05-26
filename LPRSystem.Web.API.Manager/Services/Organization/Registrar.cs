@@ -12,10 +12,11 @@ namespace LPRSystem.Web.API.Manager.Services.Organization
 
             //repository
             services.AddTransient<IGetOrganizationsRepository, GetOrganizationsRepository>();
-           
+            services.AddTransient<IProcessOrganizationRepository, ProcessOrganizationRepository>();
 
             //managers
             services.AddTransient<IGetOrganizationsManager, GetOrganizationsDataManager>();
+            services.AddTransient<IProcessOrganizationManager, ProcessOrganizationDataManager>();
 
             //parser
             //services.AddTransient<IRequestParser<GetRoleByIdRequest>, GetRoleByIdRequestParser>();

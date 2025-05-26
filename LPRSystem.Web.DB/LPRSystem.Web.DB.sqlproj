@@ -98,5 +98,6 @@
     <Build Include="Programmability\Stored Procedures\User\uspSaveUser.sql" />
     <Build Include="Tables\Tables\Organization.sql" />
     <Build Include="Programmability\Stored Procedures\Organization\uspGetOrganizations.sql" />
+    <Build Include="Programmability\Stored Procedures\Organization\uspInsertOrUpdateOrganization.sql" />
   </ItemGroup>
 </Project>
