@@ -1,4 +1,5 @@
 ﻿using LPRSystem.Web.API.Manager.Converters;
+using LPRSystem.Web.API.Manager.Models.Organization;
 using LPRSystem.Web.API.Manager.Models.Role;
 using System.Data;
 using System.Data.Common;
@@ -31,6 +32,9 @@ namespace LPRSystem.Web.API.Manager
         {
             if (typeof(T) == typeof(Role))
                 return (T)Convert.ChangeType(reader.ToSingleRole(), typeof(T));
+
+            if (typeof(T) == typeof(Organization))
+                return (T)Convert.ChangeType(reader.ToSingleOrganization(), typeof(T));
 
             throw new Exception($"Unexpected Data type {typeof(T)}");
         }

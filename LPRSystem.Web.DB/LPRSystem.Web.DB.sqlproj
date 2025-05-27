@@ -70,9 +70,11 @@
     <Folder Include="Security" />
     <Folder Include="Security\Schemas" />
     <Folder Include="Programmability\Stored Procedures\User" />
+    <Folder Include="Programmability\Stored Procedures\Organization" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\User-Defined-Types\Role.sql" />
+    <None Include="Tables\User-Defined-Types\Organization.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />
@@ -94,5 +96,8 @@
     <Build Include="Programmability\Stored Procedures\User\uspGetUserById.sql" />
     <Build Include="Programmability\Stored Procedures\User\uspInsertOrUpdateUser.sql" />
     <Build Include="Programmability\Stored Procedures\User\uspSaveUser.sql" />
+    <Build Include="Tables\Tables\Organization.sql" />
+    <Build Include="Programmability\Stored Procedures\Organization\uspGetOrganizations.sql" />
+    <Build Include="Programmability\Stored Procedures\Organization\uspInsertOrUpdateOrganization.sql" />
   </ItemGroup>
 </Project>
