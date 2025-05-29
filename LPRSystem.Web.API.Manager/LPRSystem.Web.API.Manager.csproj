@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Models\Country\" />
+    <Folder Include="Models\State\" />
   </ItemGroup>
 
   <ItemGroup>
