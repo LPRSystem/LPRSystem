@@ -9,8 +9,7 @@
     <ProjectGuid>{e632b174-00b4-495b-a4e9-1c50a1bd58ec}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
-    <RootPath>
-    </RootPath>
+    <RootPath />
     <RootNamespace>LPRSystem.Web.DB</RootNamespace>
     <AssemblyName>LPRSystem.Web.DB</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
@@ -48,7 +47,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -71,10 +69,16 @@
     <Folder Include="Security\Schemas" />
     <Folder Include="Programmability\Stored Procedures\User" />
     <Folder Include="Programmability\Stored Procedures\Organization" />
+    <Folder Include="Programmability\Stored Procedures\City" />
+    <Folder Include="Programmability\Stored Procedures\Country" />
+    <Folder Include="Programmability\Stored Procedures\State" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\User-Defined-Types\Role.sql" />
     <None Include="Tables\User-Defined-Types\Organization.sql" />
+    <None Include="Tables\User-Defined-Types\City.sql" />
+    <None Include="Tables\User-Defined-Types\Country.sql" />
+    <None Include="Tables\User-Defined-Types\State.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />
@@ -99,5 +103,11 @@
     <Build Include="Tables\Tables\Organization.sql" />
     <Build Include="Programmability\Stored Procedures\Organization\uspGetOrganizations.sql" />
     <Build Include="Programmability\Stored Procedures\Organization\uspInsertOrUpdateOrganization.sql" />
+    <Build Include="Tables\Tables\City.sql" />
+    <Build Include="Tables\Tables\Country.sql" />
+    <Build Include="Tables\Tables\State.sql" />
+    <Build Include="Programmability\Stored Procedures\City\uspGetCity.sql" />
+    <Build Include="Programmability\Stored Procedures\Country\uspGetCountry.sql" />
+    <Build Include="Programmability\Stored Procedures\State\uspGetState.sql" />
   </ItemGroup>
 </Project>

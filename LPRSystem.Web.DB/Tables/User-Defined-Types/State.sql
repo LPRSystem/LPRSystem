@@ -1,4 +1,4 @@
-﻿CREATE TABLE [data].[State]
+﻿CREATE TYPE [api].[State] as Table
 (
 	[StateId] bigint NOT NULL PRIMARY KEY identity(1,1),
 	[CountryId] bigint not null,
