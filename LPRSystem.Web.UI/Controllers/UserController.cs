@@ -45,7 +45,7 @@ namespace LPRSystem.Web.UI.Controllers
             try
             {
                 await _userService.InsertOrUpdateUser(registration);
-                _notyfService.Success("User Created Successfully");
+                _notyfService.Success("User Inserted Or Updated Successfully");
                 return Json(new { data = true });
             }
             catch (Exception ex)

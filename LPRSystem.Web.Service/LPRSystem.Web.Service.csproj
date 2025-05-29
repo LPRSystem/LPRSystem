@@ -19,7 +19,4 @@
   <ItemGroup>
     <ProjectReference Include="..\LPRSystem.Web.API.Manager\LPRSystem.Web.API.Manager.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Functions\User\" />
-  </ItemGroup>
 </Project>
