@@ -12,11 +12,13 @@ namespace LPRSystem.Web.API.Manager.Services.User
             ArgumentNullException.ThrowIfNull(services);
             services.AddTransient<IGetUsersRepository, GetUsersRepository>();
             services.AddTransient<IGetUserByIdRepository, GetUserByIdRepository>();
+            services.AddTransient<IProgressUserRepository, ProgressUserRepository>();
 
             services.AddTransient<IGetUserByIdManager, GetUserByIdManager>();
             services.AddTransient<IGetUsersManager, GetUsersManager>();
-
+            services.AddTransient<IProgressUserDataManager, ProgressUserDataManager>();
             services.AddTransient<IRequestParser<GetUserByIdRequest>, GetUserByIdRequestParser>();
+            
         }
     }
 }

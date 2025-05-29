@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace LPRSystem.Web.API.Manager.Services.User
 {
-    public interface IInsertOrUpdateUserManager
+    public interface IProgressUserDataManager
     {
-        Task<IEnumerable<LPRSystem.Web.API.Manager.Models.User.User>> ExecuteAsync(ProcessUserRequest user);
+        Task<LPRSystem.Web.API.Manager.Models.User.User> ExecuteAsync(Models.User.User user);
 
     }
 }

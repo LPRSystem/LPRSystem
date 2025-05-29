@@ -46,8 +46,7 @@ Using(
                 [FirstName] = source.[FirstName]
 		        ,[LastName] = source.[LastName]
 		        ,[Phone] = source.[Phone]
-		        ,[PasswordHash] =source.[PasswordHash]
-		        ,[PasswordSalt] = source.[PasswordSalt]
+				,[Email] = source.[Email]
 		        ,[RoleId] =source.[RoleId]
 		        ,[IsBlocked] =source.[IsBlocked]
 		        ,[LastPasswordChangedOn] =source.[LastPasswordChangedOn]
@@ -58,6 +57,8 @@ Using(
            INSERT 
            ([FirstName]
            ,[LastName]
+		   ,[Phone]
+		   ,[Email]
            ,[PasswordHash]
            ,[PasswordSalt]
            ,[RoleId]
@@ -72,6 +73,7 @@ Using(
            (source.[FirstName]
            ,source.[LastName]
            ,source.[Phone]
+		   ,source.[Email]
            ,source.[PasswordHash]
            ,source.[PasswordSalt]
            ,source.[RoleId]
@@ -83,11 +85,11 @@ Using(
            ,source.[ModifiedOn]
            ,source.[IsActive])
            OUTPUT 
-            inserted.[FirstName]
+			inserted.[Id]
+           ,inserted.[FirstName]
            ,inserted.[LastName]
            ,inserted.[Phone]
-           ,inserted.[PasswordHash]
-           ,inserted.[PasswordSalt]
+		   ,inserted.[Email]
            ,inserted.[RoleId]
            ,inserted.[IsBlocked]
            ,inserted.[LastPasswordChangedOn]
@@ -99,8 +101,13 @@ Using(
            INTO 
            @ReturnData(
             [Id]
-           ,[Name]
-           ,[Code]
+           ,[FirstName]
+           ,[LastName]
+		   ,[Phone]
+		   ,[Email]
+		   ,[RoleId]
+		   ,[IsBlocked]
+		   ,[LastPasswordChangedOn]
            ,[CreatedBy]
            ,[CreatedOn]
            ,[ModifiedBy]
@@ -108,10 +115,11 @@ Using(
            ,[IsActive]);
 
            SELECT 
-           [FirstName]
+		    [Id]
+           ,[FirstName]
            ,[LastName]
-           ,[PasswordHash]
-           ,[PasswordSalt]
+		   ,[Phone]
+		   ,[Email]
            ,[RoleId]
            ,[IsBlocked]
            ,[LastPasswordChangedOn]
