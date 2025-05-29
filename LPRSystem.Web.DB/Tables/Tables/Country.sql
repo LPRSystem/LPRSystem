@@ -1,12 +1,12 @@
 ﻿CREATE TABLE [data].[Country]
 (
-[CountryId] bigint NOT NULL PRIMARY KEY identity(1,1),
-[Name] varchar(max),
-[Description] varchar(max),
-[CountryCode] varchar(max),
-[CreatedOn] datetimeoffset null,
-[CreatedBy] bigint null,
-[ModifiedOn] datetimeoffset null,
-[ModifiedBy] bigint null,
-[IsActive] bit null
+[CountryId]						bigint			NOT NULL		PRIMARY KEY identity(1,1),
+[Name]							varchar(max)        NULL,
+[Description]					varchar(max)		NULL,
+[CountryCode]				    varchar(max)		NULL,
+[CreatedOn]						datetimeoffset		NULL,
+[CreatedBy]						bigint				NULL,
+[ModifiedOn]					datetimeoffset		NULL,
+[ModifiedBy]					bigint				NULL,
+[IsActive]						bit					NULL
 )
