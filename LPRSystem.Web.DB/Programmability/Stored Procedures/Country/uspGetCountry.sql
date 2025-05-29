@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[uspGetCountry]
+﻿CREATE PROCEDURE [api].[uspGetCountries]
+
 WITH RECOMPILE
 
 AS
@@ -6,7 +7,7 @@ AS
 BEGIN
 
   SELECT
-		[CountryId] 
+		 [CountryId] 
 		,[Name]
 		,[Description] 
 		,[CountryCode] 
