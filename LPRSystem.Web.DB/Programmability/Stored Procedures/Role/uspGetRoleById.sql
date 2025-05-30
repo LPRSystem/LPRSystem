@@ -19,6 +19,7 @@ BEGIN
 	  ,[ModifiedBy]
 	  ,[ModifiedOn]
 	  ,[IsActive]
+
   FROM [lookup].[Role]
 
   WHERE Id=@roleId

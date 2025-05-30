@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "LPRSystem.Web.API": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7165",
-      "launchBrowser": false
-    }
-  }
-}
