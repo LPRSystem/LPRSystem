@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspInsertOrUpdateUser]
+﻿CREATE PROCEDURE [api].[uspInsertOrUpdateUser]
 (
 	@User [api].[User] READONLY
 )

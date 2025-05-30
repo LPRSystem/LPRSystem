@@ -18,7 +18,9 @@ namespace LPRSystem.Web.API.Manager.Services.User
             services.AddTransient<IGetUsersManager, GetUsersManager>();
             services.AddTransient<IProgressUserDataManager, ProgressUserDataManager>();
             services.AddTransient<IRequestParser<GetUserByIdRequest>, GetUserByIdRequestParser>();
-            
+
+            services.AddTransient<IRequestParser<LPRSystem.Web.API.Manager.Models.User.User>, UserProcessRequestParser>();
+
         }
     }
 }
