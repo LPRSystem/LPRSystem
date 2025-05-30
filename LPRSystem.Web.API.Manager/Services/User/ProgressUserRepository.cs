@@ -24,15 +24,9 @@ namespace LPRSystem.Web.API.Manager.Services.User
         {
             string userId = "1111";
 
-            try
-            {
-                return await base.ExecuteScalarAsync<Models.User.User>(CommonConstants.CommonDB, UserConstants.InsertUser, new { User = user.ToDataTable(userId).AsTableValuedParameter("[api].[User]") }, null);
+            return await base.QueryFirstOrDefaultAsync<Models.User.User>(CommonConstants.CommonDB, UserConstants.InsertOrUpdateUser, new { User = user.ToDataTable(userId).AsTableValuedParameter("[api].[User]") }, null);
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+
         }
     }
 }
