@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LPRSystem.Web.API.Manager.Services.Location.City
+namespace LPRSystem.Web.API.Manager.Converters
 {
-    class GetCityManager
+    public class ATMMAchineConverter
     {
+
     }
 }
