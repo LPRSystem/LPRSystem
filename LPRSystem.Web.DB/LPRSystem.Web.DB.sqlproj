@@ -1,97 +1,121 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<Name>LPRSystem.Web.DB</Name>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectVersion>4.1</ProjectVersion>
-		<ProjectGuid>{e632b174-00b4-495b-a4e9-1c50a1bd58ec}</ProjectGuid>
-		<DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
-		<OutputType>Database</OutputType>
-		<RootPath>
-		</RootPath>
-		<RootNamespace>LPRSystem.Web.DB</RootNamespace>
-		<AssemblyName>LPRSystem.Web.DB</AssemblyName>
-		<ModelCollation>1033, CI</ModelCollation>
-		<DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
-		<DeployToDatabase>True</DeployToDatabase>
-		<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-		<TargetLanguage>CS</TargetLanguage>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<SqlServerVerification>False</SqlServerVerification>
-		<IncludeCompositeObjects>True</IncludeCompositeObjects>
-		<TargetDatabaseSet>True</TargetDatabaseSet>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<OutputPath>bin\Release\</OutputPath>
-		<BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<DefineDebug>false</DefineDebug>
-		<DefineTrace>true</DefineTrace>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<OutputPath>bin\Debug\</OutputPath>
-		<BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<DefineDebug>true</DefineDebug>
-		<DefineTrace>true</DefineTrace>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup>
-		<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-		<!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
-		<SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
-		<VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
-	</PropertyGroup>
-	<Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
-	<Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
-	<ItemGroup>
-		<Folder Include="Properties" />
-		<Folder Include="Tables" />
-		<Folder Include="Pre-Deployment" />
-		<Folder Include="Post-Deployment" />
-		<Folder Include="Pre-Compare" />
-		<Folder Include="Programmability" />
-		<Folder Include="Programmability\Stored Procedures" />
-		<Folder Include="Programmability\Functions" />
-		<Folder Include="Programmability\Views" />
-		<Folder Include="Tables\User-Defined-Types" />
-		<Folder Include="Tables\Tables" />
-		<Folder Include="Programmability\Stored Procedures\Role" />
-		<Folder Include="Programmability\Stored Procedures\Vehicles" />
-		<Folder Include="Security" />
-		<Folder Include="Security\Schemas" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="Tables\User-Defined-Types\Role.sql" />
-		<None Include="Security\Schemas\api.sql" />
-		<None Include="Security\Schemas\data.sql" />
-		<None Include="Security\Schemas\link.sql" />
-		<None Include="Security\Schemas\lookup.sql" />
-	</ItemGroup>
-	<ItemGroup>
-		<Build Include="Tables\Tables\Role.sql" />
-		<Build Include="Programmability\Stored Procedures\Role\uspGetRoleById.sql" />
-		<Build Include="Programmability\Stored Procedures\Role\uspGetRoles.sql" />
-		<Build Include="Programmability\Stored Procedures\Role\uspInsertRole.sql" />
-		<Build Include="Programmability\Stored Procedures\Role\uspUpdateRole.sql" />
-		<Build Include="Programmability\Stored Procedures\Role\uspInsertOrUpdateRole.sql" />
-		<Build Include="Programmability\Stored Procedures\Role\uspDeleteRole.sql" />
-		<Build Include="Programmability\Stored Procedures\Vehicles\uspGetVehiclesById.sql" />
-		<Build Include="Tables\User-Defined-Types\Vehicles.sql" />
-		<Build Include="Tables\Tables\Vehicles.sql" />
-		<Build Include="Programmability\Stored Procedures\Vehicles\uspInsertVehicles.sql" />
-		<Build Include="Programmability\Stored Procedures\Vehicles\uspUpdateVehicles.sql" />
-		<Build Include="Programmability\Stored Procedures\Vehicles\uspdeleteVehicles.sql" />
-		<Build Include="Programmability\Stored Procedures\Vehicles\uspGetVehicles.sql" />
-	</ItemGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>LPRSystem.Web.DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{e632b174-00b4-495b-a4e9-1c50a1bd58ec}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>LPRSystem.Web.DB</RootNamespace>
+    <AssemblyName>LPRSystem.Web.DB</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Tables" />
+    <Folder Include="Pre-Deployment" />
+    <Folder Include="Post-Deployment" />
+    <Folder Include="Pre-Compare" />
+    <Folder Include="Programmability" />
+    <Folder Include="Programmability\Stored Procedures" />
+    <Folder Include="Programmability\Functions" />
+    <Folder Include="Programmability\Views" />
+    <Folder Include="Tables\User-Defined-Types" />
+    <Folder Include="Tables\Tables" />
+    <Folder Include="Programmability\Stored Procedures\Role" />
+    <Folder Include="Security" />
+    <Folder Include="Security\Schemas" />
+    <Folder Include="Programmability\Stored Procedures\User" />
+    <Folder Include="Programmability\Stored Procedures\Organization" />
+    <Folder Include="Programmability\Stored Procedures\City" />
+    <Folder Include="Programmability\Stored Procedures\Country" />
+    <Folder Include="Programmability\Stored Procedures\State" />
+    <Folder Include="Programmability\Stored Procedures\Location" />
+    <Folder Include="Programmability\Stored Procedures\ATMMachine" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tables\User-Defined-Types\Role.sql" />
+    <None Include="Tables\User-Defined-Types\Organization.sql" />
+    <None Include="Tables\User-Defined-Types\City.sql" />
+    <None Include="Tables\User-Defined-Types\Country.sql" />
+    <None Include="Tables\User-Defined-Types\State.sql" />
+    <None Include="Tables\User-Defined-Types\Location.sql" />
+    <None Include="Tables\User-Defined-Types\ATMMachine.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Tables\Role.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspGetRoleById.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspGetRoles.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspInsertRole.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspUpdateRole.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspInsertOrUpdateRole.sql" />
+    <Build Include="Programmability\Stored Procedures\Role\uspDeleteRole.sql" />
+    <None Include="Security\Schemas\api.sql" />
+    <None Include="Security\Schemas\data.sql" />
+    <None Include="Security\Schemas\link.sql" />
+    <None Include="Security\Schemas\lookup.sql" />
+    <Build Include="Tables\Tables\User.sql" />
+    <Build Include="Tables\User-Defined-Types\User.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspActivateOrDeactivateUser.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspChangePassword.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspGetUsers.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspGetUserById.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspInsertOrUpdateUser.sql" />
+    <Build Include="Programmability\Stored Procedures\User\uspSaveUser.sql" />
+    <Build Include="Tables\Tables\Organization.sql" />
+    <Build Include="Programmability\Stored Procedures\Organization\uspGetOrganizations.sql" />
+    <Build Include="Programmability\Stored Procedures\Organization\uspInsertOrUpdateOrganization.sql" />
+    <Build Include="Tables\Tables\City.sql" />
+    <Build Include="Tables\Tables\Country.sql" />
+    <Build Include="Tables\Tables\State.sql" />
+    <Build Include="Programmability\Stored Procedures\City\uspGetCity.sql" />
+    <Build Include="Programmability\Stored Procedures\Country\uspGetCountry.sql" />
+    <Build Include="Programmability\Stored Procedures\State\uspGetState.sql" />
+    <Build Include="Tables\Tables\ATMMachine.sql" />
+    <Build Include="Tables\Tables\Location.sql" />
+    <Build Include="Programmability\Stored Procedures\Location\uspGetLocation.sql" />
+    <Build Include="Programmability\Stored Procedures\ATMMachine\uspGetATMMachine.sql" />
+  </ItemGroup>
 </Project>

@@ -13,6 +13,8 @@ namespace LPRSystem.Web.API.Manager.Services
 
             Role.Registrar.Register(context, services);
             User.Registrar.Register(context, services);
+            Organization.Registrar.Register(context, services);
+            Location.Registrar.Register(context, services);
         }
     }
 }
