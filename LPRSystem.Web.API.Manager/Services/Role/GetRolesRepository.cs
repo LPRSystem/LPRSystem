@@ -15,4 +15,4 @@ namespace LPRSystem.Web.API.Manager.Services.Role
             return await base.QueryAsync<Models.Role.Role>(CommonConstants.CommonDB, RoleConstants.GetRoles, null, null);
         }
     }
-}
+} 

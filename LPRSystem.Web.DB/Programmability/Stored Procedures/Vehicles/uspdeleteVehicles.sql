@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [api].[uspDeleteVehicles]
-	(@Vehiclesid bigint)
+	(@Vehicleid bigint)
 
 AS
 

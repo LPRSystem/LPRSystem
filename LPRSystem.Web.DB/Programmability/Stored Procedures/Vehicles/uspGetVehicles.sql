@@ -9,5 +9,17 @@ BEGIN
 SELECT
    
      [VehicleId]
-    ,[VehicleName]
-    ,
+    ,[VehiclesName]
+    ,[VehicleType]
+    ,[LicencePlate]
+    ,[OwnerName]
+    ,[ContactNumber]
+    ,[CreatedBy]
+    ,[CreatedOn]
+    ,[ModifiedBy]
+    ,[ModifiedOn]
+    ,[IsActive]
+
+    FROM [data].[Vehicles]
+
+    END
