@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspGetATMMachine]
+﻿CREATE PROCEDURE [api].[uspGetATMMachine]
 
 WITH RECOMPILE
 

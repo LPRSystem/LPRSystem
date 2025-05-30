@@ -15,6 +15,7 @@ namespace LPRSystem.Web.API.Manager.Services
             User.Registrar.Register(context, services);
             Organization.Registrar.Register(context, services);
             Location.Registrar.Register(context, services);
+            ATMMachine.Registrar.Register(context, services);
         }
     }
 }
