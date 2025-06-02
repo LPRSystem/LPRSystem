@@ -1,9 +1,7 @@
 ﻿CREATE TABLE [data].[ATMMachine]
 (
 	[ATMId]				BIGINT      NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[MachineName]		VARCHAR(MAX)    NULL,
-	[BankName]			VARCHAR(max)    Null,
-	[CashAvailable]		DECIMAL(18, 2)  NULL DEFAULT 0.00,
+	[ATMCode]		VARCHAR(MAX)    NULL,
 	[LocationId]		BIGINT          NULL,
 	[CreatedOn]			datetimeoffset  null,
 	[CreatedBy]			bigint		    null,

@@ -3,9 +3,7 @@
     public class ATMMachine
     {
         public long ATMId { get; set; }
-        public string? MachineName { get; set; }
-        public string? BankName { get; set; }
-        public string? CashAvailable { get; set; }
+        public string? ATMCode { get; set; }
         public long? LocationId { get; set; }
         public long? CreatedBy { get; set; }
         public DateTimeOffset? CreatedOn { get; set; }
