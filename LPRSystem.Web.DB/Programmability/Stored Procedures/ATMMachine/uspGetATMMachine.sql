@@ -8,9 +8,7 @@ BEGIN
 
 SELECT
 	[ATMId]
-   ,[MachineName]
-   ,[BankName]
-   ,[CashAvailable]
+   ,[ATMCode]
    ,[LocationId]
    ,[CreatedOn]
    ,[CreatedBy]
