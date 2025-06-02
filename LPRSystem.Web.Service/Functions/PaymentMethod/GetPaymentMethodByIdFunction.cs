@@ -1,4 +1,5 @@
 ﻿using LPRSystem.Web.API.Manager;
+using LPRSystem.Web.API.Manager.Models.PaymentMethod;
 using LPRSystem.Web.API.Manager.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,23 +25,50 @@ namespace LPRSystem.Web.Service.Functions.PaymentMethod
         }
 
         [Function("GetPaymentMethodByIdFunction")]
-        public async Task<IActionResult> GetPaymentMethodById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users/getuserbyid")] HttpRequest req)
+        public IActionResult GetPaymentMethodById([HttpTrigger(AuthorizationLevel.Anonymous, "get",
+            Route = "paymentmethod/getpaymentmethodbyid/{paymentmethodid}")] HttpRequest req,
+            long paymentmethodid)
         {
-            _logger.LogInformation("C# HTTP trigger function proceed a request.");
+            _logger.LogInformation("GetPaymentMethodById Function Invoked()");
 
-            <PaymentMethod> paymentMethod= new <PaymentMethod>();
-            PaymentMethod result= null;
+            if (paymentmethodid == 0)
+                return new BadRequestObjectResult("Please send valid payment id");
 
-            var deletePaymentMethodId = req.Query["PaymentMethodId"].ToString();
+            string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
 
-            SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable
-                (Global.CommonSQLServerConnectionStringSetting));
+            LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod paymentMethod = new LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod();
+
+            SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            SqlCommand sqlCommand = new SqlCommand("[api].[uspGetByIdPaymentMethod]",connection);
-            sqlCommand.CommandType =CommandType.StoredProcedure;
-            sqlCommand.Parameters.AddWithValue("@id",deletePaymentMethodId);
-            sqlCommand.ExecuteScalarAsync();
+            SqlCommand command = new SqlCommand("[api].[uspGetPaymentMethodById]", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@paymentMethodId", paymentmethodid);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                paymentMethod.Id = reader.GetInt64(reader.GetOrdinal("Id"));
+
+                paymentMethod.Name = reader.SafeGetString(reader.GetOrdinal("Name"));
+
+                paymentMethod.Code = reader.SafeGetString(reader.GetOrdinal("Code"));
+
+                paymentMethod.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
+
+                if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
+                    paymentMethod.CreatedOn = reader.GetDateTimeOffset(reader.GetOrdinal("CreatedOn"));
+
+                paymentMethod.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
+
+                if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
+                    paymentMethod.ModifiedOn = reader.GetDateTimeOffset(reader.GetOrdinal("ModifiedOn"));
+
+                object isActiveValue = reader["IsActive"];
+
+                paymentMethod.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+            }
             connection.Close();
+
             return new OkObjectResult(paymentMethod);
         }
     }
