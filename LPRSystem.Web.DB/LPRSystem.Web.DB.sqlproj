@@ -121,5 +121,8 @@
     <Build Include="Tables\Tables\PaymentMethod.sql" />
     <Build Include="Programmability\Stored Procedures\PaymentMethod\uspGetPaymentMethods.sql" />
     <Build Include="Programmability\Stored Procedures\PaymentMethod\uspSavePaymentMethod.sql" />
+    <Build Include="Programmability\Stored Procedures\PaymentMethod\uspUpdatePaymentMethod.sql" />
+    <Build Include="Programmability\Stored Procedures\PaymentMethod\uspGetPaymentMethodById.sql" />
+    <Build Include="Programmability\Stored Procedures\PaymentMethod\uspDeletePaymentMethod.sql" />
   </ItemGroup>
 </Project>
