@@ -11,5 +11,20 @@
 AS
 
 BEGIN
-        INSERT INTO [data].[PaymentMethod](Name,Code,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsActive) Values (@name,@code,@createdby,@createdon,@modifiedby,@modifiedon,@isactive)
+        INSERT INTO [data].[PaymentMethod]
+		(Name,
+		Code,
+		CreatedBy,
+		CreatedOn,
+		ModifiedBy,
+		ModifiedOn,
+		IsActive) 
+		Values
+		(@name,
+		@code,
+		@createdby,
+		@createdon,
+		@modifiedby,
+		@modifiedon,
+		@isactive)
 END
