@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[ParkingPlace]
+﻿CREATE TABLE [data].[ParkingPlace]
 (
 	[ParkingPlaceId]		 BIGINT		NOT NULL	PRIMARY KEY		IDENTITY(1,1),
 	[ParkingPlaceName]		 Varchar(Max)   NULL,
