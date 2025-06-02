@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspGetATMMachine]
+﻿CREATE PROCEDURE [api].[uspGetATMMachine]
 
 WITH RECOMPILE
 
@@ -8,9 +8,7 @@ BEGIN
 
 SELECT
 	[ATMId]
-   ,[MachineName]
-   ,[BankName]
-   ,[CashAvailable]
+   ,[ATMCode]
    ,[LocationId]
    ,[CreatedOn]
    ,[CreatedBy]
