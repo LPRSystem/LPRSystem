@@ -13,7 +13,7 @@ DECLARE @CurrentDate datetimeoffset;
 DECLARE @CurrentUser bigint;
 Declare @RetrunData [api].[Organization];
 
-set @CurrentDate = GETDATE();
+set @CurrentDate = GETDATE();   
 
 Select @CurrentUser= ModifiedBy from  @Organization;
 

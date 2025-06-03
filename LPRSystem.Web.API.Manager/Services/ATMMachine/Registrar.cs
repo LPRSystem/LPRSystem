@@ -19,9 +19,11 @@ namespace LPRSystem.Web.API.Manager.Services.ATMMachine
             //repository
 
             services.AddTransient<IGetATMMAchineRepository, GetATMMAchineRepository>();
+            services.AddTransient<IProcessATMMachineRepository, ProcessATMMachineRepository>();
 
             //Manager
             services.AddTransient<IGetATMMachineManager, GetATMMachineManager>();
+            services.AddTransient<IProcessATMMachineManager, ProcessATMMachineManager>();
         }
 
     }
