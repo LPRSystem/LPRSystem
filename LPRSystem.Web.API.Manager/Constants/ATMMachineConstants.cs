@@ -10,6 +10,6 @@ namespace LPRSystem.Web.API.Manager.Constants
     {
         public static string GetATMMachine => new string("[api].[uspGetATMMachine]");
 
-        public static string InsertOrUpdateATMMAchine => new string("[]")
+        public static string InsertOrUpdateATMMAchine => new string("[api].[uspInsertOrUpdateATMMAchine]");
     }
 }

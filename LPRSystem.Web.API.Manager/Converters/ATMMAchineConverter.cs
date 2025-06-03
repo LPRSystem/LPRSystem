@@ -19,9 +19,7 @@ namespace LPRSystem.Web.API.Manager.Converters
             {
                 result = new ATMMachine();
                 result.ATMId = reader.GetInt64(reader.GetOrdinal("ATMId"));
-                result.MachineName = reader.SafeGetString(reader.GetOrdinal("MachineName"));
-                result.BankName = reader.SafeGetString(reader.GetOrdinal("BankName"));
-                result.CashAvailable = reader.SafeGetString(reader.GetOrdinal("CashAvailable"));
+                result.ATMCode = reader.SafeGetString(reader.GetOrdinal("ATMCode"));
                 result.LocationId = reader.GetInt64(reader.GetOrdinal("LocationId"));
                 result.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
                 if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
@@ -39,9 +37,7 @@ namespace LPRSystem.Web.API.Manager.Converters
         {
             var dt = new DataTable();
             dt.Columns.Add("ATMId", typeof(long));
-            dt.Columns.Add("MachineName", typeof(string));
-            dt.Columns.Add("BankName", typeof(string));
-            dt.Columns.Add("CashAvailable", typeof(string));
+            dt.Columns.Add("ATMCode", typeof(string));
             dt.Columns.Add("LocationId", typeof(long));
             dt.Columns.Add("CreatedBy", typeof(long));
             dt.Columns.Add("CreatedOn", typeof(DateTimeOffset));
@@ -51,9 +47,7 @@ namespace LPRSystem.Web.API.Manager.Converters
 
             dt.Rows.Add(
                 source.ATMId,
-                source.MachineName,
-                source.BankName,
-                source.CashAvailable,
+                source.ATMCode,
                 source.LocationId,
                 long.Parse(userId),
                 DateTimeOffset.UtcNow,
