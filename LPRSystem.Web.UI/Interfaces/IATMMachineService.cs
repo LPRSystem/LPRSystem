@@ -4,7 +4,7 @@ namespace LPRSystem.Web.UI.Interfaces
 {
     public interface IATMMachineService
     {
-        Task<List<ATMMachine>> FetchAllATMMachines();
+        Task<List<ATMMachinesData>> FetchAllATMMachines();
         Task<string> InsertOrUpdateATMMachine(ATMMachine atmMachine);
     }
 }

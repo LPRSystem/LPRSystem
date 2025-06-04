@@ -1,10 +1,5 @@
 ﻿using LPRSystem.Web.API.Manager.Constants;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LPRSystem.Web.API.Manager.Services.ATMMachine
 {
@@ -13,10 +8,10 @@ namespace LPRSystem.Web.API.Manager.Services.ATMMachine
         public GetATMMAchineRepository(IConfiguration configuration) : base(configuration)
         { }
 
-        public async Task<IEnumerable<Models.ATMMachine.ATMMachine>> ExecuteAsync()
+        public async Task<IEnumerable<Models.ATMMachine.ATMMachinesData>> ExecuteAsync()
         {
 
-            return await base.QueryAsync<Models.ATMMachine.ATMMachine>(CommonConstants.CommonDB, ATMMachineConstants.GetATMMachine, null, null);
+            return await base.QueryAsync<Models.ATMMachine.ATMMachinesData>(CommonConstants.CommonDB, ATMMachineConstants.GetATMMachinesData, null, null);
 
         }
     }
