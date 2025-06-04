@@ -24,7 +24,8 @@ namespace LPRSystem.Web.UI
 
             services.AddScoped<IUserService,UserService>();
             services.AddScoped<IRoleService,RoleService>();
-
+            services.AddScoped<IATMMachineService, ATMMachineService>();
+            services.AddScoped<ILocationService, LocationService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
