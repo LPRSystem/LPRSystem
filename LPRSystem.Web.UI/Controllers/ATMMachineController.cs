@@ -24,7 +24,7 @@ namespace LPRSystem.Web.UI.Controllers
 
         [HttpGet]
 
-        public async Task< IActionResult> FetchAtmMachine()
+        public async Task<IActionResult> FetchAtmMachine()
         {
             try
             {
@@ -54,5 +54,26 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
+        [HttpDelete]
+
+        public async Task<IActionResult> DeleteATMMachine(long atmId)
+        {
+            try
+            {
+                var response = await _atmMachineservice.DeleteATMMachineAsync(atmId);
+                if (response)
+                    _notyfService.Success("ATM Machine deleted successfully");
+                else
+                    _notyfService.Warning("ATM Machine deleted un successfully");
+
+                return Json(new { data = response });
+            }
+            catch (Exception ex)
+            {
+                _notyfService.Error(ex.Message);
+                throw ex;
+            }
+        }
+
     }
 }
