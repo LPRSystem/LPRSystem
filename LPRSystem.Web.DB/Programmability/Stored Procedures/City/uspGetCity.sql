@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspGetCity]
+﻿CREATE PROCEDURE [api].[uspGetCity]
 	WITH RECOMPILE
 
 AS

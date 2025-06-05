@@ -18,7 +18,7 @@ public class GetATMMachineFunction
     }
 
     [Function("GetATMMachines")]
-    public async Task< IActionResult> GetATMMachines([HttpTrigger(AuthorizationLevel.Function, "get",Route = "atmmachine/getatmmachines")] HttpRequest req)
+    public async Task< IActionResult> GetATMMachines([HttpTrigger(AuthorizationLevel.Anonymous, "get",Route = "atmmachine/getatmmachines")] HttpRequest req)
     {
         _logger.LogInformation("GetATMMachines Invoke().");
         try
