@@ -5,6 +5,7 @@ namespace LPRSystem.Web.UI.Interfaces
     public interface IATMMachineService
     {
         Task<List<ATMMachinesData>> FetchAllATMMachines();
-        Task<string> InsertOrUpdateATMMachine(ATMMachine atmMachine);
+        Task<ATMMachine> InsertOrUpdateATMMachine(ATMMachine atmMachine);
+        Task<bool> DeleteATMMachineAsync(long atmId);
     }
 }

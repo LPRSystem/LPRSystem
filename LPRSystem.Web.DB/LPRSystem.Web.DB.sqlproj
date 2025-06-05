@@ -85,6 +85,7 @@
     <None Include="Tables\User-Defined-Types\Location.sql" />
     <None Include="Tables\User-Defined-Types\ATMMachine.sql" />
     <None Include="Tables\User-Defined-Types\ParkingPlace.sql" />
+    <None Include="Tables\User-Defined-Types\PaymentMethod.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />
@@ -128,5 +129,6 @@
     <Build Include="Programmability\Stored Procedures\PaymentMethod\uspGetPaymentMethodById.sql" />
     <Build Include="Programmability\Stored Procedures\PaymentMethod\uspDeletePaymentMethod.sql" />
     <Build Include="Programmability\Stored Procedures\ATMMachine\uspGetATMMachinesData.sql" />
+    <Build Include="Programmability\Stored Procedures\ATMMachine\uspDeleteATMMachine.sql" />
   </ItemGroup>
 </Project>
