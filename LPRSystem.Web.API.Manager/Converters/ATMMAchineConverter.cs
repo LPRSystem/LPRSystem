@@ -13,9 +13,7 @@ namespace LPRSystem.Web.API.Manager.Converters
     public static class ATMMAchineConverter
 
     {
-
         public static ATMMachine ToSingleATMMachine(this IDataReader reader)
-
         {
 
             ATMMachine result = null;
@@ -27,23 +25,20 @@ namespace LPRSystem.Web.API.Manager.Converters
                 result = new ATMMachine();
 
                 result.ATMId = reader.GetInt64(reader.GetOrdinal("ATMId"));
-
                 result.ATMCode = reader.SafeGetString(reader.GetOrdinal("ATMCode"));
-
                 result.LocationId = reader.GetInt64(reader.GetOrdinal("LocationId"));
-
-                result.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
-
                 if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
 
                     result.CreatedOn = reader.GetDateTime(reader.GetOrdinal("CreatedOn"));
 
-                result.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
+                result.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
 
                 if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
 
                     result.ModifiedOn = reader.GetDateTime(reader.GetOrdinal("ModifiedOn"));
 
+                result.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
+           
                 object isActiveValue = reader["IsActive"];
 
                 result.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
@@ -61,37 +56,25 @@ namespace LPRSystem.Web.API.Manager.Converters
             var dt = new DataTable();
 
             dt.Columns.Add("ATMId", typeof(long));
-
             dt.Columns.Add("ATMCode", typeof(string));
-
             dt.Columns.Add("LocationId", typeof(long));
-
-            dt.Columns.Add("CreatedBy", typeof(long));
-
             dt.Columns.Add("CreatedOn", typeof(DateTimeOffset));
-
-            dt.Columns.Add("ModifiedBy", typeof(long));
-
+            dt.Columns.Add("CreatedBy", typeof(long));
             dt.Columns.Add("ModifiedOn", typeof(DateTimeOffset));
-
+            dt.Columns.Add("ModifiedBy", typeof(long));
             dt.Columns.Add("IsActive", typeof(bool));
 
             dt.Rows.Add(
 
                 source.ATMId,
-
                 source.ATMCode,
-
                 source.LocationId,
-
+                DateTimeOffset.UtcNow,
                 long.Parse(userId),
 
                 DateTimeOffset.UtcNow,
 
                 long.Parse(userId),
-
-                DateTimeOffset.UtcNow,
-
                 true
 
                 );

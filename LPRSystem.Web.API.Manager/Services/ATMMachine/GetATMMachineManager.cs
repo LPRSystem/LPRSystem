@@ -15,7 +15,7 @@ namespace LPRSystem.Web.API.Manager.Services.ATMMachine
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Models.ATMMachine.ATMMachine>> ExecuteAsync()
+        public async Task<IEnumerable<Models.ATMMachine.ATMMachinesData>> ExecuteAsync()
         {
             return await _repository.ExecuteAsync();
         }

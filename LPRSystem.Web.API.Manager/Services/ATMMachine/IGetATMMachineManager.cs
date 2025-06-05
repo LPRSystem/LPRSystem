@@ -8,7 +8,7 @@ namespace LPRSystem.Web.API.Manager.Services.ATMMachine
 {
     public interface IGetATMMachineManager
     {
-        Task<IEnumerable<LPRSystem.Web.API.Manager.Models.ATMMachine.ATMMachine>> ExecuteAsync();
+        Task<IEnumerable<LPRSystem.Web.API.Manager.Models.ATMMachine.ATMMachinesData>> ExecuteAsync();
 
     }
 }
