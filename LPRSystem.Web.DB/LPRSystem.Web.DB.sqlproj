@@ -85,6 +85,7 @@
     <None Include="Tables\User-Defined-Types\Location.sql" />
     <None Include="Tables\User-Defined-Types\ATMMachine.sql" />
     <None Include="Tables\User-Defined-Types\ParkingPlace.sql" />
+    <None Include="Tables\User-Defined-Types\PaymentMethod.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />

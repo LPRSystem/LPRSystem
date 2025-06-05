@@ -6,61 +6,64 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Google.Protobuf.WellKnownTypes;
 
-//namespace LPRSystem.Web.Service.Functions.PaymentMethod
-//{
-    //public class UpdatePaymentMethodFunction
-    //{
-    //    private readonly ILogger<UpdatePaymentMethodFunction> _logger;
+namespace LPRSystem.Web.Service.Functions.PaymentMethod
+{
+    public class UpdatePaymentMethodFunction
+    {
+        private readonly ILogger<UpdatePaymentMethodFunction> _logger;
 
-    //    public UpdatePaymentMethodFunction(ILogger<UpdatePaymentMethodFunction> logger)
-    //    {
-    //        _logger = logger;
-    //    }
+        public UpdatePaymentMethodFunction(ILogger<UpdatePaymentMethodFunction> logger)
+        {
+            _logger = logger;
+        }
 
-//        [Function("UpdatePaymentMethod")]
-//        //public async Task<IActionResult> Run(
-//        //    [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
-//        {
-//            _logger.LogInformation("UpdatePaymentMethod function Invoked.");
+        [Function("UpdatePaymentMethodFunction")]
+        public async Task<IActionResult> UpdatePaymentMethod(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route = "paymentmethod/updatepaymentmethod")] HttpRequest req)
+        {
+            _logger.LogInformation($"UpdatePaymentMethod Function Invoked()");
 
-//            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-//            var data = JsonConvert.DeserializeObject<UpdatePaymentMethodFunction>(requestBody);
+            // Read the request body
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var paymentMethodToUpdate = JsonConvert.DeserializeObject<API.Manager.Models.PaymentMethod.PaymentMethod>(requestBody);
+
+            if (paymentMethodToUpdate == null)
+            {
+                return new BadRequestObjectResult("Invalid payment method data.");
+            }
+
+            string connectionString = Environment.GetEnvironmentVariable(Global.TenantSQLServerConnectionStringSetting);
 
 
-//            if (data == null)
-//            {
-//                return new BadRequestObjectResult("Invalid or missing PaymentMethod data.");
-//            }
+            //please write your own ,dont copy from anywhere
 
-//            try
-//            {
-//                using (SqlConnection connection = new SqlConnection(
-//                    Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting)))
-//                {
-//                    await connection.OpenAsync();
 
-//                    using (SqlCommand command = new SqlCommand("[api].[uspUpdatePaymentMethod]", connection))
-//                    {
-//                        command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+                SqlCommand command = new SqlCommand("[api].[uspUpdatePaymentMethod]", connection);
+                command.CommandType = CommandType.StoredProcedure;
 
-//                        //command.Parameters.AddWithValue("@Id", data.Id);
-//                        //command.Parameters.AddWithValue("@Name", data.Name ?? (object)DBNull.Value);
-//                        //command.Parameters.AddWithValue("@Code", data.Code ?? (object)DBNull.Value);
-//                        //command.Parameters.AddWithValue("@ModifiedBy", data.ModifiedBy);
+                // Add parameters
+                command.Parameters.AddWithValue("@id", paymentMethodToUpdate.Id);
+                command.Parameters.AddWithValue("@name", paymentMethodToUpdate.Name);
+                command.Parameters.AddWithValue("@code", paymentMethodToUpdate.Code);
+                command.Parameters.AddWithValue("@modifiedBy", paymentMethodToUpdate.ModifiedBy);
+                command.Parameters.AddWithValue("@modifiedOn", paymentMethodToUpdate.ModifiedOn);
+                command.Parameters.AddWithValue("@isActive", paymentMethodToUpdate.IsActive);
+                command.ExecuteNonQuery();
+                connection.Close();
 
-//                        await command.ExecuteNonQueryAsync();
+                return new OkObjectResult(paymentMethodToUpdate);
+            }
+            catch (Exception ex) {
+                throw ex;
+            }
 
-//                        //return new OkObjectResult($"Payment method with ID {data.Id} updated successfully.");
-//                    }
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                _logger.LogError(ex, "Error occurred while updating payment method.");
-//                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-//            }
-//        }
-//    }
-
-//}
+        }
+    }
+}

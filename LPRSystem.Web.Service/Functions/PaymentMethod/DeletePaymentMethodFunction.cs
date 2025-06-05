@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using LPRSystem.Web.API.Manager.Models.PaymentMethod;
 
 namespace LPRSystem.Web.Service.Functions.PaymentMethod
 {
@@ -24,49 +25,29 @@ namespace LPRSystem.Web.Service.Functions.PaymentMethod
         }
 
         [Function("DeletePaymentMethod")]
-        public async Task<IActionResult> DeletePaymentMethodFunctionRun(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = null)] HttpRequest req)
+        public async Task<IActionResult> DeletePaymentMethod([HttpTrigger(AuthorizationLevel.Anonymous, "Delete", Route = null)] HttpRequest req)
         {
-            _logger.LogInformation("DeletePaymentMethod function Invoked.");
+            _logger.LogInformation("Delete payment method invoked.");
 
-            string paymentMethodId = req.Query["paymentMethodId"];
+            LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod paymentMethod = new LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod();
 
-            if (string.IsNullOrEmpty(paymentMethodId))
-            {
-                return new BadRequestObjectResult("Please provide a paymentMethodId.");
-            }
+            var deletePaymentMethodId = req.Query["paymentMethod"].ToString();
 
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(
-                    Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting)))
-                {
-                    await connection.OpenAsync();
+            SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
 
-                    using (SqlCommand command = new SqlCommand("[api].[uspDeletePaymentMethod]", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@Id", paymentMethodId); // Replace with actual param name
+            connection.Open();
 
-                        var response = await command.ExecuteNonQueryAsync();
+            SqlCommand sqlCommand = new SqlCommand("[api].[uspPaymentMethod]", connection);
 
-                        if (response > 0)
-                        {
-                            return new OkObjectResult($"Payment method with ID {paymentMethodId} deleted successfully.");
-                        }
-                        else
-                        {
-                            return new NotFoundObjectResult($"Payment method with ID {paymentMethodId} not found.");
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while deleting payment method.");
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            sqlCommand.Parameters.AddWithValue("@id", deletePaymentMethodId);
+
+            sqlCommand.ExecuteNonQuery();
+
+            connection.Close();
+
+            return new OkObjectResult(paymentMethod);
         }
     }
-
 }
