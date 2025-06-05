@@ -4,14 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
-using LPRSystem.Web.API.Manager.Models.PaymentMethod;
 
 namespace LPRSystem.Web.Service.Functions.PaymentMethod
 {
@@ -25,29 +19,31 @@ namespace LPRSystem.Web.Service.Functions.PaymentMethod
         }
 
         [Function("DeletePaymentMethod")]
-        public async Task<IActionResult> DeletePaymentMethod([HttpTrigger(AuthorizationLevel.Anonymous, "Delete", Route = null)] HttpRequest req)
+        public async Task<IActionResult> DeletePaymentMethod([HttpTrigger(AuthorizationLevel.Anonymous, "delete",
+            Route = "paymentmethod/deletepaymentmethod/{paymentmethodid}")] HttpRequest req,
+            long paymentmethodid)
         {
             _logger.LogInformation("Delete payment method invoked.");
 
-            LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod paymentMethod = new LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod();
-
-            var deletePaymentMethodId = req.Query["paymentMethod"].ToString();
+            bool deleted = false;
 
             SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
 
             connection.Open();
 
-            SqlCommand sqlCommand = new SqlCommand("[api].[uspPaymentMethod]", connection);
+            SqlCommand sqlCommand = new SqlCommand("[api].[uspDeletePaymentMethod]", connection);
 
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
-            sqlCommand.Parameters.AddWithValue("@id", deletePaymentMethodId);
+            sqlCommand.Parameters.AddWithValue("@id", paymentmethodid);
 
-            sqlCommand.ExecuteNonQuery();
+            var response = sqlCommand.ExecuteNonQuery();
 
             connection.Close();
 
-            return new OkObjectResult(paymentMethod);
+            deleted = response == 1 ? true : false;
+
+            return new OkObjectResult(deleted);
         }
     }
 }
