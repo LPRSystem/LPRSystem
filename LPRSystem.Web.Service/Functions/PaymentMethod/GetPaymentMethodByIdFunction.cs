@@ -26,8 +26,7 @@ namespace LPRSystem.Web.Service.Functions.PaymentMethod
 
         [Function("GetPaymentMethodByIdFunction")]
         public IActionResult GetPaymentMethodById([HttpTrigger(AuthorizationLevel.Anonymous, "get",
-            Route = "paymentmethod/getpaymentmethodbyid/{paymentmethodid}")] HttpRequest req,
-            long paymentmethodid)
+            Route = "paymentmethod/getpaymentmethodbyid/{paymentmethodid}")] HttpRequest req,long paymentmethodid)
         {
             _logger.LogInformation("GetPaymentMethodById Function Invoked()");
 
