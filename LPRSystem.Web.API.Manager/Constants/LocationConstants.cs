@@ -9,5 +9,8 @@ namespace LPRSystem.Web.API.Manager.Constants
     public class LocationConstants
     {
         public static string GetLocations => new string("[api].[uspGetLocation]");
+        public static string InsertOrUpdateLocation => new string("[api].[uspGetLocation]");
+
+
     }
 }
