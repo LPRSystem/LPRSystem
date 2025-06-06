@@ -158,7 +158,7 @@
             $("#confirmDeleteModal").modal("show");
 
         });
-
+        
         $(document).on("click", "#confirmDeleteBtn", function () {
             console.log(self.currectSelectedATM);
             showLoader();

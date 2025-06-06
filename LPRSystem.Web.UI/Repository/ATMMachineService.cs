@@ -17,6 +17,21 @@ namespace LPRSystem.Web.UI.Repository
             _httpClient.Timeout = new TimeSpan(0, 0, 120);
         }
 
+        public async Task<bool> DeleteATMMachineAsync(long atmId)
+        {
+            var url = Path.Combine("atmmachine/deleteatmmachine", atmId.ToString());
+
+            var response = await _httpClient.DeleteAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<bool>(responseContent);
+
+            }
+            return false;
+        }
+
         public async Task<List<ATMMachinesData>> FetchAllATMMachines()
         {
             List<ATMMachinesData> aTMMachines = new List<ATMMachinesData>();
@@ -32,7 +47,7 @@ namespace LPRSystem.Web.UI.Repository
             return aTMMachines;
         }
 
-        public async Task<string> InsertOrUpdateATMMachine(ATMMachine atmMachine)
+        public async Task<ATMMachine> InsertOrUpdateATMMachine(ATMMachine atmMachine)
         {
             var inputatmMachine = JsonConvert.SerializeObject(atmMachine);
 
@@ -44,11 +59,11 @@ namespace LPRSystem.Web.UI.Repository
             {
                 var content = await responce.Content.ReadAsStringAsync();
 
-                var responceatmMachine = JsonConvert.DeserializeObject<string>(content);
+                var responceatmMachine = JsonConvert.DeserializeObject<ATMMachine>(content);
 
                 return responceatmMachine;
             }
-            return string.Empty;
+            return null;
         }
     }
 }
