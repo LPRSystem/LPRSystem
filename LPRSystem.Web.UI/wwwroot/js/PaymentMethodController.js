@@ -1,16 +1,15 @@
 ﻿function PaymentMethodController() {
-
     var self = this;
-
-    self.dbLocations = [];
 
     self.selectedRows = [];
 
-    self.currentSelectedPaymentMethod = {};
+    self.currectSelectedPaymentMethod = {};
 
     self.init = function () {
 
-       /* makeFormGeneric('#AddEditPaymentMethodForm', '#btnsubmit');*/
+        makeFormGeneric('#AddEditPaymentMethodForm', '#btnsubmit');
+
+
 
         var table = new Tabulator("#paymentMethodgrid", {
             ajaxURL: '/PaymentMethod/FetchPaymentMethods',
@@ -36,18 +35,17 @@
                     headerHozAlign: "center",
                     cssClass: "centered-checkbox",
                     width: 30,
-
                     formatter: function (cell, formatterParams, onRendered) {
-                        onRenderd(function () {
+                        onRendered(function () {
                             var row = cell.getRow();
-                            var rowId = row.getData().PaymentMethodId;
+                            var rowId = row.getData().Id;
                             cell.getElement().innerHTML = `<div class='centered-checkbox'><input type='checkbox' id='childPaymentMethodChkbox-${rowId}' class='childPaymentMethodChkbox' data-row-id='${rowId}'/></div>`;
                             cell.getElement().querySelector('input[type="checkbox"]').checked = row.isSelected();
                         });
                         return "";
                     },
                     cellClick: function (e, cell) {
-                        cell.getRow().toogleSelect();
+                        cell.getRow().toggleSelect();
                     }
                 },
                 { title: "Id", field: "Id" },
@@ -62,52 +60,45 @@
                     field: "IsActive",
                     formatter: "tickCross",
                     align: "center"
+
                 }
             ],
             rowSelectionChanged: function (data, rows) {
-                var allSelected = rows.Length && rows.every(row => row.isSelected());
+                var allSelected = rows.length && rows.every(row => row.isSelected());
                 $('#parentPaymentMethodChkbox').prop('checked', allSelected);
                 disableAllButtons();
 
-                if (rows.Length > 0)
+                if (rows.length > 0) {
                     enableButtons(table);
+                }
+
+                let currentSelectedRows = rows.map(row => row.getData());
+                let changedRow = null;
+
+                if (self.selectedRows.length > currentSelectedRows.length) {
+                    changedRow = self.selectedRows.find(row => !currentSelectedRows.includes(row));
+                } else if (self.selectedRows.length < currentSelectedRows.length) {
+                    changedRow = currentSelectedRows.find(row => !self.selectedRows.includes(row));
+                }
+
+                self.selectedRows = currentSelectedRows;
+                if (changedRow) {
+                    var rows = table.getRows();
+                    var foundRow = rows.find(row => row.getData().Id === changedRow.Id);
+
+                    if (foundRow) {
+                        var rowId = foundRow.getData().Id;
+                        var checkbox = document.querySelector(`#childPaymentMethodChkbox-${rowId}`);
+                        if (checkbox.checked && currentSelectedRows.length === 1) {
+                            self.currectSelectedPaymentMethod = changedRow;
+                        }
+                        else {
+                            self.currectSelectedPaymentMethod = {};
+                        }
+                    }
+                }
             }
 
-             let currentSelectedRows = rows.map(row => row.getData());
-             let changedRow = null;
-
-
-            if(self.selectedRows.length > currentSelectedRows.length) {
-                changedRow = self.selectedRows.find(row => !currentSelectedRows.includes(row));
-              } else if (self.selectedRows.length < currentSelectedRows.length) {
-               changedRow = currentSelectedRows.find(row => !self.selectedRows.includes(row));
-              }
-    self.selectedRows = currentSelectedRows;
-    if (changedRow) {
-        var rows = table.getRows();
-        var foundRow = rows.find(row => row.getData().Id === changedRow.Id);
-
-        if (foundRow) {
-            var rowId = foundRow.getData().Id;
-            var checkbox = document.querySelector(`#childPaymentMethodChkbox-${rowId}`);
-            if (checkbox.checked && currentSelectedRows.length === 1) {
-                self.currectSelectedPaymentMethod = changedRow;
-            }
-            else {
-                self.currectSelectedPaymentMethod = {};
-            }
-        });
-
-        $.ajax({
-            type: "GET",
-            url: "/PaymentMethod/GetPaymentMethods",
-            success: function (response) {
-                self.dbPaymentMethods = response && response.data ? response.data : [];
-                console.log(self.dbPaymentMethods);
-                populateSelect(self.dbPaymentMethods);
-            }, error: function (error) {
-                console.error(error);
-            }
         });
 
         $(document).on("change", "#parentPaymentMethodChkbox", function () {
@@ -120,7 +111,6 @@
             $('.childPaymentMethodChkbox').prop('checked', isChecked);
         });
 
-
         $(document).on('change', '.childPaymentMethodChkbox', function () {
             var rowId = $(this).data('row-id');
             var row = table.getRow(function (data) {
@@ -131,30 +121,69 @@
             $('#parentPaymentMethodChkbox').prop('checked', allSelected);
         });
 
+
+        $(document).on("click", "#addBtn", function () {
+            $('#sidebar').addClass('show');
+            $('body').append('<div class="modal-backdrop fade show"></div>');
+            console.log("am getting from add button click");
+        });
+
+
         $(document).on("click", "#closeSidebar", function () {
             $('#AddEditPaymentMethodForm')[0].reset();
             $('#sidebar').removeClass('show');
             $('.modal-backdrop').remove();
         });
 
-        $(document).on("click", "#addBtn", function () {
-            console.log("hiii");
-            $('#sidebar').addClass('show');
-            $('body').append('<div class="modal-backdrop fade show"></div>');
-        });
+        $('#AddEditPaymentMethodForm').on('submit', function (e) {
+            e.preventDefault();
+            showLoader();
+            var name = $("#Name").val();
+            var code = $("#Code").val();
 
+            var paymentMethod = {
+                Id: self.currectSelectedPaymentMethod && self.currectSelectedPaymentMethod.Id ? self.currectSelectedPaymentMethod.Id : 0,
+                Name: name,
+                Code: code,
+                CreatedBy: -1,
+                CreatedOn: new Date(),
+                ModifiedBy: -1,
+                ModifiedOn: new Date(),
+                IsActive: true
+            };
+
+            console.log(paymentMethod);
+
+            $.ajax({
+                type: "POST",
+                url: "/PaymentMethod/InsertOrUpdatepaymentMethod",
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(paymentMethod),
+                success: function (response) {
+                    $('#AddEditPaymentMethodForm')[0].reset();
+                    $('#sidebar').removeClass('show');
+                    $('.modal-backdrop').remove();
+                    table.setData();
+                    hideLoader();
+                }, error: function (error) {
+                    console.error(error);
+                }
+            });
+
+        });
 
         $(document).on("click", "#editBtn", function () {
             console.log(self.currectSelectedPaymentMethod);
-            $("#Id").val(self.currectSelectedPaymentMethod.Id);
+            $("#Name").val(self.currectSelectedPaymentMethod.Name);
             $("#Code").val(self.currectSelectedPaymentMethod.Code);
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
         });
+
         $(document).on("click", "#deleteBtn", function () {
             console.log(self.currectSelectedPaymentMethod);
             $("#confirmDeleteModal").modal("show");
-
         });
 
         $(document).on("click", "#confirmDeleteBtn", function () {
@@ -186,7 +215,7 @@
             showLoader();
             $.ajax({
                 type: "POST",
-                url: "/PaymentMethod/InsertOrUpdateAtmMachine",
+                url: "/PaymentMethod/InsertOrUpdatepaymentMethod",
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(self.currectSelectedPaymentMethod),
@@ -199,43 +228,6 @@
                 }
             });
         });
-        $('#AddEditPaymentMethodForm').on('submit', function (e) {
-            e.preventDefault();
-            showLoader();
-            var formData = getFormData('#AddEditPaymentMethodForm');
-            var paymentMethod = {
-                Id: self.currectSelectedPaymentMethod && self.currectSelectedPaymentMethod.Id ? self.currectSelectedPaymentMethod.Id : 0,
-                Code: formData.Code,
-                CreatedBy: 1,
-                CreatedOn: new Date(),
-                ModifiedBy: 1,
-                ModifiedOn: new Date(),
-                IsActive: true,
-            };
-            console.log(paymentMethod);
-            $.ajax({
-                type: "POST",
-                url: "/PaymentMethod/InsertOrUpdatepaymentMethod",
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(paymentMethod),
-                success: function (response) {
-                    $('#AddEditPaymentMethodForm')[0].reset();
-                    $('#sidebar').removeClass('show');
-                    $('.modal-backdrop').remove();
-                    table.setData();
-                    hideLoader();
-                }, error: function (error) {
-                    console.error(error);
-                }
-            });
 
-        });
     }
-
-        
-        
-    
-
-        
-       
+}
