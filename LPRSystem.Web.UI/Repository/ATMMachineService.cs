@@ -41,6 +41,7 @@ namespace LPRSystem.Web.UI.Repository
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
+
                 aTMMachines = JsonConvert.DeserializeObject<List<ATMMachinesData>>(responseContent);
 
             }
