@@ -19,16 +19,7 @@ namespace LPRSystem.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            try
-            {
-                var response = await _paymentMethodService.GetPaymentMethodsAsync();
-                return View(response);
-            }
-            catch (Exception ex)
-            {
-                _notyfService.Error(ex.Message);
-                throw ex;
-            }
+            return View();
         }
 
 
@@ -136,7 +127,10 @@ namespace LPRSystem.Web.UI.Controllers
         {
             try
             {
-                await _paymentMethodService.InsertOrUpdatePaymentMethodAsync(paymentMethod);
+                if (paymentMethod.Id > 0)
+                    await _paymentMethodService.UpdatePaymentMethodAsync(paymentMethod);
+                else
+                    await _paymentMethodService.InsertOrUpdatePaymentMethodAsync(paymentMethod);
 
                 _notyfService.Success("PaymentMethod insert or Update Successfully");
 
