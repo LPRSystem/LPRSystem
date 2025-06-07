@@ -1,25 +1,52 @@
-﻿@{
+﻿@model List<LPRSystem.Web.UI.Models.PaymentMethod>
+@{
     ViewData["Title"] = "PaymentMethod";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
-            <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" />
+            @*   <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" /> *@
+            <div class="card-header card-header-padding">
+                <div class="float-left">
+                    <a id="addBtn" class="padding-rigt custom-cursor btn btn-success" href="@Url.Action("Create","PaymentMethod",null)">
+                        <i class="fa fa-plus-circle" title="add"></i>
+                    </a>
+                </div>
+            </div>
             <div class="card-body card-body-padding">
                 <div id="paymentMethodgrid">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Code</th>
+                                <th scope="col">IsActive</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Code</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a id="editBtn" class="padding-rigt custom-cursor btn btn-primary" href="@Url.Action("Edit","PaymentMethod",new { id=item.Id},null)">
+                                            <i class="fa fa-pencil" title="edit"></i>
+                                        </a>
+                                        <a id="deleteBtn" class="padding-rigt custom-cursor btn btn-danger" href="@Url.Action("Delete","PaymentMethod",new { id=item.Id},null)"><i class="fa fa-trash" title="delete"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <partial name="_insertOrUpdateAtmMachinePartial.cshtml" />
-
     </div>
 </div>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/js/PaymentMethodController.js"></script>
-<script type="text/javascript">
-    $(function () {
-        var ctrl = new PaymentMethodController();
-        ctrl.init();
-    });
-</script>
