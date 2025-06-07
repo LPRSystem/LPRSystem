@@ -7,7 +7,7 @@ AS
 BEGIN
 
 SELECT
-	   [LocationId]
+		[LocationId]
 	   ,[LocationName]
 	   ,[Code]
 	   ,[Address]

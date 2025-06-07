@@ -75,6 +75,8 @@
     <Folder Include="Programmability\Stored Procedures\Location" />
     <Folder Include="Programmability\Stored Procedures\ATMMachine" />
     <Folder Include="Programmability\Stored Procedures\PaymentMethod" />
+    <Folder Include="Programmability\Stored Procedures\ParkingSlot" />
+    <Folder Include="Programmability\Stored Procedures\ParkingTicket" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\User-Defined-Types\Role.sql" />
@@ -86,6 +88,7 @@
     <None Include="Tables\User-Defined-Types\ATMMachine.sql" />
     <None Include="Tables\User-Defined-Types\ParkingPlace.sql" />
     <None Include="Tables\User-Defined-Types\PaymentMethod.sql" />
+    <None Include="Tables\User-Defined-Types\ParkingTicket.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />
@@ -130,5 +133,13 @@
     <Build Include="Programmability\Stored Procedures\PaymentMethod\uspDeletePaymentMethod.sql" />
     <Build Include="Programmability\Stored Procedures\ATMMachine\uspGetATMMachinesData.sql" />
     <Build Include="Programmability\Stored Procedures\ATMMachine\uspDeleteATMMachine.sql" />
+    <Build Include="Tables\Tables\ParkingSlot.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingSlot\uspGetParkingSlots.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingSlot\uspGetParkingSlotsByPlaceId.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingSlot\uspInsertParkingSlot.sql" />
+    <Build Include="Tables\Tables\ParkingTicket.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicket\uspGetParkingTicket.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicket\uspInsertOrUpdateParkingTicket.sql" />
+    <Build Include="Programmability\Stored Procedures\Location\uspInsertOrUpdateLocation.sql" />
   </ItemGroup>
 </Project>
