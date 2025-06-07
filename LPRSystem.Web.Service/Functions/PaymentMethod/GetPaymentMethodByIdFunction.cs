@@ -26,49 +26,56 @@ namespace LPRSystem.Web.Service.Functions.PaymentMethod
 
         [Function("GetPaymentMethodByIdFunction")]
         public IActionResult GetPaymentMethodById([HttpTrigger(AuthorizationLevel.Anonymous, "get",
-            Route = "paymentmethod/getpaymentmethodbyid/{paymentmethodid}")] HttpRequest req,long paymentmethodid)
+            Route = "paymentmethod/getpaymentmethodbyid/{paymentmethodid}")] HttpRequest req, long paymentmethodid)
         {
             _logger.LogInformation("GetPaymentMethodById Function Invoked()");
 
-            if (paymentmethodid == 0)
-                return new BadRequestObjectResult("Please send valid payment id");
-
-            string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
-
-            LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod paymentMethod = new LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod();
-
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = new SqlCommand("[api].[uspGetPaymentMethodById]", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@paymentMethodId", paymentmethodid);
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                paymentMethod.Id = reader.GetInt64(reader.GetOrdinal("Id"));
+                if (paymentmethodid == 0)
+                    return new BadRequestObjectResult("Please send valid payment id");
 
-                paymentMethod.Name = reader.SafeGetString(reader.GetOrdinal("Name"));
+                string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
 
-                paymentMethod.Code = reader.SafeGetString(reader.GetOrdinal("Code"));
+                LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod paymentMethod = new LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod();
 
-                paymentMethod.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
+                SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+                SqlCommand command = new SqlCommand("[api].[uspGetPaymentMethodById]", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@paymentMethodId", paymentmethodid);
+                SqlDataReader reader = command.ExecuteReader();
 
-                if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
-                    paymentMethod.CreatedOn = reader.GetDateTimeOffset(reader.GetOrdinal("CreatedOn"));
+                while (reader.Read())
+                {
+                    paymentMethod.Id = reader.GetInt64(reader.GetOrdinal("Id"));
 
-                paymentMethod.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
+                    paymentMethod.Name = reader.SafeGetString(reader.GetOrdinal("Name"));
 
-                if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
-                    paymentMethod.ModifiedOn = reader.GetDateTimeOffset(reader.GetOrdinal("ModifiedOn"));
+                    paymentMethod.Code = reader.SafeGetString(reader.GetOrdinal("Code"));
 
-                object isActiveValue = reader["IsActive"];
+                    paymentMethod.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
 
-                paymentMethod.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+                    if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
+                        paymentMethod.CreatedOn = reader.GetDateTimeOffset(reader.GetOrdinal("CreatedOn"));
+
+                    paymentMethod.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
+
+                    if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
+                        paymentMethod.ModifiedOn = reader.GetDateTimeOffset(reader.GetOrdinal("ModifiedOn"));
+
+                    object isActiveValue = reader["IsActive"];
+
+                    paymentMethod.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+                }
+                connection.Close();
+
+                return new OkObjectResult(paymentMethod);
             }
-            connection.Close();
-
-            return new OkObjectResult(paymentMethod);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

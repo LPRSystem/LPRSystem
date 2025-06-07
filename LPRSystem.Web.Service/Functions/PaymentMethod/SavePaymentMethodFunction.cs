@@ -48,12 +48,14 @@ public class SavePaymentMethodFunction
             command.ExecuteNonQuery();
 
             connection.Close();
+
+            return new OkObjectResult(requestModel);
         }
         catch (Exception ex)
         {
             throw ex;
         }
 
-        return new OkObjectResult("Welcome to Azure Functions!");
+       
     }
 }
