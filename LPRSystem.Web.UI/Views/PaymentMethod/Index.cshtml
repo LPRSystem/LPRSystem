@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "PaymentMethod";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" />
+            <div class="card-body card-body-padding">
+                <div id="paymentMethodgrid">
+                </div>
+            </div>
+        </div>
+        <partial name="_insertOrUpdateAtmMachinePartial.cshtml" />
+
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/PaymentMethodController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new PaymentMethodController();
+        ctrl.init();
+    });
+</script>

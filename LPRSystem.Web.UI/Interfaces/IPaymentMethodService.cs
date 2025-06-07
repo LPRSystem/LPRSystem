@@ -6,6 +6,8 @@ namespace LPRSystem.Web.UI.Interfaces
     {
         Task<List<PaymentMethod>> GetPaymentMethodsAsync();
 
-        
+        Task<PaymentMethod> InsertOrUpdatePaymentMethodAsync(PaymentMethod paymentMethod);
+
+        Task<bool> DeletePaymentmethodAsync(long id);
     }
 }
