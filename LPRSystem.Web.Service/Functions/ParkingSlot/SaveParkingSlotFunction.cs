@@ -35,7 +35,6 @@ public class SaveParkingSlotFunction
             SqlCommand command = new SqlCommand("[api].[uspInsertParkingSlot]", connection);
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("@parkingSlotId", requestModel.ParkingSlotId);
             command.Parameters.AddWithValue("@parkingPlaceId", requestModel.ParkingPlaceId);
             command.Parameters.AddWithValue("@parkingSlotCode", requestModel.ParkingSlotCode);
             command.Parameters.AddWithValue("@atmId", requestModel.ATMId);

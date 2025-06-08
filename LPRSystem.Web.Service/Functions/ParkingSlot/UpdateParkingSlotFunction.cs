@@ -20,7 +20,9 @@ namespace LPRSystem.Web.Service.Functions.ParkingSlot
 
         [Function("UpdateParkingSlotFunction")]
         public async Task<IActionResult> UpdateParkingSlot(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "parkingslot/updateparkingslot/{parkingSlotId}")] HttpRequest req,long parkingSlotId)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put",
+            Route = "parkingslot/updateparkingslot/{parkingSlotId}")] HttpRequest req,
+            long parkingSlotId)
         {
             try
             {

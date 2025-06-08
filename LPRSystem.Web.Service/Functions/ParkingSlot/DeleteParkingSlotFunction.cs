@@ -5,23 +5,19 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Data;
-using LPRSystem.Web.API.Manager.Models.ParkingSlot;
-
 namespace LPRSystem.Web.Service.Functions.ParkingSlot;
 
 public class DeleteParkingSlotFunction
 {
     private readonly ILogger<DeleteParkingSlotFunction> _logger;
-    private bool isDeleted;
-    private object parkingSlotId;
-
     public DeleteParkingSlotFunction(ILogger<DeleteParkingSlotFunction> logger)
     {
         _logger = logger;
     }
 
     [Function("DeleteParkingSlotFunction")]
-    public async Task<IActionResult> DeleteParkingSlot([HttpTrigger(AuthorizationLevel.Anonymous, "delete", "parkingslot/deleteparkingslot/{parkingSlotId}")] HttpRequest req, long parkingSlotId)
+    public IActionResult DeleteParkingSlot([HttpTrigger(AuthorizationLevel.Anonymous, "delete",
+        Route = "parkingslot/deleteparkingslot/{parkingSlotId}")] HttpRequest req, long parkingSlotId)
     {
 
         try
@@ -40,18 +36,15 @@ public class DeleteParkingSlotFunction
 
                     connection.Close();
 
-                    isDeleted = result == 1 ? true : false;
-
-                    return new OkObjectResult(isDeleted);
+                    return new OkObjectResult(result == 1 ? true : false);
                 }
             }
         }
         catch (Exception ex)
         {
-           throw ex;
+            throw ex;
         }
-
     }
 }
 
-    
+

@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [api].[uspInsertParkingSlot]
 (
-		 @parkingPlaceId bigint null,
+         @parkingPlaceId bigint null,
 		 @parkingSlotCode varchar(50) null,
 		 @atmId bigint null,
 		 @createdBy bigint null,
