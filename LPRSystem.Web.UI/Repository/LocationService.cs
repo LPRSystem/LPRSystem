@@ -1,6 +1,7 @@
 ﻿using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace LPRSystem.Web.UI.Repository
 {
@@ -29,6 +30,25 @@ namespace LPRSystem.Web.UI.Repository
 
             }
             return locations;
+        }
+
+        public async Task<string> InsertOrUpdateLocation(Location location)
+        {
+            var inputlocation = JsonConvert.SerializeObject(location);
+
+            var requestlocation = new StringContent(inputlocation, Encoding.UTF8, "application/json");
+
+            var responce = await _httpClient.PostAsync("location/processlocation", requestlocation);
+
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+
+                var responcelocation = JsonConvert.DeserializeObject<string>(content);
+
+                return responcelocation;
+            }
+            return string.Empty;
         }
     }
 }

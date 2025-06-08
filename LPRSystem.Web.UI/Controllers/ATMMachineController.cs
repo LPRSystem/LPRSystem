@@ -74,6 +74,5 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
-
     }
 }
