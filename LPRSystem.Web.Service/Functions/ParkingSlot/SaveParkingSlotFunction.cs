@@ -43,7 +43,7 @@ public class SaveParkingSlotFunction
             command.Parameters.AddWithValue("@modifiedBy", requestModel.ModifiedBy);
             command.Parameters.AddWithValue("@modifiedOn", requestModel.ModifiedOn);
             command.Parameters.AddWithValue("@isActive", requestModel.IsActive);
-
+                       
             int response = command.ExecuteNonQuery();
 
             connection.Close();
