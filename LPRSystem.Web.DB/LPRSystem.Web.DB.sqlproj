@@ -141,5 +141,6 @@
     <Build Include="Programmability\Stored Procedures\ParkingTicket\uspGetParkingTicket.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingTicket\uspInsertOrUpdateParkingTicket.sql" />
     <Build Include="Programmability\Stored Procedures\Location\uspInsertOrUpdateLocation.sql" />
+    <Build Include="Programmability\Stored Procedures\Country\uspDeleteCountry.sql" />
   </ItemGroup>
 </Project>

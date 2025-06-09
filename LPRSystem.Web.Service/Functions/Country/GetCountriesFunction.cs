@@ -19,14 +19,14 @@ public class GetCountriesFunction
     }
 
         [Function("GetCountriesFunction")]
-        public async Task<IActionResult> GetCountries([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "countries/getcountries")] HttpRequest req)
+        public async Task<IActionResult> GetCountries([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "country/getcountries")] HttpRequest req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
             string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            SqlCommand sqlCommand = new SqlCommand("[api].[uspGetCountries]", connection);
+            SqlCommand sqlCommand = new SqlCommand("[api].[uspGetCountry]", connection);
             sqlCommand.CommandType = CommandType.StoredProcedure;
             SqlDataReader reader = sqlCommand.ExecuteReader();
 
