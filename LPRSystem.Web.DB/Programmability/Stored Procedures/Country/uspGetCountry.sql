@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [api].[uspGetCountries]
+﻿CREATE PROCEDURE [api].[uspGetCountry]
 
 WITH RECOMPILE
 
