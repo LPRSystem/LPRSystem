@@ -33,7 +33,7 @@ namespace LPRSystem.Web.UI.Repository
         }
 
         public async Task<List<Country>> FetchAllCountries()
-        {
+        {   
             List<Country> countries = new List<Country>();
 
             var response = await _httpClient.GetAsync("country/getcountries");

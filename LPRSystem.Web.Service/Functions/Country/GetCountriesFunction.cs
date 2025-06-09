@@ -18,45 +18,47 @@ public class GetCountriesFunction
         _logger = logger;
     }
 
-        [Function("GetCountriesFunction")]
-        public async Task<IActionResult> GetCountries([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "country/getcountries")] HttpRequest req)
+    [Function("GetCountriesFunction")]
+    public async Task<IActionResult> GetCountries([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "country/getcountries")] HttpRequest req)
+    {
+        _logger.LogInformation("C# HTTP trigger function processed a request.");
+
+        string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+        SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
+        SqlCommand sqlCommand = new SqlCommand("[api].[uspGetCountry]", connection);
+        sqlCommand.CommandType = CommandType.StoredProcedure;
+        SqlDataReader reader = sqlCommand.ExecuteReader();
+
+        List<LPRSystem.Web.API.Manager.Models.Country.Country> countries = new List<API.Manager.Models.Country.Country>();
+
+        LPRSystem.Web.API.Manager.Models.Country.Country result = null;
+
+        while (reader.Read())
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
-
-            string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand sqlCommand = new SqlCommand("[api].[uspGetCountry]", connection);
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            SqlDataReader reader = sqlCommand.ExecuteReader();
-
-            List<LPRSystem.Web.API.Manager.Models.Country.Country> countries = new List<API.Manager.Models.Country.Country>();
-
-            LPRSystem.Web.API.Manager.Models.Country.Country result = null;
-
-            while (reader.Read())
-            {
-                result = new LPRSystem.Web.API.Manager.Models.Country.Country();
-                result.CountryId = reader.GetInt64(reader.GetOrdinal("CountryId"));
-                result.Name = reader.SafeGetString(reader.GetOrdinal("Name"));
-                result.Description = reader.SafeGetString(reader.GetOrdinal("Description"));
-                result.CountryCode = reader.SafeGetString(reader.GetOrdinal("CountryCode"));
+            result = new LPRSystem.Web.API.Manager.Models.Country.Country();
+            result.CountryId = reader.GetInt64(reader.GetOrdinal("CountryId"));
+            result.Name = reader.SafeGetString(reader.GetOrdinal("Name"));
+            result.Description = reader.SafeGetString(reader.GetOrdinal("Description"));
+            result.CountryCode = reader.SafeGetString(reader.GetOrdinal("CountryCode"));
+            if (!reader.IsDBNull(reader.GetOrdinal("CreatedBy")))
                 result.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
-                if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
-                    result.CreatedOn = reader.GetDateTimeOffset(reader.GetOrdinal("CreatedOn"));
+            if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
+                result.CreatedOn = reader.GetDateTimeOffset(reader.GetOrdinal("CreatedOn"));
+            if (!reader.IsDBNull(reader.GetOrdinal("ModifiedBy")))
                 result.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
-                if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
-                    result.ModifiedOn = reader.GetDateTimeOffset(reader.GetOrdinal("ModifiedOn"));
+            if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
+                result.ModifiedOn = reader.GetDateTimeOffset(reader.GetOrdinal("ModifiedOn"));
 
-                object isActiveValue = reader["IsActive"];
+            object isActiveValue = reader["IsActive"];
 
-                result.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+            result.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
 
-                countries.Add(result);
-            }
-            connection.Close();
+            countries.Add(result);
+        }
+        connection.Close();
 
 
-            return new OkObjectResult(countries);
+        return new OkObjectResult(countries);
     }
 }
