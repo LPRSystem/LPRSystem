@@ -77,6 +77,7 @@
     <Folder Include="Programmability\Stored Procedures\PaymentMethod" />
     <Folder Include="Programmability\Stored Procedures\ParkingSlot" />
     <Folder Include="Programmability\Stored Procedures\ParkingTicket" />
+    <Folder Include="Programmability\Stored Procedures\ParkingPlace" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\User-Defined-Types\Role.sql" />
@@ -141,6 +142,10 @@
     <Build Include="Programmability\Stored Procedures\ParkingTicket\uspGetParkingTicket.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingTicket\uspInsertOrUpdateParkingTicket.sql" />
     <Build Include="Programmability\Stored Procedures\Location\uspInsertOrUpdateLocation.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingSlot\uspUpdateParkingSlot.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingSlot\uspDeleteParkingSlot.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingPlace\uspGetParkingPlaces.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingSlot\uspGetParkingSlotById.sql" />
     <Build Include="Programmability\Stored Procedures\Country\uspDeleteCountry.sql" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,67 @@
+﻿@model List<LPRSystem.Web.UI.Models.ParkingSlotDetails>
+@{
+    ViewData["Title"] = "ParkingSlots";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header card-header-padding">
+                <div class="float-left">
+                    <a id="addBtn" class="padding-rigt custom-cursor btn btn-success" href="@Url.Action("Create","ParkingSlot",null)">
+                        <i class="fa fa-plus-circle" title="add"></i>
+                    </a>
+                </div>
+            </div>
+            @* <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" /> *@
+            <div class="card-body card-body-padding">
+                <div id="ParkingSlots">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Slot Code</th>
+                                <th scope="col">Parking Place Name</th>
+                                <th scope="col">ParkingPlace Code</th>
+                                <th scope="col">ATM Code</th>
+                                <th scope="col">CreatedOn</th>
+                                <th scope="col">CreatedBy</th>
+                                <th scope="col">ModifiedBy</th>
+                                <th scope="col">ModifiedOn</th>
+                                <th scope="col">IsActive</th>
+                                <th scope="col">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.ParkingSlotId</th>
+                                    <td>@item.ParkingSlotCode</td>
+                                    <td>@item.ParkingPlaceName</td>
+                                    <td>@item.ParkingPlaceCode</td>
+                                    <td>@item.ATMCode</td>
+                                    <td>@item.CreatedOn</td>
+                                    <td>@item.CreatedBy</td>
+                                    <td>@item.ModifiedBy</td>
+                                    <td>@item.ModifiedOn</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a id="editBtn" class="padding-rigt custom-cursor btn btn-primary" href="@Url.Action("Edit","ParkingSlot",new { ParkingSlotId=item.ParkingSlotId },null)">
+                                            <i class="fa fa-pencil" title="edit"></i>
+                                        </a>
+                                        <a id="deleteBtn" class="padding-rigt custom-cursor btn btn-danger" href="@Url.Action("Delete","ParkingSlot",new { ParkingSlotId=item.ParkingSlotId },null)">
+                                            <i class="fa fa-trash" title="delete"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @*  <partial name="_insertOrUpdatelocationPartial.cshtml" /> *@
+    </div>
+</div>
