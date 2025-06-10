@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "ATMMachine";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" />
+            <div class="card-body card-body-padding">
+                <div id="countrygrid">
+                </div>
+            </div>
+        </div>
+        <partial name="_insertOrUpdateCountryPartial.cshtml" />
+
+        <partial name="~/Views/Shared/_copyConfirmPartial.cshtml" />
+        <partial name="~/Views/Shared/_deleteConfirmPartial.cshtml" />
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/CountryController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new CountryController();
+        ctrl.init();
+    });
+</script>

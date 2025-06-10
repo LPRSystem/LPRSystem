@@ -10,17 +10,17 @@ using System.Data.SqlClient;
 
 namespace LPRSystem.Web.Service.Functions.Country;
 
-public class SaveCountryFunction
+public class ProcessCountryFunction
 {
-    private readonly ILogger<SaveCountryFunction> _logger;
+    private readonly ILogger<ProcessCountryFunction> _logger;
 
-    public SaveCountryFunction(ILogger<SaveCountryFunction> logger)
+    public ProcessCountryFunction(ILogger<ProcessCountryFunction> logger)
     {
         _logger = logger;
     }
 
-    [Function("SaveCountryFunction")]
-    public async Task<IActionResult> SaveCountry([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "countries/savecountry")] HttpRequest req)
+    [Function("ProcessCountryFunction")]
+    public async Task<IActionResult> SaveCountry([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "countries/processcountry")] HttpRequest req)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 

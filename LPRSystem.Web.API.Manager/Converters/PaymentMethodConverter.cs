@@ -19,13 +19,20 @@ namespace LPRSystem.Web.API.Manager.Converters
             {
                 result = new PaymentMethod();
                 result.Id = reader.GetInt64(reader.GetOrdinal("Id"));
+
                 result.Name = reader.GetString(reader.GetOrdinal("Name"));
+
                 result.Code = reader.GetString(reader.GetOrdinal("Code"));
+
                 result.CreatedBy = reader.GetInt64(reader.GetOrdinal("CreatedBy"));
+
                 if (reader.IsSafe(reader.GetOrdinal("CreatedOn")))
                     result.CreatedOn = reader.GetDateTime(reader.GetOrdinal("CreatedOn"));
+
                 result.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
+
                 if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
+
                     result.ModifiedOn = reader.GetDateTime(reader.GetOrdinal("ModifiedOn"));
 
                 object isActiveValue = reader["IsActive"];
