@@ -146,5 +146,6 @@
     <Build Include="Programmability\Stored Procedures\ParkingSlot\uspDeleteParkingSlot.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPlace\uspGetParkingPlaces.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingSlot\uspGetParkingSlotById.sql" />
+    <Build Include="Programmability\Stored Procedures\Location\uspGetLocationById.sql" />
   </ItemGroup>
 </Project>
