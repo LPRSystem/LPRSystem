@@ -14,7 +14,8 @@ public class GetLocationByIdFunction
     private readonly IGetLocationByIdManager _manager;
     private readonly IRequestParser<GetLocationByIdRequest> _requestParser;
 
-    public GetLocationByIdFunction(ILogger<GetLocationByIdFunction> logger, IGetLocationByIdManager _manager, IRequestParser<GetLocationByIdRequest> requestParser)
+    public GetLocationByIdFunction(ILogger<GetLocationByIdFunction> logger, IGetLocationByIdManager _manager,
+        IRequestParser<GetLocationByIdRequest> requestParser)
     {
         _logger = logger;
         _manager = _manager;
@@ -22,7 +23,8 @@ public class GetLocationByIdFunction
     }
 
     [Function("GetLocationByIdFunction")]
-    public async Task< IActionResult> GetLocationById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "location/getlocationbyid/{locationid}")] HttpRequest req, long locationid)
+    public async Task< IActionResult> GetLocationById([HttpTrigger(AuthorizationLevel.Anonymous, "get",
+        Route = "location/getlocationbyid")] HttpRequest req)
     {
         _logger.LogInformation("Get Location By Id request.");
         try

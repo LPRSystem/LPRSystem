@@ -27,6 +27,7 @@ namespace LPRSystem.Web.API.Manager.Services.Location
             services.AddTransient<IGetLocationByIdManager, GetLocationByIdManager>();
 
             services.AddTransient<IRequestParser<LPRSystem.Web.API.Manager.Models.Location.Location>, LocationProcessRequestParser>();
+            services.AddTransient<IRequestParser<LPRSystem.Web.API.Manager.Models.Location.GetLocationByIdRequest>, GetLocationByIdRequestParser>();
 
         }
     }

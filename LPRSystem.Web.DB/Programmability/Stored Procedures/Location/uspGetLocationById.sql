@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspGetLocationById]
+﻿CREATE PROCEDURE [api].[uspGetLocationById]
 (
 
 @locationId bigint
