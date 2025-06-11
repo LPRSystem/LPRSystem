@@ -1,8 +1,9 @@
 ﻿CREATE PROCEDURE [api].[uspDeleteCountry]
-(@CountryId bigint)
+(@countryId bigint)
 AS
 	BEGIN
-	DELETE  FROM [data].[Country]
-
-	WHERE CountryId=@CountryId
+	update [data].[Country]
+	 set  IsActive = 0
+	WHERE CountryId=@countryId
 END
+

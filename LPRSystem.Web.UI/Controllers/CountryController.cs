@@ -27,10 +27,9 @@ namespace LPRSystem.Web.UI.Controllers
         [HttpGet]
 
         public async Task<IActionResult> FetchAllCountries()
-        
-        
         {
             try
+            
             {
                 var response = await _countryService.FetchAllCountries();
                 return Json(new { data = response });
