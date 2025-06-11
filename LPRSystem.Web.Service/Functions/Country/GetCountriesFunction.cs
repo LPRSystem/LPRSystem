@@ -22,18 +22,14 @@ public class GetCountriesFunction
     public async Task<IActionResult> GetCountries([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "country/getcountries")] HttpRequest req)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
-
         string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
         SqlCommand sqlCommand = new SqlCommand("[api].[uspGetCountry]", connection);
         sqlCommand.CommandType = CommandType.StoredProcedure;
         SqlDataReader reader = sqlCommand.ExecuteReader();
-
         List<LPRSystem.Web.API.Manager.Models.Country.Country> countries = new List<API.Manager.Models.Country.Country>();
-
         LPRSystem.Web.API.Manager.Models.Country.Country result = null;
-
         while (reader.Read())
         {
             result = new LPRSystem.Web.API.Manager.Models.Country.Country();
@@ -49,16 +45,11 @@ public class GetCountriesFunction
                 result.ModifiedBy = reader.GetInt64(reader.GetOrdinal("ModifiedBy"));
             if (reader.IsSafe(reader.GetOrdinal("ModifiedOn")))
                 result.ModifiedOn = reader.GetDateTimeOffset(reader.GetOrdinal("ModifiedOn"));
-
             object isActiveValue = reader["IsActive"];
-
             result.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
-
             countries.Add(result);
         }
         connection.Close();
-
-
         return new OkObjectResult(countries);
     }
 }

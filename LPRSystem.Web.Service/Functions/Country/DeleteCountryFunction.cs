@@ -5,6 +5,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Data;
+using LPRSystem.Web.API.Manager.Models.PaymentMethod;
 
 namespace LPRSystem.Web.Service.Functions.Country;
 
@@ -18,37 +19,29 @@ public class DeleteCountryFunction
     }
 
     [Function("DeleteCountryFunction")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous  , "delete", Route = "country/deletecountry/{countryid}")] HttpRequest req, long countryid)
+    public async Task< IActionResult> DeleteCountry([HttpTrigger(AuthorizationLevel.Anonymous  , "delete", 
+        Route = "country/deletecountry/{countryid}")] HttpRequest req, long countryid)
     {
-        try
-        {
-            bool isDeleted = false;
+        _logger.LogInformation("Delete Country method invoked.");
 
-            string connectionString = Environment.GetEnvironmentVariable(Global.TenantSQLServerConnectionStringSetting);
+        bool deleted = false;
 
+        SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
 
-            SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
 
-            connection.Open();
+        SqlCommand sqlCommand = new SqlCommand("[api].[uspDeleteCountry]", connection);
 
-            SqlCommand command = new SqlCommand("[api].[uspDeleteCountry]", connection);
+        sqlCommand.CommandType = CommandType.StoredProcedure;
 
-            command.CommandType = CommandType.StoredProcedure;
+        sqlCommand.Parameters.AddWithValue("@id", countryid);
 
-            command.Parameters.AddWithValue("@CountryId", countryid);
+        var response = sqlCommand.ExecuteNonQuery();
 
-            int done = command.ExecuteNonQuery();
+        connection.Close();
 
-            connection.Close();
+        deleted = response == 1 ? true : false;
 
-            isDeleted = done == 1 ? true : false;
-
-            return new OkObjectResult(isDeleted);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "An error occurred while processing the request.");
-            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-        }
+        return new OkObjectResult(deleted);
     }
 }
