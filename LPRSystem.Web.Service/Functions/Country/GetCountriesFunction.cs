@@ -52,4 +52,5 @@ public class GetCountriesFunction
         connection.Close();
         return new OkObjectResult(countries);
     }
+    
 }
