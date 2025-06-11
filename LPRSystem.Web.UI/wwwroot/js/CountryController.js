@@ -3,6 +3,8 @@
     self.selectedRows = [];
     self.currectSelectedCountry = {};
     self.init = function () {
+
+        makeFormGeneric('#AddEditCountryForm', '#btnsubmit');
         var table = new Tabulator("#countrygrid", {
             ajaxURL: '/Country/FetchAllCountries',
             ajaxParams: {},
@@ -42,8 +44,8 @@
                 },
                 { title: "Id", field: "CountryId" },
                 { title: "Name", field: "Name" },
-                { title: "Code", field: "CountryCode" },
                 { title: "Description", field: "Description" },
+                { title: "Code", field: "CountryCode" },
                 { title: "CreatedBy", field: "CreatedBy" },
                 { title: "CreatedOn", field: "CreatedOn" },
                 { title: "ModifiedBy", field: "ModifiedBy" },
@@ -119,8 +121,7 @@
             $('.modal-backdrop').remove();
         });
 
-        $(document).on("click", "#addBtn", function () {
-            console.log("hiii");
+        $(document).on("click", "#addBtn", function () { 
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
         });
@@ -128,8 +129,8 @@
         $(document).on("click", "#editBtn", function () {
             console.log(self.currectSelectedCountry);
             $("#Name").val(self.currectSelectedCountry.Name);
-            $("#CountryCode").val(self.currectSelectedCountry.CountryCode);
             $("#Description").val(self.currectSelectedCountry.Description);
+            $("#CountryCode").val(self.currectSelectedCountry.CountryCode);
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
         });
@@ -144,7 +145,7 @@
             $.ajax({
                 type: "DELETE",
                 url: "/Country/DeleteCountry",
-                data: { atmId: self.currectSelectedCountry.ATMId },
+                data: { countryId: self.currectSelectedCountry.CountryId },
                 success: function (response) {
                     $("#confirmDeleteModal").modal("hide");
                     table.setData();
@@ -188,7 +189,7 @@
             e.preventDefault();
             showLoader();
             var formData = getFormData('#AddEditCountryForm');
-            var atm = {
+            var country = {
                 CountryId: self.currectSelectedCountry && self.currectSelectedCountry.CountryId ? self.currectSelectedCountry.CountryId : 0,
                 Name: formData.Name,
                 Description: formData.Description,
@@ -199,13 +200,13 @@
                 ModifiedOn: new Date(),
                 IsActive: true,
             };
-            console.log(atm);
+            console.log(country);
             $.ajax({
                 type: "POST",
                 url: "/Country/InsertOrUpdateCountry",
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(atm),
+                data: JSON.stringify(country),
                 success: function (response) {
                     $('#AddEditCountryForm')[0].reset();
                     $('#sidebar').removeClass('show');

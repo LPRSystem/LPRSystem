@@ -20,7 +20,7 @@ public class ProcessCountryFunction
     }
 
     [Function("ProcessCountryFunction")]
-    public async Task<IActionResult> SaveCountry([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "countries/processcountry")] HttpRequest req)
+    public async Task<IActionResult> ProcessCountry([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "country/processcountry")] HttpRequest req)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
