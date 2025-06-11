@@ -226,6 +226,8 @@
             $("#confirmCopyModal").modal("show");
         });
 
+        //<input type="search" class="ds-hint" readonly="" aria-hidden="true" autocomplete="off" spellcheck="false" tabindex="-1" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(31, 31, 31);">
+        //</input>
         $(document).on("click", "#confirmCopyBtn", function () {
             console.log(self.currectSelectedPaymentMethod);
             self.currectSelectedPaymentMethod.Id = 0;
