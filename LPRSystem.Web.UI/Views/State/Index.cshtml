@@ -1,0 +1,66 @@
+﻿@model List<LPRSystem.Web.UI.Models.StateDetails>
+@{
+    ViewData["Title"] = "State";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header card-header-padding">
+                <div class="float-left">
+                    <a id="addBtn" class="padding-rigt custom-cursor btn btn-success" href="@Url.Action("Create","State",null)">
+                        <i class="fa fa-plus-circle" title="add"></i>
+                    </a>
+                </div>
+            </div>
+            @* <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" /> *@
+            <div class="card-body card-body-padding">
+                <div id="State">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">StateId</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">CountryCode</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">StateCode</th>
+                                <th scope="col">CreatedOn</th>
+                                <th scope="col">CreatedBy</th>
+                                <th scope="col">ModifiedOn</th>
+                                <th scope="col">ModifiedBy</th>
+                                <th scope="col">IsActive</th>
+                                <th scope="col">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.StateId</th>
+                                    <td>@item.Name</td>
+                                    <td>@item.CountryCode</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.StateCode</td>
+                                    <td>@item.CreatedOn</td>
+                                    <td>@item.CreatedBy</td>
+                                    <td>@item.ModifiedOn</td>
+                                    <td>@item.ModifiedBy</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a id="editBtn" class="padding-rigt custom-cursor btn btn-primary" href="@Url.Action("Edit","State",new { StateId=item.StateId },null)">
+                                            <i class="fa fa-pencil" title="edit"></i>
+                                        </a>
+                                        @* <a id="deleteBtn" class="padding-rigt custom-cursor btn btn-danger" href="@Url.Action("Delete","ParkingSlot",new { ParkingSlotId=item.ParkingSlotId },null)">
+                                            <i class="fa fa-trash" title="delete"></i>
+                                        </a> *@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

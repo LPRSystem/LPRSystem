@@ -1,0 +1,32 @@
+﻿@model LPRSystem.Web.UI.Models.StateViewModel
+
+@{
+    ViewData["Title"] = "State";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm("Edit", "State", FormMethod.Post))
+                {
+                    @Html.HiddenFor(x => x.StateId)
+                    <div class="form-group">
+                        <label for="CountryId">Country</label>
+                        @Html.DropDownListFor(x => x.CountryId,
+                                 new SelectList(Model.countries, "CountryId", "Name"),
+                                 "–Select Place–",
+                                 new { @class = "form-control", @id = "CountryId" })
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="StateCode">State Code</label>
+                        @Html.TextBoxFor(x => x.StateCode, new { @class = "form-control", @id = "StateCode", placeholder = "Enter State Code" })
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

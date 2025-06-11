@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LPRSystem.Web.API.Manager.Models.State
+﻿namespace LPRSystem.Web.UI.Models
 {
     public class State
-    {
+    {        
         public long StateId { get; set; }
         public long? CountryId { get; set; }
         public string? Name { get; set; }
@@ -20,3 +14,4 @@ namespace LPRSystem.Web.API.Manager.Models.State
         public bool IsActive { get; set; }
     }
 }
+

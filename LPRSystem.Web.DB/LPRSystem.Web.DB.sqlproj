@@ -90,6 +90,12 @@
     <None Include="Tables\User-Defined-Types\ParkingPlace.sql" />
     <None Include="Tables\User-Defined-Types\PaymentMethod.sql" />
     <None Include="Tables\User-Defined-Types\ParkingTicket.sql" />
+    <None Include="Programmability\Stored Procedures\Country\GetCountryById.sql" />
+    <None Include="Programmability\Stored Procedures\State\uspGetStateById.sql" />
+    <None Include="Programmability\Stored Procedures\State\uspInsertStates.sql" />
+    <None Include="Programmability\Stored Procedures\State\uspUpdateState.sql" />
+    <None Include="Programmability\Stored Procedures\State\uspDeleteState.sql" />
+    <None Include="Programmability\Stored Procedures\State\uspGetStateByCountryId.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />

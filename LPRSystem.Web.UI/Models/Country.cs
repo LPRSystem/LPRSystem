@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LPRSystem.Web.API.Manager.Models.State
+﻿namespace LPRSystem.Web.UI.Models
 {
-    public class State
+    public class Country
     {
-        public long StateId { get; set; }
-        public long? CountryId { get; set; }
+        public long CountryId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public string? StateCode { get; set; }
+        public string? CountryCode { get; set; }
         public DateTimeOffset? CreatedOn { get; set; }
         public long? CreatedBy { get; set; }
         public DateTimeOffset? ModifiedOn { get; set; }

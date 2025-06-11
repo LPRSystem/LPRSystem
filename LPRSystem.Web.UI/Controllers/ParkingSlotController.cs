@@ -252,9 +252,9 @@ namespace LPRSystem.Web.UI.Controllers
         {
             int isSave = 0;
 
-            var inutParkingSlot = JsonConvert.SerializeObject(parkingSlot);
+            var inputParkingSlot = JsonConvert.SerializeObject(parkingSlot);
 
-            var requestBody = new StringContent(inutParkingSlot, Encoding.UTF8, "application/json");
+            var requestBody = new StringContent(inputParkingSlot, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync("parkingslot/saveparkingslot", requestBody);
             if (response.IsSuccessStatusCode)
