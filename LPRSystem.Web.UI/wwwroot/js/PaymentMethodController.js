@@ -100,7 +100,6 @@
             }
 
         });
-
         $(document).on("change", "#parentPaymentMethodChkbox", function () {
             var isChecked = $(this).prop('checked');
             if (isChecked) {
@@ -133,6 +132,25 @@
             $('#AddEditPaymentMethodForm')[0].reset();
             $('#sidebar').removeClass('show');
             $('.modal-backdrop').remove();
+        });
+
+        $(document).on("change", "#inputSearch", function () {
+            var searchValue = $('#inputSearch').val().toLowerCase();
+
+            if (searchValue) {
+                table.setFilter(function (data) {
+                    return (
+                        String(data.Id).toLowerCase().includes(searchValue) ||
+                        String(data.Name).toLowerCase().includes(searchValue) ||
+                        String(data.Code).toLowerCase().includes(searchValue) ||
+                        String(data.CreatedBy).toLowerCase().includes(searchValue) ||
+                        String(data.ModifiedBy).toLowerCase().includes(searchValue) ||
+                        (data.IsActive ? "yes" : "no").includes(searchValue)
+                    );
+                });
+            } else {
+                table.clearFilter();
+            }
         });
 
         $('#AddEditPaymentMethodForm').on('submit', function (e) {

@@ -1,12 +1,14 @@
-﻿CREATE PROCEDURE [api].[uspGetCountry]
-
+﻿CREATE PROCEDURE [api].[uspGetCountryById]
+(
+ @countryId  bigint
+)
 WITH RECOMPILE
 
-AS
+AS 
 
 BEGIN
 
-  SELECT
+SELECT
 		 [CountryId] 
 		,[Name]
 		,[Description] 
@@ -18,4 +20,6 @@ BEGIN
 		,[IsActive]
   FROM [data].[Country]
 
-END
+    WHERE CountryId=@countryId
+
+    END

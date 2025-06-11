@@ -18,9 +18,17 @@ namespace LPRSystem.Web.API.Manager.Services.Location
             //repository
 
             services.AddTransient<IGetLocationRepository, GetLocationRepository>();
+            services.AddTransient<IProcessLocationRepository, ProcessLocationRepository>();
+            services.AddTransient<IGetLocationByIdRepository, GetLocationByIdRepository>();
 
             //Manager
             services.AddTransient<IGetLocationManager, GetLocationManager>();
+            services.AddTransient<IProcessLocationManager, ProcessLocationManager>();
+            services.AddTransient<IGetLocationByIdManager, GetLocationByIdManager>();
+
+            services.AddTransient<IRequestParser<LPRSystem.Web.API.Manager.Models.Location.Location>, LocationProcessRequestParser>();
+            services.AddTransient<IRequestParser<LPRSystem.Web.API.Manager.Models.Location.GetLocationByIdRequest>, GetLocationByIdRequestParser>();
+
         }
     }
 }
