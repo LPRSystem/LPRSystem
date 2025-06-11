@@ -25,7 +25,7 @@ namespace LPRSystem.Web.UI.Controllers
         {
             List<StateDetails> stateDetails = new List<StateDetails>();
 
-            var response = await _httpClient.GetAsync("state/getstate");
+            var response = await _httpClient.GetAsync("state/getstates");
 
             if (response.IsSuccessStatusCode)
             {
@@ -53,7 +53,7 @@ namespace LPRSystem.Web.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(StateViewModel model)
         {
-            
+
             if (ModelState.IsValid)
             {
                 //true
@@ -61,8 +61,10 @@ namespace LPRSystem.Web.UI.Controllers
                 State state = new State();
                 state.StateId = 0;
                 state.CountryId = model.CountryId;
-                state.StateCode = model.StateCode;                             
-                
+                state.Name = model.Name;
+                state.Description = model.Description;
+                state.StateCode = model.StateCode;
+
                 state.CreatedOn = DateTimeOffset.Now;
                 state.CreatedBy = -1;
                 state.ModifiedOn = DateTimeOffset.Now;
@@ -100,9 +102,11 @@ namespace LPRSystem.Web.UI.Controllers
 
             if (respponse != null)
             {
-                model.StateCode = respponse.StateCode;               
+                model.StateCode = respponse.StateCode;
+                model.Name = respponse.Name;
                 model.CountryId = respponse.CountryId;
                 model.StateId = respponse.StateId;
+                model.Description = respponse.Description;
             }
 
             var countries = await GetCountriesAsync();
@@ -111,7 +115,7 @@ namespace LPRSystem.Web.UI.Controllers
             {
                 model.countries = countries;
             }
-           
+
             return View(model);
         }
 
@@ -123,8 +127,9 @@ namespace LPRSystem.Web.UI.Controllers
             if (ModelState.IsValid)
             {
                 State state = new State();
-                state.StateId = model.StateId;                
                 state.CountryId = model.CountryId;
+                state.Name = model.Name;
+                state.Description = model.Description;
                 state.StateCode = model.StateCode;
                 state.CreatedOn = DateTimeOffset.Now;
                 state.CreatedBy = -1;
@@ -156,7 +161,7 @@ namespace LPRSystem.Web.UI.Controllers
             {
                 model.countries = countries;
             }
-           
+
             return View(model);
         }
 
