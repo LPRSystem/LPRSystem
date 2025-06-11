@@ -14,11 +14,11 @@ public class GetLocationByIdFunction
     private readonly IGetLocationByIdManager _manager;
     private readonly IRequestParser<GetLocationByIdRequest> _requestParser;
 
-    public GetLocationByIdFunction(ILogger<GetLocationByIdFunction> logger, IGetLocationByIdManager _manager,
+    public GetLocationByIdFunction(ILogger<GetLocationByIdFunction> logger, IGetLocationByIdManager manager,
         IRequestParser<GetLocationByIdRequest> requestParser)
     {
         _logger = logger;
-        _manager = _manager;
+        _manager = manager;
         _requestParser = requestParser;
     }
 
