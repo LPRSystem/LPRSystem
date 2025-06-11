@@ -2,7 +2,7 @@
 (
          @countryId bigint null,
 		 @name varchar(50) null,
-		 @description varchar null,
+		 @description varchar(MAX) null,
          @stateCode varchar(50) null,
          @createdOn datetimeoffset null,
          @createdBy bigint null,

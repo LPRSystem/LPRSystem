@@ -3,7 +3,7 @@
          @stateId bigint,
          @countryId bigint,
          @name varchar(50),
-         @description varchar,
+         @description varchar(max),
          @stateCode varchar(50),
          @modifiedOn datetimeoffset,
          @modifiedBy bigint,

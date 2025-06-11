@@ -7,25 +7,37 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                @using (Html.BeginForm("Create", "State", FormMethod.Post))
-                {
+        @using (Html.BeginForm("Create", "State", FormMethod.Post))
+        {
+            <div class="card">
+                <div class="card-body">
+
                     <div class="form-group">
                         <label for="CountryId">Country</label>
                         @Html.DropDownListFor(x => x.CountryId,
                                  new SelectList(Model.countries, "CountryId", "Name"),
-                                 "–Select Place–",
+                                 "–Select Country–",
                                  new { @class = "form-control", @id = "CountryId" })
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="Name">State Name</label>
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @id = "Name", placeholder = "Enter State name" })
+                    </div>
+
                     <div class="form-group">
                         <label for="StateCode">State Code</label>
                         @Html.TextBoxFor(x => x.StateCode, new { @class = "form-control", @id = "StateCode", placeholder = "Enter State code" })
                     </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @id = "Description", placeholder = "Enter State description" })
+                    </div>
+                </div>
+                <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Create</button>
-                }
+                </div>
             </div>
-        </div>
+        }
+    
     </div>
 </div>
