@@ -12,10 +12,16 @@
         <span id="campaignBtn" class="custom-cursor permission-hidden"><i class="fa fa-key" title="manage campaign"></i></span>
         <span id="dealerBtn" class="custom-cursor permission-hidden"><i class="fa fa-key" title="manage dealer"></i></span>
     </div>
-    <div class="float-right" style="display:inline-flex">
+    
+    <div class="float-right">
         <span id="pdfBtn" class="custom-cursor padding-right">
+
+            <input id="navbar-search-input" type="search" placeholder="Search Docs" class="ds-input" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-2" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+
             <i class="fa-solid fa-file-pdf permission-hidden" title="pdf" id="tenantDealerDetailInfoPDF"></i>
         </span>
+        @* <input type="text" class="form-control" id="Name" placeholder="Enter your Name" autofocus required /> *@
+
         <span id="importBtn" class="custom-cursor padding-right btn btn-secondary permission-hidden">
             <i class="fa fa-upload permission-hidden" title="import"></i>
         </span>
@@ -30,3 +36,8 @@
         </div>
     </div>
 </div>
+
+
+@* <div class="modal-footer">
+    <button type="submit" id="btnsubmit" class="btn btn-primary">Submit</button>
+</div> *@
