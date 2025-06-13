@@ -1,7 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LPRSystem.Web.API.Manager.Models.Organization
+namespace LPRSystem.Web.UI.Models
 {
     public class Organization
     {
