@@ -36,6 +36,22 @@ namespace LPRSystem.Web.UI.Controllers
 
             return View(stateDetails);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetStates() {
+            List<StateDetails> stateDetails = new List<StateDetails>();
+
+            var response = await _httpClient.GetAsync("state/getstates");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                stateDetails = JsonConvert.DeserializeObject<List<StateDetails>>(responseContent);
+            }
+            return Json(new { data = stateDetails });
+
+        }
         [HttpGet]
         public async Task<IActionResult> Create()
         {

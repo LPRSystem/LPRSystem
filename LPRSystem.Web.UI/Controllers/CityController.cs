@@ -13,12 +13,28 @@ namespace LPRSystem.Web.UI.Controllers
 
         public CityController(ICityService cityService, INotyfService notyfService)
         {
-           _cityService = cityService;
-           _notyfService = notyfService;
+            _cityService = cityService;
+            _notyfService = notyfService;
         }
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCities()
+
+        {
+            try
+            {
+                var response = await _cityService.GetCitiesAsync();
+                return Json(new { data = response });
+            }
+            catch (Exception ex)
+            {
+                _notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
 
         [HttpGet]

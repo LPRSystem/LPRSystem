@@ -33,6 +33,22 @@ namespace LPRSystem.Web.UI.Repository
             return false;
         }
 
+        public async Task<List<CityVM>> GetCitiesAsync()
+        {
+            List<CityVM> cities = new List<CityVM>();
+
+            var responseContent = await _httpClient.GetAsync("city/getcities");
+
+            if (responseContent.IsSuccessStatusCode)
+            {
+                var response = await responseContent.Content.ReadAsStringAsync();
+
+                cities = JsonConvert.DeserializeObject<List<CityVM>>(response);
+
+            }
+            return cities;
+        }
+
         public async Task<List<City>> GetCityAsync()
         {
             List<City> cities = new List<City>();

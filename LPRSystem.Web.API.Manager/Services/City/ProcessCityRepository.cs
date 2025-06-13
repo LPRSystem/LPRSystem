@@ -17,8 +17,7 @@ namespace LPRSystem.Web.API.Manager.Services.City
 
         public async Task<Models.City.City> ExecuteAsync(Models.City.City city)
         {
-            string userId = "1111";
-            return await base.ExecuteScalarAsync<Models.City.City>(CommonConstants.CommonDB , CityConstants.InsertOrUpdateCity, new {City = city.ToDataTable(userId).AsTableValuedParameter("[api].[City]")}, null);
+            return await base.QueryFirstOrDefaultAsync<Models.City.City>(CommonConstants.CommonDB , CityConstants.InsertOrUpdateCity, new {City = city.ToDataTable().AsTableValuedParameter("[api].[City]")}, null);
         }
     }
 }
