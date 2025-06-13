@@ -6,21 +6,21 @@ using Microsoft.Extensions.Logging;
 
 namespace LPRSystem.Web.Service.Functions.City;
 
-public class GetCityFunction
+public class GetCitiesFunction
 {
-    private readonly ILogger<GetCityFunction> _logger;
-    private readonly IGetCityManager _manager;
-
-    public GetCityFunction(ILogger<GetCityFunction> logger, IGetCityManager manager)
+    private readonly ILogger<GetCitiesFunction> _logger;
+    private readonly IGetCitiesManager _manager;
+    public GetCitiesFunction(ILogger<GetCitiesFunction> logger,
+        IGetCitiesManager manager)
     {
         _logger = logger;
         _manager = manager;
     }
 
-    [Function("GetCityFunction")]
-    public async Task<IActionResult> GetCity([HttpTrigger(AuthorizationLevel.Anonymous, "get",Route = "city/getcity")] HttpRequest req)
+    [Function("GetCitiesFunction")]
+    public async Task<IActionResult> GetCities([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "city/getcities")] HttpRequest req)
     {
-        _logger.LogInformation("GetCity Invoked().");
+        _logger.LogInformation("GetCitiesFunction Invoked().");
         try
         {
             var response = await _manager.ExecuteAsync();

@@ -1,0 +1,67 @@
+﻿<form id="AddEditCityForm">
+    <div class="sidebar" id="sidebar">
+        <div class="modal-header">
+            <h5 class="modal-title">Add/Edit City</h5>
+            <button type="button" class="close" id="closeSidebar" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="Name">Location Name</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="Name" placeholder="Enter first name" autofocus required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="CityCode">Code</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="CityCode" placeholder="Enter first name" autofocus required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="Description" placeholder="Enter first name" autofocus required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StateId">State</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <select class="form-control" id="StateId" required autofocus>
+                        <option value="" disabled selected>Select a code</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="CountryId">Country</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <select class="form-control" id="CountryId" required autofocus>
+                        <option value="" disabled selected>Select a code</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" id="btnsubmit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+

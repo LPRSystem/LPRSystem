@@ -161,5 +161,9 @@
     <Build Include="Programmability\Stored Procedures\Country\uspUpdateCountry.sql" />
     <Build Include="Programmability\Stored Procedures\Location\uspGetLocationById.sql" />
     <Build Include="Programmability\Stored Procedures\Location\uspDeleteLocation.sql" />
+    <Build Include="Programmability\Stored Procedures\City\uspDeleteCity.sql" />
+    <Build Include="Programmability\Stored Procedures\City\uspGetCityById.sql" />
+    <Build Include="Programmability\Stored Procedures\City\uspInsertOrUpdateCity.sql" />
+    <Build Include="Programmability\Stored Procedures\City\uspGetCities.sql" />
   </ItemGroup>
 </Project>
