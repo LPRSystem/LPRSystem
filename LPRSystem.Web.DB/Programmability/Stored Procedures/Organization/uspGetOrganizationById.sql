@@ -1,5 +1,9 @@
-﻿CREATE PROCEDURE [api].[uspGetOrganizations]
+﻿CREATE PROCEDURE [api].[uspGetOrganizationById]
+(
 
+@Id bigint
+
+)
 WITH RECOMPILE
 
 AS
@@ -7,7 +11,7 @@ AS
 BEGIN
 
   SELECT
-	   [Id]
+		[Id]
 	  ,[Name]
 	  ,[Code]
 	  ,[Address]
@@ -19,5 +23,7 @@ BEGIN
 	  ,[ModifiedOn]
 	  ,[IsActive]
   FROM [data].[Organization]
+
+  WHERE Id=@Id
 
 END
