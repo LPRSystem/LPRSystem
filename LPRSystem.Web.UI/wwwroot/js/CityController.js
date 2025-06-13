@@ -6,9 +6,11 @@
     self.selectedRows = [];
     self.currentSelectedCity = {};
     self.init = function () {
+
         makeFormGeneric('#AddEditCityForm', '#btnsubmit');
+
         var table = new Tabulator("#citygrid", {
-            ajaxURL: '/City/GetCity',
+            ajaxURL: '/City/GetCities',
             ajaxParams: {},
             ajaxConfig: {
                 method: 'GET',
@@ -20,7 +22,7 @@
                 console.log(response);
                 return response.data;
             },
-            height: "100%",
+            height: "730px",
             layout: "fitColumns",
             columns: [
                 {
@@ -45,14 +47,12 @@
                     }
                 },
                 { title: "Id", field: "CityId" },
-                { title: "State", field: "StateId" },
-                { title: "Country", field: "CountryId" },
                 { title: "Name", field: "Name" },
-                { title: "Description", field: "Description" },
                 { title: "Code", field: "CityCode" },
-                { title: "CreatedBy", field: "CreatedBy" },
+                { title: "Description", field: "Description" },
+                { title: "State", field: "StateName" },
+                { title: "Country", field: "CountryName" },
                 { title: "CreatedOn", field: "CreatedOn" },
-                { title: "ModifiedBy", field: "ModifiedBy" },
                 { title: "ModifiedOn", field: "ModifiedOn" },
                 {
                     title: "Is Active",
@@ -89,7 +89,7 @@
                         var rowId = foundRow.getData().CityId;
                         var checkbox = document.querySelector(`#childCityChkbox-${rowId}`);
                         if (checkbox.checked && currentSelectedRows.length === 1) {
-                            self.currectSelectedCity = changedRow;
+                            self.currentSelectedCity = changedRow;
                         }
                         else {
                             self.currentSelectedCity = {};
@@ -106,7 +106,7 @@
             success: function (response) {
                 self.dbCountrys = response && response.data ? response.data : [];
                 console.log(self.dbCountrys);
-                populateSelect(self.dbCountrys);
+                populateCountrySelect(self.dbCountrys);
             }, error: function (error) {
                 console.error(error);
             }
@@ -114,11 +114,11 @@
 
         $.ajax({
             type: "GET",
-            url: "/State/Index",
+            url: "/State/GetStates",
             success: function (response) {
                 self.dbState = response && response.data ? response.data : [];
                 console.log(self.dbState);
-                populateSelect(self.dbState);
+                populateStateSelect(self.dbState);
             }, error: function (error) {
                 console.error(error);
             }
@@ -157,11 +157,11 @@
 
         $(document).on("click", "#editBtn", function () {
             console.log(self.currentSelectedCity);
-            $("#Country").val(self.currentSelectedCity.Country);
-            $("#State").val(self.currentSelectedCity.State);
+            $("#CountryId").val(self.currentSelectedCity.CountryId);
+            $("#StateId").val(self.currentSelectedCity.StateId);
             $("#Name").val(self.currentSelectedCity.Name);
             $("#Description").val(self.currentSelectedCity.Description);
-            $("#Code").val(self.currentSelectedCity.CityCode);
+            $("#CityCode").val(self.currentSelectedCity.CityCode);
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
         });
@@ -246,12 +246,12 @@
             showLoader();
             var formData = getFormData('#AddEditCityForm');
             var city = {
-                CityId: self.currectSelectedCity && self.currectSelectedCity.CityId ? self.currectSelectedCity.CityId : 0,
-                StateId: fromData.StateId,
-                CountryId: fromData.CountryId,
-                Name: formatDate.Name,
-                Description: fromData.Description,
-                CityCode: fromData.CityCode,
+                CityId: self.currentSelectedCity && self.currentSelectedCity.CityId ? self.currentSelectedCity.CityId : 0,
+                StateId: formData.StateId,
+                CountryId: formData.CountryId,
+                Name: formData.Name,
+                Description: formData.Description,
+                CityCode: formData.CityCode,
                 CreatedBy: -1,
                 CreatedOn: new Date(),
                 ModifiedBy: -1,
@@ -280,7 +280,7 @@
 
         });
 
-        function populateSelect(data) {
+        function populateCountrySelect(data) {
             const $countryId = $('#CountryId');
             $countryId.empty(); // Clear existing options
             // Add default placeholder option
@@ -294,7 +294,7 @@
             });
         }
 
-        function populateSelect(data) {
+        function populateStateSelect(data) {
             const $StateId = $('#StateId');
             $StateId.empty(); // Clear existing options
             // Add default placeholder option

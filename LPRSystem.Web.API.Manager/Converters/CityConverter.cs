@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LPRSystem.Web.API.Manager.Converters
 {
-   public static class CityConverter
+    public static class CityConverter
     {
         public static City ToSingleCity(this IDataReader reader)
         {
@@ -35,19 +35,19 @@ namespace LPRSystem.Web.API.Manager.Converters
             return result;
         }
 
-        public static DataTable ToDataTable(this City source, string userId)
+        public static DataTable ToDataTable(this City source)
         {
             var dt = new DataTable();
             dt.Columns.Add("CityId", typeof(long));
             dt.Columns.Add("StateId", typeof(long));
             dt.Columns.Add("CountryId", typeof(long));
             dt.Columns.Add("Name", typeof(string));
-            dt.Columns.Add("Description", typeof(long));
-            dt.Columns.Add("CityCode", typeof(long));
-            dt.Columns.Add("CreatedBy", typeof(long));
+            dt.Columns.Add("Description", typeof(string));
+            dt.Columns.Add("CityCode", typeof(string));
             dt.Columns.Add("CreatedOn", typeof(DateTimeOffset));
-            dt.Columns.Add("ModifiedBy", typeof(long));
+            dt.Columns.Add("CreatedBy", typeof(long));
             dt.Columns.Add("ModifiedOn", typeof(DateTimeOffset));
+            dt.Columns.Add("ModifiedBy", typeof(long));
             dt.Columns.Add("IsActive", typeof(bool));
 
             dt.Rows.Add(
@@ -57,12 +57,11 @@ namespace LPRSystem.Web.API.Manager.Converters
                 source.Name,
                 source.Description,
                 source.CityCode,
-                long.Parse(userId),
                 DateTimeOffset.UtcNow,
-                long.Parse(userId),
+                source.CreatedBy,
                 DateTimeOffset.UtcNow,
-                true
-                );
+                source.ModifiedBy,
+                true);
             return dt;
 
         }

@@ -10,6 +10,7 @@ namespace LPRSystem.Web.API.Manager.Constants
 
     public static class CityConstants
     {
+        public static string GetCities => new string("[api].[uspGetCities]");
         public static string GetCity => new string("[api].[uspGetCity]");
         public static string InsertOrUpdateCity => new string("[api].[uspInsertOrUpdateCity]");
 

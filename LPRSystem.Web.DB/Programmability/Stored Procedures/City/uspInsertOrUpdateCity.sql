@@ -1,107 +1,97 @@
 ﻿CREATE PROCEDURE [api].[uspInsertOrUpdateCity]
 (
-	@city [api].[City] READONLY
+    @City [api].[City] READONLY
 )
-
 WITH RECOMPILE
-
 AS
-
 BEGIN
+    DECLARE @CurrentDate DATETIMEOFFSET = GETDATE();
+    DECLARE @CurrentUser BIGINT;
+    DECLARE @ReturnData [api].[City];
+    
+    -- Get the current user from input parameter
+    SELECT @CurrentUser = ModifiedBy FROM @City;
 
-DECLARE @CurrentDate DATETIMEOFFSET;
-DECLARE @CurrentUser BIGINT;
-DECLARE @ReturnData [api].[City]
-
-   SET @CurrentDate = GETDATE();
-
-   SELECT @CurrentUser = ModifiedBy From @city;
-
-   MERGE INTO [data].[city] AS TARGET
-
-   USING (
-		SELECT
-			  input.[CityId],
-			  input.[StateId],
-			  input.[CountryId],
-			  input.[Name],
-			  input.[Description],
-			  input.[CityCode],
-			  input.[CreatedOn],
-			  input.[CreatedBy],
-			  input.[ModifiedOn],
-			  input.[ModifiedBy],
-			  input.[IsActive]
-			  From @city AS input	
-			  LEFT JOIN [data].[City] AS cty ON input.CityId = cty.CityId
-			  ) AS source
-			  ON TARGET.CityId = source.CityId
-			  WHEN MATCHED THEN
-			  UPDATE SET
-						[StateId]    = source.[StateId],
-						[CountryId]  = source.[CountryId],
-						[Name]       = source.[Name],
-						[Description]= source.[Description],
-						[CityCode]   = source.[CityCode],
-						[CreatedOn]  = source.[CreatedOn],
-					    [CreatedBy]	 = source.[CreatedBy],
-						[ModifiedOn] = source.[ModifiedOn],
-						[ModifiedBy] = source.[ModifiedBy],
-						[IsActive]   = source.[IsActive]
-						WHEN NOT MATCHED BY TARGET THEN
-			INSERT
-			(
-				[StateId] ,
-				[CountryId] ,
-				[Name] ,
-				[Description],
-				[CityCode] ,
-				[CreatedOn] ,
-				[CreatedBy],
-				[ModifiedOn] ,
-				[ModifiedBy],
-				[IsActive]
-			)
-			VALUES
-			(
-				source.[StateId],
-				source.[CountryId],
-				source.[Name],
-				source.[Description],
-				source.[CityCode],
-				source.[CreatedOn],
-				source.[CreatedBy],
-				source.[ModifiedOn],
-				source.[ModifiedBy],
-				source.[IsActive]
-			    )
-		OUTPUT
-				inserted.[CityId],
-				inserted.[StateId],
-				inserted.[CountryId],
-				inserted.[Name],
-				inserted.[Description],
-				inserted.[CityCode],
-				inserted.[CreatedOn],
-				inserted.[CreatedBy],
-				inserted.[ModifiedOn],
-				inserted.[ModifiedBy],
-				inserted.[IsActive]
-		INTO @ReturnData;
-
-		SELECT
-				[CityId] ,
-				[StateId] ,
-				[CountryId] ,
-				[Name] ,
-				[Description],
-				[CityCode] ,
-				[CreatedOn] ,
-				[CreatedBy],
-				[ModifiedOn] ,
-				[ModifiedBy],
-				[IsActive]
-			FROM @ReturnData;
-
+    MERGE INTO [data].[City] AS Target
+    USING (
+        SELECT 
+            [CityId],
+            [StateId],
+            [CountryId],
+            [Name],
+            [Description],
+            [CityCode],
+            [CreatedOn],
+            [CreatedBy],
+            [ModifiedOn],
+            [ModifiedBy],
+            [IsActive]
+        FROM @City
+    ) AS Source
+    ON Target.CityId = Source.CityId
+    
+    WHEN MATCHED THEN
+        UPDATE SET
+            [StateId] = Source.[StateId],
+            [CountryId] = Source.[CountryId],
+            [Name] = Source.[Name],
+            [Description] = Source.[Description],
+            [CityCode] = Source.[CityCode],
+            [ModifiedOn] = @CurrentDate,
+            [ModifiedBy] = @CurrentUser,
+            [IsActive] = Source.[IsActive]
+            
+    WHEN NOT MATCHED BY TARGET THEN
+        INSERT (
+            [StateId],
+            [CountryId],
+            [Name],
+            [Description],
+            [CityCode],
+            [CreatedOn],
+            [CreatedBy],
+            [ModifiedOn],
+            [ModifiedBy],
+            [IsActive]
+        )
+        VALUES (
+            Source.[StateId],
+            Source.[CountryId],
+            Source.[Name],
+            Source.[Description],
+            Source.[CityCode],
+            ISNULL(Source.[CreatedOn], @CurrentDate),
+            ISNULL(Source.[CreatedBy], @CurrentUser),
+            ISNULL(Source.[ModifiedOn], @CurrentDate),
+            ISNULL(Source.[ModifiedBy], @CurrentUser),
+            ISNULL(Source.[IsActive], 1)
+        )
+    
+    OUTPUT 
+        inserted.[CityId],
+        inserted.[StateId],
+        inserted.[CountryId],
+        inserted.[Name],
+        inserted.[Description],
+        inserted.[CityCode],
+        inserted.[CreatedOn],
+        inserted.[CreatedBy],
+        inserted.[ModifiedOn],
+        inserted.[ModifiedBy],
+        inserted.[IsActive]
+    INTO @ReturnData;
+    
+    SELECT
+        [CityId],
+        [StateId],
+        [CountryId],
+        [Name],
+        [Description],
+        [CityCode],
+        [CreatedOn],
+        [CreatedBy],
+        [ModifiedOn],
+        [ModifiedBy],
+        [IsActive]
+    FROM @ReturnData;
 END
-				

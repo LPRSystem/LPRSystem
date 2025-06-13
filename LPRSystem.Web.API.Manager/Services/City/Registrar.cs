@@ -20,11 +20,12 @@ namespace LPRSystem.Web.API.Manager.Services.City
             services.AddTransient<IGetCityRepository, GetCityRepository>();
             services.AddTransient<IGetCityByIdRepository,GetCityByIdRepository>();
             services.AddTransient <IProcessCityRepository, ProcessCityRepository>();
-
+            services.AddTransient<IGetCitiesRepository, GetCitiesRepository>();
 
             //Manager
 
-            services.AddTransient<IGetCityManager, GetCityManager>(); 
+            services.AddTransient<IGetCityManager, GetCityManager>();
+            services.AddTransient<IGetCitiesManager, GetCitiesManager>();
             services.AddTransient<IGetCityByIdManager, GetCityByIdManager>();
             services.AddTransient<IProcessCityManager, ProcessCityManager>();
 
