@@ -13,10 +13,10 @@ namespace LPRSystem.Web.API.Manager.Services.Location
         public GetLocationRepository(IConfiguration configuration) : base(configuration)
         { }
 
-        public async Task<IEnumerable<Models.Location.Location>> ExecuteAsync()
+        public async Task<IEnumerable<Models.Location.LocationModel>> ExecuteAsync()
         {
 
-            return await base.QueryAsync<Models.Location.Location>(CommonConstants.CommonDB, LocationConstants.GetLocations, null, null);
+            return await base.QueryAsync<Models.Location.LocationModel>(CommonConstants.CommonDB, LocationConstants.GetLocations, null, null);
 
         }
     }

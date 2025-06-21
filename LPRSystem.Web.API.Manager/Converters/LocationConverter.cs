@@ -35,7 +35,7 @@ namespace LPRSystem.Web.API.Manager.Converters
             return result;
         }
 
-        public static DataTable ToDataTable(this Location source, string userId)
+        public static DataTable ToDataTable(this Location source)
         {
             var dt = new DataTable();
             dt.Columns.Add("LocationId", typeof(long));
@@ -59,9 +59,9 @@ namespace LPRSystem.Web.API.Manager.Converters
                 source.CountryId,
                 source.StateId,
                 source.CityId,
-                long.Parse(userId),
+                source.CreatedBy,
                 DateTimeOffset.UtcNow,
-                long.Parse(userId),
+                source.ModifiedBy,
                 DateTimeOffset.UtcNow,
                 true
                 );
