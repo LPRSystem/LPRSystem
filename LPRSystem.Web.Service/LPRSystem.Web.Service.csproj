@@ -20,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LPRSystem.Web.API.Manager\LPRSystem.Web.API.Manager.csproj" />
+    <ProjectReference Include="..\LPRSystem.Web.Utility\LPRSystem.Web.Utility.csproj" />
   </ItemGroup>
 </Project>
