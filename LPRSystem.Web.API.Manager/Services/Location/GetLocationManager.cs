@@ -14,7 +14,7 @@ namespace LPRSystem.Web.API.Manager.Services.Location
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Models.Location.Location>> ExecuteAsync()
+        public async Task<IEnumerable<Models.Location.LocationModel>> ExecuteAsync()
         {
             return await _repository.ExecuteAsync();
         }

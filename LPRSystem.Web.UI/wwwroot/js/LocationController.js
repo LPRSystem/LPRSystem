@@ -51,9 +51,9 @@
                 { title: "LocationName", field: "LocationName" },
                 { title: "Code", field: "Code" },
                 { title: "Address", field: "Address" },
-                { title: "Country", field: "Name" },
-                { title: "State", field: "Name" },
-                { title: "City", field: "Name" },
+                { title: "Country", field: "CountryName" },
+                { title: "State", field: "StateName" },
+                { title: "City", field: "CityName" },
                 { title: "CreatedBy", field: "CreatedBy" },
                 { title: "CreatedOn", field: "CreatedOn" },
                 { title: "ModifiedBy", field: "ModifiedBy" },
@@ -104,11 +104,11 @@
 
         $.ajax({
             type: "GET",
-            url: "/Country/GeCountries",
+            url: "/Country/FetchAllCountries",
             success: function (response) {
                 self.dbCountrys = response && response.data ? response.data : [];
                 console.log(self.dbCountrys);
-                populateSelect(self.dbCountrys);
+                populateCountrySelect(self.dbCountrys);
             }, error: function (error) {
                 console.error(error);
             }
@@ -120,7 +120,7 @@
             success: function (response) {
                 self.dbState = response && response.data ? response.data : [];
                 console.log(self.dbState);
-                populateSelect(self.dbState);
+                populateStateSelect(self.dbState);
             }, error: function (error) {
                 console.error(error);
             }
@@ -129,11 +129,11 @@
 
         $.ajax({
             type: "GET",
-            url: "/City/GetCityes",
+            url: "/City/GetCities",
             success: function (response) {
                 self.dbCity = response && response.data ? response.data : [];
                 console.log(self.dbCity);
-                populateSelect(self.dbCity);
+                populateCitySelect(self.dbCity);
             }, error: function (error) {
                 console.error(error);
             }
@@ -168,6 +168,7 @@
         $(document).on("click", "#addBtn", function () {
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
+            console.log("am getting from add button click");
         });
 
         $(document).on("click", "#editBtn", function () {
@@ -175,9 +176,9 @@
             $("#LocationName").val(self.currectSelectedLocation.LocationName);
             $("#Code").val(self.currectSelectedLocation.Code);
             $("#Address").val(self.currectSelectedLocation.Address);
-            $("#Country").val(self.currectSelectedLocation.Country);
-            $("#State").val(self.currectSelectedLocation.State);
-            $("#City").val(self.currectSelectedLocation.City);
+            $("#CountryId").val(self.currectSelectedLocation.CountryId);
+            $("#StateId").val(self.currectSelectedLocation.StateId);
+            $("#CityId").val(self.currectSelectedLocation.CityId);
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
         });
@@ -193,7 +194,7 @@
             $.ajax({
                 type: "DELETE",
                 url: "/Location/DeleteLocation",
-                data: { atmId: self.currectSelectedLocation.LocationId },
+                data: { LocationId: self.currectSelectedLocation.LocationId },
                 success: function (response) {
                     $("#confirmDeleteModal").modal("hide");
                     table.setData();
@@ -241,13 +242,13 @@
             showLoader();
             var formData = getFormData('#AddEditLocationForm');
             var loc = {
-                LocationId: currectSelectedLocation && self.currectSelectedLocation.LocationId ? self.currectSelectedLocation.LocationId : 0,
+                LocationId: self.currectSelectedLocation && self.currectSelectedLocation.LocationId ? self.currectSelectedLocation.LocationId : 0,
                 LocationName: formData.LocationName,
                 Code: formData.Code,
-                Address: fromData.Address,
-                CountryId: fromData.CountryId,
+                Address: formData.Address,
+                CountryId: formData.CountryId,
                 StateId: formData.StateId,
-                City: fromData.CityId,
+                CityId: formData.CityId,
                 CreatedBy: 1,
                 CreatedOn: new Date(),
                 ModifiedBy: 1,
@@ -260,7 +261,7 @@
                 url: "/Location/InsertOrUpdateLocation",
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(atm),
+                data: JSON.stringify(loc),
                 success: function (response) {
                     $('#AddEditLocationForm')[0].reset();
                     $('#sidebar').removeClass('show');
@@ -274,7 +275,7 @@
 
         });
 
-        function populateSelect(data) {
+        function populateCountrySelect(data) {
             const $countryId = $('#CountryId');
             $countryId.empty(); // Clear existing options
             // Add default placeholder option
@@ -288,7 +289,7 @@
             });
         }
 
-        function populateSelect(data) {
+        function populateStateSelect(data) {
             const $StateId = $('#StateId');
             $StateId.empty(); // Clear existing options
             // Add default placeholder option
@@ -302,7 +303,7 @@
             });
         }
 
-        function populateSelect(data) {
+        function populateCitySelect(data) {
             const $CityId = $('#CityId');
             $CityId.empty(); // Clear existing options
             // Add default placeholder option
