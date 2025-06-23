@@ -118,6 +118,7 @@ public class AuthenticationFunction
                             applicationUser.Id = userInfo.Id;
                             applicationUser.Email = userInfo.Email;
                             applicationUser.Phone = userInfo.Phone;
+                            applicationUser.RoleId = userInfo.RoleId;
                             applicationUser.FirstName = userInfo.FirstName;
                             applicationUser.LastName = userInfo.LastName;
                             applicationUser.FullName = userInfo.FirstName + " " + userInfo.LastName;

@@ -2,10 +2,12 @@
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
 using LPRSystem.Web.UI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPRSystem.Web.UI.Controllers
 {
+    [Authorize]
     public class CityController : Controller
     {
         private readonly ICityService _cityService;
