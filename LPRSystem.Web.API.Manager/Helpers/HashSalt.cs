@@ -4,8 +4,8 @@ namespace LPRSystem.Web.API.Manager.Helpers
 {
     public class HashSalt
     {
-        public string Hash { get; set; }
-        public string Salt { get; set; }
+        public string? Hash { get; set; }
+        public string? Salt { get; set; }
 
         public static HashSalt GenerateSaltedHash(string password)
         {

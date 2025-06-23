@@ -11,7 +11,7 @@ namespace LPRSystem.Web.UI.Repository
 
         public StateServices()
         {
-           _httpClient = new HttpClient();
+            _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:7239/api/");
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.Timeout = new TimeSpan(0, 0, 120);
@@ -53,7 +53,7 @@ namespace LPRSystem.Web.UI.Repository
         {
             List<State> states = new List<State>();
 
-            var responseContent = await _httpClient.GetAsync("State/GetStatesAync");
+            var responseContent = await _httpClient.GetAsync("State/GetStates");
 
             if (responseContent.IsSuccessStatusCode)
             {

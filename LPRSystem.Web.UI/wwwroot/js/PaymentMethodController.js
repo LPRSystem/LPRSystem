@@ -1,4 +1,5 @@
 ﻿function PaymentMethodController() {
+
     var self = this;
 
     self.selectedRows = [];
@@ -10,8 +11,8 @@
         makeFormGeneric('#AddEditPaymentMethodForm', '#btnsubmit');
 
 
-
         var table = new Tabulator("#paymentMethodgrid", {
+
             ajaxURL: '/PaymentMethod/FetchPaymentMethods',
             ajaxParams: {},
             ajaxConfig: {
@@ -188,7 +189,6 @@
                     console.error(error);
                 }
             });
-
         });
 
         $(document).on("click", "#editBtn", function () {
