@@ -2,10 +2,12 @@
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
 using LPRSystem.Web.UI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPRSystem.Web.UI.Controllers
 {
+    [Authorize]
     public class LocationController : Controller
     {
         private readonly ILocationService _locationService;

@@ -3,10 +3,12 @@ using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
 using LPRSystem.Web.UI.Repository;
 using LPRSystem.Web.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPRSystem.Web.UI.Controllers
 {
+    [Authorize]
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;

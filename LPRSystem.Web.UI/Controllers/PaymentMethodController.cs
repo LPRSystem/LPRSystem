@@ -1,10 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPRSystem.Web.UI.Controllers
 {
+    [Authorize]
     public class PaymentMethodController : Controller
     {
         private readonly IPaymentMethodService _paymentMethodService;

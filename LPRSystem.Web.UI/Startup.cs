@@ -1,8 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification;
-using AspNetCoreHero.ToastNotification.Extensions;
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Repository;
-using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Newtonsoft.Json.Serialization;
 
 namespace LPRSystem.Web.UI
@@ -13,7 +12,7 @@ namespace LPRSystem.Web.UI
         public Startup(IConfiguration configuration)
         {
             this.configuration = configuration;
-        } 
+        }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
@@ -22,8 +21,8 @@ namespace LPRSystem.Web.UI
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
 
-            services.AddScoped<IUserService,UserService>();
-            services.AddScoped<IRoleService,RoleService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IATMMachineService, ATMMachineService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IPaymentMethodService, PaymentMethodService>();
@@ -35,6 +34,20 @@ namespace LPRSystem.Web.UI
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.Cookie.Name = "allowCookies";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.SlidingExpiration = false;
+                options.AccessDeniedPath = "/Error/NotAccessable";
+            });
+
 
             services.AddNotyf(config =>
             {
@@ -74,12 +87,12 @@ namespace LPRSystem.Web.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
 
 
         }
 
-       
+
     }
 }
