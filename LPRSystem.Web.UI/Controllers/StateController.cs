@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LPRSystem.Web.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Reflection;
@@ -7,6 +8,7 @@ using System.Text;
 
 namespace LPRSystem.Web.UI.Controllers
 {
+    [Authorize]
     public class StateController : Controller
     {
         private readonly HttpClient _httpClient;

@@ -8,6 +8,6 @@ namespace LPRSystem.Web.API.Manager.Services.Location
 {
     public interface IGetLocationManager
     {
-        Task<IEnumerable<LPRSystem.Web.API.Manager.Models.Location.Location>> ExecuteAsync();
+        Task<IEnumerable<LPRSystem.Web.API.Manager.Models.Location.LocationModel>> ExecuteAsync();
     }
 }

@@ -13,47 +13,59 @@
                                         </a>
                                     </li>
                             <li class="nav-item">
-                                <a href="/HospitalType/Index" class="nav-link">
+                                <a href="/ATMMachine/Index" class="nav-link">
                                     <span class="pcoded-micon"><i class="fas fa-hospital"></i></span>
-                                    <span class="pcoded-mtext">Hospital Type</span>
+                                    <span class="pcoded-mtext">ATM Machine</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/LabTest/Index" class="nav-link">
+                                <a href="/Country/Index" class="nav-link">
                                     <span class="pcoded-micon"><i class="fas fa-flask"></i></span>
-                                    <span class="pcoded-mtext">Lab Test</span>
+                                    <span class="pcoded-mtext">Country</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Medicine/Index" class="nav-link">
+                                <a href="/State/Index" class="nav-link">
                                     <span class="pcoded-micon"><i class="fas fa-pills"></i></span>
-                                    <span class="pcoded-mtext">Medicine</span>
+                                    <span class="pcoded-mtext">State</span>
                                 </a>
                             </li>
                            <li class="nav-item">
-                                <a href="/PaymentType/Index" class="nav-link">
+                                <a href="/City/Index" class="nav-link">
                                     <span class="pcoded-micon"><i class="fas fa-credit-card"></i></span>
-                                    <span class="pcoded-mtext">Payment Type</span>
+                                    <span class="pcoded-mtext">City</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/PatientType/Index" class="nav-link">
+                                <a href="/Location/Index" class="nav-link">
                                     <span class="pcoded-micon"><i class="fas fa-user-injured"></i></span>
-                                    <span class="pcoded-mtext">Patient Type</span>
+                                    <span class="pcoded-mtext">Location</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Hospital/Index" class="nav-link">
+                                <a href="/ParkingSlot/Index" class="nav-link">
                                     <span class="pcoded-micon"><i class="fas fa-hospital"></i></span>
-                                    <span class="pcoded-mtext">Hospital</span>
+                                    <span class="pcoded-mtext">Parking Slot</span>
                                 </a>
                             </li>
                        <li class="nav-item">
-                            <a href="/Specialization/Index" class="nav-link">
+                            <a href="/PaymentMethod/Index" class="nav-link">
                                 <span class="pcoded-micon"><i class="fas fa-user-md"></i></span>
-                                <span class="pcoded-mtext">Specialization</span>
+                                <span class="pcoded-mtext">PaymentMethod</span>
                             </a>
                         </li>
+                         <li class="nav-item">
+                                        <a href="/User/Index" class="nav-link">
+                                            <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                            <span class="pcoded-mtext">User</span>
+                                        </a>
+                                    </li>
+                            <li class="nav-item">
+                                <a href="/Role/Index" class="nav-link">
+                                    <span class="pcoded-micon"><i class="fas fa-hospital"></i></span>
+                                    <span class="pcoded-mtext">Role</span>
+                                </a>
+                            </li>
 `;
 //        if (appUserInfo) {
 //            switch (appUserInfo.RoleName) {

@@ -1,49 +1,32 @@
 ﻿CREATE PROCEDURE [api].[uspInsertOrUpdateLocation]
-	(
-		@location [api].[Location] READONLY
-	)
-	WITH RECOMPILE
+(
+	@Location [api].[Location] READONLY
+)
+WITH RECOMPILE
 AS
 BEGIN
-    DECLARE @CurrentDate DATETIMEOFFSET;
+    DECLARE @CurrentDate DATETIMEOFFSET = GetDate();
     DECLARE @CurrentUser  BIGINT;
-    DECLARE @ReturnData TABLE (
-				  [LocationId] BIGINT
-				 ,[LocationName] VARCHAR(MAX)
-				 ,[Code] VARCHAR(MAX)
-				 ,[Address] VARCHAR(MAX)
-				 ,[CountryId] BIGINT
-				 ,[StateId] BIGINT
-				 ,[CityId]  BIGINT
-				 ,[CreatedBy] BIGINT
-				 ,[CreatedOn] DATETIMEOFFSET
-				 ,[ModifiedBy] BIGINT
-				 ,[ModifiedOn] DATETIMEOFFSET
-                 ,[IsActive] BIT
-				 );
-
-	  SET @CurrentDate = GETDATE();
+    DECLARE @ReturnData [api].[Location];
 
     SELECT @CurrentUser  = ModifiedBy FROM @Location;
 
-    MERGE INTO [data].[Location] AS Target
-
+MERGE INTO [data].[Location] AS Target
 USING (
   SELECT 
-	    input.[LocationId]
-	   ,input.[LocationName]
-	   ,input.[Code]
-	   ,input.[Address]
-	   ,input.[CountryId]
-	   ,input.[StateId]
-	   ,input.[CityId]
-	   ,input.[CreatedBy]
-	   ,input.[CreatedOn]
-	   ,input.[ModifiedBy]
-	   ,input.[ModifiedOn]
-	   ,input.[IsActive]
-	    FROM @location AS input
-        LEFT JOIN [data].[Location] AS loc ON input.LocationId = loc.LocationId
+	    [LocationId]
+	    [LocationName],
+	    [Code],
+	    [Address],
+	    [CountryId],
+	    [StateId],
+	    [CityId],
+	    [CreatedBy],
+	    [CreatedOn],
+	    [ModifiedBy],
+	    [ModifiedOn],
+	    [IsActive]
+	    FROM @location 
     ) AS source
     ON Target.LocationId = source.LocationId
     WHEN MATCHED THEN
@@ -57,7 +40,7 @@ USING (
 	   ,[ModifiedBy] = source.[ModifiedBy]
 	   ,[ModifiedOn] = source.[ModifiedOn]
 	   ,[IsActive] = source.[IsActive]
-	    WHEN NOT MATCHED BY TARGET THEN 
+ WHEN NOT MATCHED BY TARGET THEN 
  INSERT (
 	    [LocationName]
 	   ,[Code]
@@ -78,11 +61,11 @@ USING (
 				,source.[CountryId]
 				,source.[StateId]
 				,source.[CityId]
-				,source.[CreatedBy]
-				,source.[CreatedOn]
-				,source.[ModifiedBy]
-				,source.[ModifiedOn]
-				,source.[IsActive]
+				,ISNULL(Source.[CreatedBy], @CurrentUser)
+				,ISNULL(Source.[CreatedOn], @CurrentDate)
+				,ISNULL(Source.[ModifiedBy], @CurrentUser)
+				,ISNULL(Source.[ModifiedOn], @CurrentDate)
+				,ISNULL(Source.[IsActive], 1)
 				)
 		OUTPUT
 				inserted.[LocationName]

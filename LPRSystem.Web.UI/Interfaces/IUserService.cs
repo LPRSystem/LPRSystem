@@ -8,5 +8,7 @@ namespace LPRSystem.Web.UI.Interfaces
     {
         Task<List<User>> FetchAllUser();
         Task<string> InsertOrUpdateUser(UserRegistration user);
+
+        Task<ApplicationUser> AuthenticationAsync(Authenticate authenticate);
     }
 }

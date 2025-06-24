@@ -20,8 +20,7 @@ namespace LPRSystem.Web.API.Manager.Services.Location
 
         public async Task<Models.Location.Location> ExecuteAsync(Models.Location.Location location)
         {
-            string userId = "1111";
-            return await base.ExecuteScalarAsync<Models.Location.Location>(CommonConstants.CommonDB, LocationConstants.InsertOrUpdateLocation, new { Location = location.ToDataTable(userId).AsTableValuedParameter("[api].[Location]") }, null);
+            return await base.QueryFirstOrDefaultAsync<Models.Location.Location>(CommonConstants.CommonDB, LocationConstants.InsertOrUpdateLocation, new { Location = location.ToDataTable().AsTableValuedParameter("[api].[Location]") }, null);
         }
     }
 }
