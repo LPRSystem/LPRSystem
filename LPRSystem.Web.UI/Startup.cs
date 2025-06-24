@@ -27,6 +27,7 @@ namespace LPRSystem.Web.UI
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IPaymentMethodService, PaymentMethodService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IStateService, StateServices>();
             services.AddScoped<ICityService, CityService>();
             services.AddSession(options =>
             {
@@ -89,8 +90,6 @@ namespace LPRSystem.Web.UI
                     name: "default",
                     pattern: "{controller=Account}/{action=Login}/{id?}");
             });
-
-
         }
 
 
