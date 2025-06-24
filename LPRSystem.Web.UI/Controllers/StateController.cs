@@ -2,7 +2,6 @@
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
 using Microsoft.AspNetCore.Authorization;
-using LPRSystem.Web.UI.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPRSystem.Web.UI.Controllers
@@ -12,7 +11,7 @@ namespace LPRSystem.Web.UI.Controllers
     {
         private readonly IStateService _stateService;
         private readonly INotyfService _notyfService;
-        public StateController(IStateService stateService,INotyfService notyfService)
+        public StateController(IStateService stateService, INotyfService notyfService)
         {
             _stateService = stateService;
             _notyfService = notyfService;
@@ -20,32 +19,16 @@ namespace LPRSystem.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<StateDetails> stateDetails = new List<StateDetails>();
-
-            var response = await _httpClient.GetAsync("state/getstates");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                stateDetails = JsonConvert.DeserializeObject<List<StateDetails>>(responseContent);
-            }
-
-            return View(stateDetails);
+            return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetStates() {
+        public async Task<IActionResult> GetStates()
+        {
             List<StateDetails> stateDetails = new List<StateDetails>();
 
-            var response = await _httpClient.GetAsync("state/getstates");
+            stateDetails = await _stateService.GetStatesAync();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                stateDetails = JsonConvert.DeserializeObject<List<StateDetails>>(responseContent);
-            }
             return Json(new { data = stateDetails });
 
         }

@@ -31,9 +31,9 @@ namespace LPRSystem.Web.UI.Repository
             return false;
         }
 
-        public async Task<State> GetStateByIdAsync(long stateId)
+        public async Task<StateDetails> GetStateByIdAsync(long stateId)
         {
-            State state = new State();
+            StateDetails state = new StateDetails();
 
             var url = Path.Combine("State/GetStateByIdAsync", stateId.ToString());
 
@@ -43,15 +43,15 @@ namespace LPRSystem.Web.UI.Repository
             {
                 var response = await responseContent.Content.ReadAsStringAsync();
 
-                state = JsonConvert.DeserializeObject<State>(response);
+                state = JsonConvert.DeserializeObject<StateDetails>(response);
 
             }
             return state;
         }
 
-        public async Task<List<State>> GetStatesAync()
+        public async Task<List<StateDetails>> GetStatesAync()
         {
-            List<State> states = new List<State>();
+            List<StateDetails> states = new List<StateDetails>();
 
             var responseContent = await _httpClient.GetAsync("State/GetStates");
 
@@ -59,7 +59,7 @@ namespace LPRSystem.Web.UI.Repository
             {
                 var response = await responseContent.Content.ReadAsStringAsync();
 
-                states = JsonConvert.DeserializeObject<List<State>>(response);
+                states = JsonConvert.DeserializeObject<List<StateDetails>>(response);
 
             }
             return states;
