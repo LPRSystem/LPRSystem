@@ -98,6 +98,10 @@
     <None Include="Programmability\Stored Procedures\State\uspDeleteState.sql" />
     <None Include="Programmability\Stored Procedures\State\uspGetStateByCountryId.sql" />
     <None Include="Tables\User-Defined-Types\ParkingPrice.sql" />
+    <None Include="Programmability\Stored Procedures\Organization\uspDeleteOrganization.sql" />
+    <None Include="Programmability\Stored Procedures\Organization\uspGetOrganizationById.sql" />
+    <None Include="Programmability\Stored Procedures\Organization\uspInsertOrganization.sql" />
+    <None Include="Programmability\Stored Procedures\Organization\uspUpdateOrganization.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />
@@ -120,8 +124,7 @@
     <Build Include="Programmability\Stored Procedures\User\uspInsertOrUpdateUser.sql" />
     <Build Include="Programmability\Stored Procedures\User\uspSaveUser.sql" />
     <Build Include="Tables\Tables\Organization.sql" />
-    <Build Include="Programmability\Stored Procedures\Organization\uspGetOrganizations.sql" />
-    <Build Include="Programmability\Stored Procedures\Organization\uspInsertOrUpdateOrganization.sql" />
+    <Build Include="Programmability\Stored Procedures\Organization\uspGetOrganization.sql" />
     <Build Include="Tables\Tables\City.sql" />
     <Build Include="Tables\Tables\Country.sql" />
     <Build Include="Tables\Tables\State.sql" />

@@ -1,9 +1,8 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LPRSystem.Web.API.Manager.Models.Organization
+namespace LPRSystem.Web.UI.Models
 {
-    public class Organization
+    public class OrganizationViewModel
     {
         public long Id { get; set; }
         [Required]
@@ -18,10 +17,5 @@ namespace LPRSystem.Web.API.Manager.Models.Organization
         [Required]
         [Phone]
         public string Phone { get; set; }
-        public long? CreatedBy { get; set; }
-        public DateTimeOffset? CreatedOn { get; set; }
-        public long? ModifiedBy { get; set; }
-        public DateTimeOffset? ModifiedOn { get; set; }
-        public bool IsActive { get; set; }
     }
 }
