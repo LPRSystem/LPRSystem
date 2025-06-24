@@ -6,21 +6,17 @@ AS
 BEGIN
 
   SELECT
-	   cty.[CityId]
-	  ,cty.[StateId]
-	  ,sta.[Name]
-	  ,cty.[CountryId]
-	  ,cun.[Name]
-	  ,cty.[Description]
-	  ,cty.[CityCode]
-	  ,cty.[CreatedOn]
-	  ,cty.[CreatedBy]
-	  ,cty.[ModifiedOn]
-	  ,cty.[ModifiedBy]
-	  ,cty.[IsActive]
-	  FROM [data].[City] cty
-	  Left Join [data].[State] sta ON cty.StateId = sta.StateId
-	  Left Join [data].[Country] cun ON cty.CountryId = cun.CountryId
-
+	   [CityId]
+	  ,[StateId]
+	  ,[CountryId]
+	  ,[Name]
+	  ,[Description]
+	  ,[CityCode]
+	  ,[CreatedOn]
+	  ,[CreatedBy]
+	  ,[ModifiedOn]
+	  ,[ModifiedBy]
+	  ,[IsActive]
+  FROM [data].[City]
 
 END

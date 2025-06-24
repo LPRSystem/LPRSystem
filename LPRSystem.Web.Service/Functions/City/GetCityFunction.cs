@@ -18,7 +18,7 @@ public class GetCityFunction
     }
 
     [Function("GetCityFunction")]
-    public async Task<IActionResult> GetCity([HttpTrigger(AuthorizationLevel.Anonymous, "get",Route = "city/getcity")] HttpRequest req)
+    public async Task< IActionResult> GetCity([HttpTrigger(AuthorizationLevel.Function, "get",Route = "city/getcity")] HttpRequest req)
     {
         _logger.LogInformation("GetCity Invoked().");
         try
