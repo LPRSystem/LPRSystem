@@ -23,97 +23,6 @@ namespace LPRSystem.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetStates()
-        {
-            List<StateDetails> stateDetails = new List<StateDetails>();
-
-            stateDetails = await _stateService.GetStatesAync();
-
-            return Json(new { data = stateDetails });
-
-        }
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Create(State state)
-        {
-            try
-            {
-                if (state == null)
-                {
-                    _notyfService.Error("Something is went wrong please try again");
-                    return View(state);
-                }
-                state.StateId = 0;
-
-                state.CreatedOn = DateTime.Now;
-                state.CreatedBy = -1;
-                state.ModifiedOn = DateTime.Now;
-                state.ModifiedBy = -1;
-                state.IsActive = true;
-
-                var response = await _stateService.InsertOrUpdateStateAsync(state);
-
-                _notyfService.Success("State insert or Update Successfully");
-
-                return RedirectToAction("Index", "State", null);
-
-            }
-            catch (Exception ex)
-            {
-                _notyfService.Error(ex.Message);
-                throw ex;
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(long stateId)
-        {
-            try
-            {
-                var response = await _stateService.GetStateByIdAsync(stateId);
-                return View(response);
-
-            }
-            catch (Exception ex)
-            {
-                _notyfService.Error(ex.Message);
-                throw ex;
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(State state)
-        {
-            try
-            {
-                state.CreatedOn = DateTime.Now;
-                state.CreatedBy = -1;
-                state.ModifiedOn = DateTime.Now;
-                state.ModifiedBy = -1;
-                state.IsActive = true;
-
-                var response = await _stateService.UpdateStateAsync(state);
-                if (response != null)
-                {
-                    _notyfService.Success("State  Update Successfully");
-
-                    return RedirectToAction("Index", "State", null);
-                }
-
-                return View(state);
-
-            }
-            catch (Exception ex)
-            {
-                _notyfService.Error(ex.Message);
-                throw ex;
-            }
-        }
-        [HttpGet]
         public async Task<IActionResult> FetchStates()
         {
             try
@@ -133,10 +42,10 @@ namespace LPRSystem.Web.UI.Controllers
         {
             try
             {
-                if (state.StateId > 0)
+                if (state.StateId == 0 || state.StateId==null)
                     await _stateService.InsertOrUpdateStateAsync(state);
                 else
-                    await _stateService.InsertOrUpdateStateAsync(state);
+                    await _stateService.UpdateStateAsync(state);
 
                 _notyfService.Success("State insert or Update Successfully");
 

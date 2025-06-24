@@ -86,11 +86,16 @@ namespace LPRSystem.Web.UI.Repository
 
         public async Task<State> UpdateStateAsync(State state)
         {
+            //combine the url and query params in the url
+            var url = Path.Combine("State/UpdateState", state.StateId.ToString());
+
+            //prepare the incoming object as json string
+
             var inputstate = JsonConvert.SerializeObject(state);
 
             var requeststate = new StringContent(inputstate, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("State/UpdateState", requeststate);
+            var response = await _httpClient.PutAsync(url, requeststate);
 
             if (response.IsSuccessStatusCode)
             {

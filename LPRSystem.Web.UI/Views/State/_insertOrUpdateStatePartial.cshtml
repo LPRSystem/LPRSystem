@@ -1,33 +1,54 @@
 ﻿<form id="AddEditStateForm">
     <div class="sidebar" id="sidebar">
         <div class="modal-header">
-            <h5 class="modal-title">AddEdit State</h5>
+            <h5 class="modal-title">Add/Edit State</h5>
             <button type="button" class="close" id="closeSidebar" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <label for="Name">Name</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa user"></i></span>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="CountryId">Country</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                    </div>
+                    <select class="form-control" id="CountryId" required autofocus>
+                        <option value="" disabled selected>Select a code</option>
+                    </select>
                 </div>
-                <input type="text" class="form-control" id="Name" placeholder="Enter your Name" autofocus required />
+            </div>
+            <div class="form-group">
+                <label for="Name">State Name</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-city"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="Name" placeholder="Enter state name" autofocus required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StateCode">Code</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-landmark"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="StateCode" placeholder="Enter state code" autofocus required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-shop"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="Description" placeholder="Enter state description" autofocus required>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="Code">Code</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa user"></i></span>
-                </div>
-                <input type="text" class="form-control" id="Code" placeholder="Enter your Code" autofocus required />
-            </div>
+        <div class="modal-footer">
+            <button type="submit" id="btnsubmit" class="btn btn-primary">Submit</button>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="submit" id="btnsubmit" class="btn btn-primary">Submit</button>
     </div>
 </form>
+
