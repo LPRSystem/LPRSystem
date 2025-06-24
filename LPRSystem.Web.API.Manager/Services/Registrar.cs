@@ -10,7 +10,7 @@ namespace LPRSystem.Web.API.Manager.Services
             ArgumentNullException.ThrowIfNull(context);
             ArgumentNullException.ThrowIfNull(services);
 
-
+            City.Registrar.Register(context, services);
             Role.Registrar.Register(context, services);
             User.Registrar.Register(context, services);
             Organization.Registrar.Register(context, services);

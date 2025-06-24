@@ -1,11 +1,13 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using LPRSystem.Web.UI.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPRSystem.Web.UI.Controllers
 {
+    [Authorize]
     public class StateController : Controller
     {
         private readonly IStateService _stateService;
@@ -18,7 +20,34 @@ namespace LPRSystem.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View();
+            List<StateDetails> stateDetails = new List<StateDetails>();
+
+            var response = await _httpClient.GetAsync("state/getstates");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                stateDetails = JsonConvert.DeserializeObject<List<StateDetails>>(responseContent);
+            }
+
+            return View(stateDetails);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetStates() {
+            List<StateDetails> stateDetails = new List<StateDetails>();
+
+            var response = await _httpClient.GetAsync("state/getstates");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                stateDetails = JsonConvert.DeserializeObject<List<StateDetails>>(responseContent);
+            }
+            return Json(new { data = stateDetails });
+
         }
         [HttpGet]
         public async Task<IActionResult> Create()

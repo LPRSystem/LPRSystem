@@ -17,22 +17,22 @@ namespace LPRSystem.Web.UI.Repository
             _httpClient.Timeout = new TimeSpan(0, 0, 120);
         }
 
-        public async Task<List<Location>> GetLocationsAsync()
+        public async Task<List<LocationVM>> GetLocationsAsync()
         {
-            List<Location> locations = new List<Location>();
+            List<LocationVM> locations = new List<LocationVM>();
 
             var response = await _httpClient.GetAsync("location/getlocations");
 
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                locations = JsonConvert.DeserializeObject<List<Location>>(responseContent);
+                locations = JsonConvert.DeserializeObject<List<LocationVM>>(responseContent);
 
             }
             return locations;
         }
 
-        public async Task<string> InsertOrUpdateLocation(Location location)
+        public async Task<Location> InsertOrUpdateLocation(Location location)
         {
             var inputlocation = JsonConvert.SerializeObject(location);
 
@@ -44,11 +44,11 @@ namespace LPRSystem.Web.UI.Repository
             {
                 var content = await responce.Content.ReadAsStringAsync();
 
-                var responcelocation = JsonConvert.DeserializeObject<string>(content);
+                var responcelocation = JsonConvert.DeserializeObject<Location>(content);
 
                 return responcelocation;
             }
-            return string.Empty;
+            return null;
         }
     }
 }

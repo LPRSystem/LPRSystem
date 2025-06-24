@@ -2,11 +2,13 @@
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
 using LPRSystem.Web.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace LPRSystem.Web.UI.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
