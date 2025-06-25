@@ -50,7 +50,7 @@ public class UpdateStateFunction
 
             connection.Close();
 
-            return new OkObjectResult(response);
+            return new OkObjectResult(requestModel);
         }
         catch (Exception ex)
         {

@@ -9,6 +9,7 @@ BEGIN
   SELECT
 		sts.StateId,
 		sts.CountryId, 
+		ctry.Name as CountryName,
 		ctry.CountryCode,
 		sts.Name,
 		sts.Description, 

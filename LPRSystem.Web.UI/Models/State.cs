@@ -2,7 +2,7 @@
 {
     public class State
     {        
-        public long StateId { get; set; }
+        public long? StateId { get; set; }
         public long? CountryId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }

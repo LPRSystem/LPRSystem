@@ -26,7 +26,7 @@ public class SaveStateFunction
         try
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-
+            //www.google.com/id?1000%name=prasad&age=10
             // Deserialize the JSON into your request object
             var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.State.State>(requestBody);
 
@@ -55,7 +55,7 @@ public class SaveStateFunction
 
             connection.Close();
 
-            return new OkObjectResult(response);
+            return new OkObjectResult(requestModel);
         }
         catch (Exception ex)
         {

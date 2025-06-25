@@ -26,6 +26,7 @@ public class ProcessUserFunction
     public async Task<IActionResult> ProcessUser([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "users/processuser")] HttpRequest req)
     {
         _logger.LogInformation("ProcessUserFunction Invoke().");
+
         try
         {
             var requestModel = await _requestParser.ParseAsync(req);

@@ -1,0 +1,62 @@
+﻿@model List<LPRSystem.Web.UI.Models.Organization>
+@{
+    ViewData["Title"] = "Organization";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header card-header-padding">
+                <div class="float-left">
+                    <a id="addBtn" class="padding-rigt custom-cursor btn btn-success" href="@Url.Action("Create","Organization",null)">
+                        <i class="fa fa-plus-circle" title="add"></i>
+                    </a>
+                </div>
+            </div>
+            @* <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" /> *@
+            <div class="card-body card-body-padding">
+                <div id="Organization">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Code</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                
+                                <th scope="col">IsActive</th>
+                                <th scope="col">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.Id</th>
+                                    <td>@item.Name</td>
+                                    <td>@item.Code</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Phone</td>
+                                    
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a id="editBtn" class="padding-rigt custom-cursor btn btn-primary" href="@Url.Action("Edit","Organization",new {Id=item.Id },null)">
+                                            <i class="fa fa-pencil" title="edit"></i>
+                                        </a>
+                                        <a id="deleteBtn" class="padding-rigt custom-cursor btn btn-danger" href="@Url.Action("Delete","Organization",new {Id=item.Id },null)">
+                                            <i class="fa fa-trash" title="delete"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

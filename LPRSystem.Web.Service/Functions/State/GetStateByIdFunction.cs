@@ -66,7 +66,7 @@ public class GetStateByIdFunction
 
                 object isActiveValue = sqlDataReader["IsActive"];
 
-                stateDetails.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+                stateDetails.IsActive = (isActiveValue != DBNull.Value && Convert.ToBoolean(isActiveValue)) ? true : false;
             }
 
             return new OkObjectResult(stateDetails);
