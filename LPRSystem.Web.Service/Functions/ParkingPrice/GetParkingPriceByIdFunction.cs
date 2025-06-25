@@ -59,7 +59,7 @@ public class GetParkingPriceByIdFunction
 
                 object isActiveValue = reader["IsActive"];
 
-                parkingPrice.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+                parkingPrice.IsActive = (isActiveValue != DBNull.Value) && Convert.ToBoolean(isActiveValue);
             }
             connection.Close();
 

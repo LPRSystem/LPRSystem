@@ -30,7 +30,7 @@ public class SaveParkingPriceFunction
         string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
-        SqlCommand command = new SqlCommand("insert into [data].[parkingprice](Duration,Price,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsActive)values(@duration,@price,@createdby,@createdOn,@modifiedby,@modifiedOn,@isactive)", connection);
+        SqlCommand command = new SqlCommand("[api].[uspSaveParkingPrice]", connection);
 
         //sqlCommand.CammandType = CommandType.StoredProcedure;
 
@@ -44,6 +44,6 @@ public class SaveParkingPriceFunction
         command.ExecuteNonQuery();
         connection.Close();
 
-        return new OkObjectResult("Welcome to Azure Functions");
+        return new OkObjectResult("Welcome");
     }
 }
