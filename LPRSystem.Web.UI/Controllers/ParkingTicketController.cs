@@ -1,33 +1,34 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
-using Microsoft.AspNetCore.Authorization;
+using LPRSystem.Web.UI.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace LPRSystem.Web.UI.Controllers
 {
-    [Authorize]
-    public class StateController : Controller
+    public class ParkingTicketController : Controller
     {
-        private readonly IStateService _stateService;
+        private readonly IParkingTicketService _parkingTicketService;
         private readonly INotyfService _notyfService;
-        public StateController(IStateService stateService, INotyfService notyfService)
+
+        public ParkingTicketController(IParkingTicketService parkingTicketService, INotyfService notyfService)
         {
-            _stateService = stateService;
+            _parkingTicketService = parkingTicketService;
             _notyfService = notyfService;
         }
-        [HttpGet]
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
             return View();
         }
-
         [HttpGet]
-        public async Task<IActionResult> FetchStates()
+        public async Task<IActionResult> FetchParkingTickets()
         {
             try
+
             {
-                var response = await _stateService.GetStatesAync();
+                var response = await _parkingTicketService.GetParkingTicketAsync();
                 return Json(new { data = response });
             }
             catch (Exception ex)
@@ -36,38 +37,32 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
-
         [HttpPost]
-        public async Task<IActionResult> InsertOrUpdateStateAsync([FromBody] State state)
+        public async Task<IActionResult> InserOrUpdateParkingTicket(ParkingTicket parkingTicket)
         {
             try
             {
-                if (state.StateId == 0 || state.StateId==null)
-                    await _stateService.InsertOrUpdateStateAsync(state);
-                else
-                    await _stateService.UpdateStateAsync(state);
-
-                _notyfService.Success("State insert or Update Successfully");
-
+                await _parkingTicketService.InserOrUpdateParkingTicketAsync(parkingTicket);
+                _notyfService.Success("ParkingTicket insertOrUpdate Successfully.");
                 return Json(new { data = true });
             }
             catch (Exception ex)
             {
                 _notyfService.Error(ex.Message);
-
                 throw ex;
             }
         }
 
-        public async Task<IActionResult> DeleteStateAsync(long stateId)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteParkingTicket(long parkingTicketId)
         {
             try
             {
-                var response = await _stateService.DeleteStateAsync(stateId);
+                var response = await _parkingTicketService.DeleteParkingTicketAsync(parkingTicketId);
                 if (response)
-                    _notyfService.Success("State deleted successfully");
+                    _notyfService.Success("ParkingTicket deleted successfully");
                 else
-                    _notyfService.Warning("State deleted un successfully");
+                    _notyfService.Warning("ParkingTicket deleted un successfully");
 
                 return Json(new { data = response });
             }
@@ -77,5 +72,4 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
-    }
-}
+    }    }

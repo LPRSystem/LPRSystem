@@ -29,6 +29,8 @@ namespace LPRSystem.Web.UI
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IStateService, StateServices>();
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IParkingTicketService, ParkingTicketService>();
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

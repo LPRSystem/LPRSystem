@@ -12,6 +12,6 @@ SELECT
 	  [ModifiedOn],
 	  [IsActive]   
 	  FROM [data].[ParkingPrice]
-	  
+	  WHERE IsActive=1
 END
 

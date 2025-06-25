@@ -3,7 +3,7 @@
     self.init = function () {
 
         makeFormGeneric("#formAuthentication", "#btnSubmit");
-       
+
         $(document).on("click", "#btnSubmit", function (e) {
             e.preventDefault();
             $(".se-pre-con").show();
@@ -34,8 +34,12 @@
                 var applicationUser = response.data;
 
                 storageService.set('ApplicationUser', applicationUser);
-               
-                window.location.href = "/Home/Index";
+
+                if (applicationUser.RoleId === 15)
+                    window.location.href = "/ParkingTicket/Index";
+                else
+                    window.location.href = "/Home/Index";
+                  
 
                 updateEnvironmentAndVersion();
 

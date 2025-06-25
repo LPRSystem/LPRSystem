@@ -50,6 +50,8 @@ public class GetStateByCountryIdFunction
                 if (!sqlDataReader.IsDBNull(sqlDataReader.GetOrdinal("CountryId")))
                     stateDetails.CountryId = sqlDataReader.GetInt64(sqlDataReader.GetOrdinal("CountryId"));
 
+                stateDetails.CountryName = sqlDataReader.SafeGetString(sqlDataReader.GetOrdinal("CountryName"));
+
                 stateDetails.CountryCode = sqlDataReader.SafeGetString(sqlDataReader.GetOrdinal("CountryCode"));
 
                 stateDetails.Name = sqlDataReader.SafeGetString(sqlDataReader.GetOrdinal("Name"));
@@ -72,7 +74,7 @@ public class GetStateByCountryIdFunction
                 
                 object isActiveValue = sqlDataReader["IsActive"];
 
-                stateDetails.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+                stateDetails.IsActive = (isActiveValue != DBNull.Value && Convert.ToBoolean(isActiveValue)) ? true : false;
                 lstStateDetails.Add(stateDetails);
             }
 
