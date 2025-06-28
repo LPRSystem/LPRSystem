@@ -16,6 +16,7 @@ namespace LPRSystem.Web.API.Manager.Services
             Organization.Registrar.Register(context, services);
             Location.Registrar.Register(context, services);
             ATMMachine.Registrar.Register(context, services);
+            ParkingTicket.Registrar.Register(context, services);
         }
     }
 }
