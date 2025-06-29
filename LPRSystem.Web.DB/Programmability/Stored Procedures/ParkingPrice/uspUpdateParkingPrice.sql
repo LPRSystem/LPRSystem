@@ -1,4 +1,4 @@
-﻿﻿CREATE PROCEDURE [api].[uspUpdateParkingPrice]
+﻿CREATE PROCEDURE [api].[uspUpdateParkingPrice]
 (
  @parkingPriceId         bigint,
  @duration               varchar(max),

@@ -1,4 +1,4 @@
-﻿﻿CREATE PROCEDURE [api].[uspGetParkingPriceById]
+﻿CREATE PROCEDURE [api].[uspGetParkingPriceById]
 	(
  @parkingPriceId  bigint
 )

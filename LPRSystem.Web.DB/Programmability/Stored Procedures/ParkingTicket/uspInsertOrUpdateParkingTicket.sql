@@ -1,15 +1,16 @@
-﻿CREATE PROCEDURE [api].[uspInsertOrUpdateParkingTicket]
-(
-	@ParkingTicket [api].[ParkingTicket] READONLY
-)
+﻿--CREATE PROCEDURE [api].[uspInsertOrUpdateParkingTicket]
+--(
+--	@ParkingTicket [api].[ParkingTicket] READONLY
+--)
+--WITH RECOMPILE
 
-AS
+--AS
 
-BEGIN
+--BEGIN
 
-DECLARE @CurrentDate datetimeoffset = GETDATE();
-DECLARE @CurrentUser bigint;
-Declare @ReturnData [api].[ParkingTicket];
+--DECLARE @CurrentDate datetimeoffset;
+--DECLARE @CurrentUser bigint;
+--Declare @ReturnData [api].[ParkingTicket];
 
 Select @CurrentUser= ModifiedBy from @ParkingTicket;
 

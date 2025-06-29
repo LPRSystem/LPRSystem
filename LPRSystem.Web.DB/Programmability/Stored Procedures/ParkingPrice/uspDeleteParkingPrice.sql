@@ -1,4 +1,4 @@
-﻿﻿CREATE PROCEDURE [api].[uspDeleteParkingPrice]
+﻿CREATE PROCEDURE [api].[uspDeleteParkingPrice]
 (@parkingPriceId  bigint)
 
 AS

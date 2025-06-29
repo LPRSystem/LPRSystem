@@ -1,9 +1,9 @@
-﻿CREATE PROCEDURE [api].[uspGetParkingTicket]
+﻿--CREATE PROCEDURE [api].[uspGetParkingTicket]
 	
-	WITH RECOMPILE
+--	WITH RECOMPILE
 
-	As
-	BEGIN
+--	As
+--	BEGIN
 
 	SELECT 
 	      [ParkingTicketId],

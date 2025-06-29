@@ -1,4 +1,4 @@
-﻿﻿CREATE PROCEDURE [api].[uspGetParkingPrice]
+﻿CREATE PROCEDURE [api].[uspGetParkingPrice]
 AS
 BEGIN
 
@@ -12,5 +12,6 @@ SELECT
 	  [ModifiedOn],
 	  [IsActive]   
 	  FROM [data].[ParkingPrice]
-	  
+	  WHERE IsActive=1
 END
+

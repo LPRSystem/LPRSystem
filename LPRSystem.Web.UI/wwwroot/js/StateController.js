@@ -1,35 +1,35 @@
-﻿function PaymentMethodController() {
+﻿function StateController() {
 
     var self = this;
 
     self.selectedRows = [];
 
-    self.currectSelectedPaymentMethod = {};
+    self.CurrentSelectedState = {};
+
+    self.dbCountries = [];
 
     self.init = function () {
 
-        makeFormGeneric('#AddEditPaymentMethodForm', '#btnsubmit');
+        makeFormGeneric('#AddEditStateForm', '#btnsubmit');
 
-
-        var table = new Tabulator("#paymentMethodgrid", {
-
-            ajaxURL: '/PaymentMethod/FetchPaymentMethods',
+        var table = new Tabulator("#stategrid", {
+            ajaxURL: '/State/FetchStates',
             ajaxParams: {},
             ajaxConfig: {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application-json'
+                    'Conent-Type': 'application/json',
                 },
             },
             ajaxResponse: function (url, params, response) {
                 console.log(response);
                 return response.data;
             },
-            height: "100%",
+            height: "700px",
             layout: "fitColumns",
             columns: [
                 {
-                    title: "<div class='centered-checkbox'><input type='checkbox' id='parentPaymentMethodChkbox'></div>",
+                    title: "<div class='centered-checkbox'><input type='checkbox' id='parentStateChkbox'></div>",
                     field: "select",
                     headerSort: false,
                     hozAlign: "center",
@@ -39,8 +39,8 @@
                     formatter: function (cell, formatterParams, onRendered) {
                         onRendered(function () {
                             var row = cell.getRow();
-                            var rowId = row.getData().Id;
-                            cell.getElement().innerHTML = `<div class='centered-checkbox'><input type='checkbox' id='childPaymentMethodChkbox-${rowId}' class='childPaymentMethodChkbox' data-row-id='${rowId}'/></div>`;
+                            var rowId = row.getData().StateId;
+                            cell.getElement().innerHTML = `<div class='centered-checkbox'><input type='checkbox' id='childStateChkbox-${rowId}' class='childStateChkbox' data-row-id='${rowId}'/></div>`;
                             cell.getElement().querySelector('input[type="checkbox"]').checked = row.isSelected();
                         });
                         return "";
@@ -49,13 +49,11 @@
                         cell.getRow().toggleSelect();
                     }
                 },
-                { title: "Id", field: "Id" },
+                { title: "StateId", field: "StateId" },
                 { title: "Name", field: "Name" },
-                { title: "Code", field: "Code" },
-                { title: "CreatedBy", field: "CreatedBy" },
-                { title: "CreatedOn", field: "CreatedOn" },
-                { title: "ModifiedBy", field: "ModifiedBy" },
-                { title: "ModifiedOn", field: "ModifiedOn" },
+                { title: "Code", field: "StateCode" },
+                { title: "Description", field: "Description" },
+                { title: "Country", field: "CountryName" },
                 {
                     title: "Is Active",
                     field: "IsActive",
@@ -66,7 +64,8 @@
             ],
             rowSelectionChanged: function (data, rows) {
                 var allSelected = rows.length && rows.every(row => row.isSelected());
-                $('#parentPaymentMethodChkbox').prop('checked', allSelected);
+                $('#parentStateChkbox').prop('Checked', allSelected)
+
                 disableAllButtons();
 
                 if (rows.length > 0) {
@@ -85,52 +84,52 @@
                 self.selectedRows = currentSelectedRows;
                 if (changedRow) {
                     var rows = table.getRows();
-                    var foundRow = rows.find(row => row.getData().Id === changedRow.Id);
+                    var foundRow = rows.find(row => row.getData().StateId === changedRow.StateId);
 
                     if (foundRow) {
-                        var rowId = foundRow.getData().Id;
-                        var checkbox = document.querySelector(`#childPaymentMethodChkbox-${rowId}`);
+                        var rowId = foundRow.getData().StateId;
+                        var checkbox = document.querySelector(`#childStateChkbox-${rowId}`);
                         if (checkbox.checked && currentSelectedRows.length === 1) {
-                            self.currectSelectedPaymentMethod = changedRow;
+                            self.currectSelectedState = changedRow;
                         }
                         else {
-                            self.currectSelectedPaymentMethod = {};
+                            self.currectSelectedState = {};
                         }
                     }
                 }
             }
-
         });
-        $(document).on("change", "#parentPaymentMethodChkbox", function () {
+
+        $(document).on("change", "#parentStateChkbox", function () {
             var isChecked = $(this).prop('checked');
             if (isChecked) {
                 table.selectRow();
             } else {
                 table.deselectRow();
             }
-            $('.childPaymentMethodChkbox').prop('checked', isChecked);
+            $('.childStateChkbox').prop('checked', isChecked);
         });
 
-        $(document).on('change', '.childPaymentMethodChkbox', function () {
+        $(document).on('change', '.childStateChkbox', function () {
             var rowId = $(this).data('row-id');
             var row = table.getRow(function (data) {
                 return data.Id === rowId;
             });
             var rows = table.getRows();
             var allSelected = rows.length && rows.every(row => row.isSelected());
-            $('#parentPaymentMethodChkbox').prop('checked', allSelected);
+            $('#parentStateChkbox').prop('checked', allSelected);
         });
 
 
         $(document).on("click", "#addBtn", function () {
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
-            console.log("am getting from add button click");
+            console.log("Iam getting from add button click");
         });
 
 
         $(document).on("click", "#closeSidebar", function () {
-            $('#AddEditPaymentMethodForm')[0].reset();
+            $('#AddEditStateForm')[0].reset();
             $('#sidebar').removeClass('show');
             $('.modal-backdrop').remove();
         });
@@ -138,49 +137,51 @@
         $(document).on("change", "#inputSearch", function () {
             var searchValue = $('#inputSearch').val().toLowerCase();
 
-            if (searchValue) {
-                table.setFilter(function (data) {
-                    return (
-                        String(data.Id).toLowerCase().includes(searchValue) ||
-                        String(data.Name).toLowerCase().includes(searchValue) ||
-                        String(data.Code).toLowerCase().includes(searchValue) ||
-                        String(data.CreatedBy).toLowerCase().includes(searchValue) ||
-                        String(data.ModifiedBy).toLowerCase().includes(searchValue) ||
-                        (data.IsActive ? "yes" : "no").includes(searchValue)
-                    );
-                });
-            } else {
-                table.clearFilter();
-            }
+                if (searchValue) {
+                    table.setFilter(function (data) {
+                        return (
+                            String(data.StateId).toLowerCase().includes(searchValue) ||
+                            String(data.Name).toLowerCase().includes(searchValue) ||
+                            String(data.StateCode).toLowerCase().includes(searchValue) ||
+                            String(data.Description).toLowerCase().includes(searchValue) ||
+                            String(data.CountryName).toLowerCase().includes(searchValue) ||
+                            String(data.CountryCode).toLowerCase().includes(searchValue) ||
+                            (data.IsActive ? "yes" : "no").includes(searchValue)
+                        );
+                    });
+                } else {
+                    table.clearFilter();
+                }
         });
 
-        $('#AddEditPaymentMethodForm').on('submit', function (e) {
+        $('#AddEditStateForm').on('submit', function (e) {
             e.preventDefault();
             showLoader();
+
+            var countryId = $("#CountryId").val();
             var name = $("#Name").val();
-            var code = $("#Code").val();
+            var code = $("#StateCode").val();
+            var description = $("#Description").val();
 
-            var paymentMethod = {
-                Id: self.currectSelectedPaymentMethod && self.currectSelectedPaymentMethod.Id ? self.currectSelectedPaymentMethod.Id : 0,
+            var stateObject = {
+                StateId: self.currectSelectedState && self.currectSelectedState.StateId ? self.currectSelectedState.StateId : 0,
+                CountryId: countryId,
                 Name: name,
-                Code: code,
-                CreatedBy: -1,
-                CreatedOn: new Date(),
-                ModifiedBy: -1,
-                ModifiedOn: new Date(),
-                IsActive: true
+                Description: description,
+                StateCode: code,
             };
+            var state = addCommonProperties(stateObject);
 
-            console.log(paymentMethod);
+            console.log(state);
 
             $.ajax({
                 type: "POST",
-                url: "/PaymentMethod/InsertOrUpdatepaymentMethod",
+                url: "/State/InsertOrUpdatestate",
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(paymentMethod),
+                data: JSON.stringify(state),
                 success: function (response) {
-                    $('#AddEditPaymentMethodForm')[0].reset();
+                    $('#AddEditStateForm')[0].reset();
                     $('#sidebar').removeClass('show');
                     $('.modal-backdrop').remove();
                     table.setData();
@@ -192,25 +193,27 @@
         });
 
         $(document).on("click", "#editBtn", function () {
-            console.log(self.currectSelectedPaymentMethod);
-            $("#Name").val(self.currectSelectedPaymentMethod.Name);
-            $("#Code").val(self.currectSelectedPaymentMethod.Code);
+            console.log(self.currectSelectedState);
+            $("#CountryId").val(self.currectSelectedState.CountryId);
+            $("#Name").val(self.currectSelectedState.Name);
+            $("#StateCode").val(self.currectSelectedState.StateCode);
+            $("#Description").val(self.currectSelectedState.Description);
             $('#sidebar').addClass('show');
             $('body').append('<div class="modal-backdrop fade show"></div>');
         });
 
         $(document).on("click", "#deleteBtn", function () {
-            console.log(self.currectSelectedPaymentMethod);
+            console.log(self.currectSelectedState);
             $("#confirmDeleteModal").modal("show");
         });
 
         $(document).on("click", "#confirmDeleteBtn", function () {
-            console.log(self.currectSelectedPaymentMethod);
+            console.log(self.currectSelectedState);
             showLoader();
             $.ajax({
                 type: "DELETE",
-                url: "/PaymentMethod/DeletePaymentMethod",
-                data: { Id: self.currectSelectedPaymentMethod.Id },
+                url: "/State/DeleteState",
+                data: { stateId: self.currectSelectedState.StateId },
                 success: function (response) {
                     $("#confirmDeleteModal").modal("hide");
                     table.setData();
@@ -222,21 +225,23 @@
         });
 
         $(document).on("click", "#copyBtn", function () {
-            console.log(self.currectSelectedPaymentMethod);
+            console.log(self.currectSelectedState);
             $("#confirmCopyModal").modal("show");
         });
 
         $(document).on("click", "#confirmCopyBtn", function () {
-            console.log(self.currectSelectedPaymentMethod);
-            self.currectSelectedPaymentMethod.Id = 0;
-            self.currectSelectedPaymentMethod.Code = self.currectSelectedPaymentMethod.Code + "_Copy";
+            console.log(self.currectSelectedState);
+            self.currectSelectedState.StateId = 0;
+            self.currectSelectedState.Name = self.currectSelectedState.Name + "_Copy";
+            self.currectSelectedState.Description = self.currectSelectedState.Description + "_Copy";
+            self.currectSelectedState.StateCode = self.currectSelectedState.StateCode + "_Copy";
             showLoader();
             $.ajax({
                 type: "POST",
-                url: "/PaymentMethod/InsertOrUpdatepaymentMethod",
+                url: "/State/InsertOrUpdateState",
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(self.currectSelectedPaymentMethod),
+                data: JSON.stringify(self.currectSelectedState),
                 success: function (response) {
                     $("#confirmCopyModal").modal("hide");
                     table.setData();
@@ -247,5 +252,15 @@
             });
         });
 
+        $.ajax({
+            type: "GET",
+            url: "/Country/FetchAllCountries",
+            success: function (response) {
+                self.dbCountries = response.data;
+                genarateDropdown("CountryId", self.dbCountries, "CountryId", "Name");
+            }, error: function (error) {
+                console.error(error);
+            }
+        });
     }
 }

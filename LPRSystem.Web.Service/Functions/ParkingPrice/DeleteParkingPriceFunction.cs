@@ -1,3 +1,4 @@
+using LPRSystem.Web.API.Manager.Models.PaymentMethod;
 using LPRSystem.Web.API.Manager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ public class DeleteParkingPriceFunction
     }
 
     [Function("DeleteParkingPriceFunction")]
-    public IActionResult DeleteParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "parkingprice/deleteparkingprice{parkingpriceid}")] HttpRequest req, long parkingpriceid)
+    public IActionResult DeleteParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route ="parkingprice/deleteparkingprice{parkingpriceid}")] HttpRequest req, long parkingpriceid)
     {
         _logger.LogInformation("Delete parking price invoked.");
 

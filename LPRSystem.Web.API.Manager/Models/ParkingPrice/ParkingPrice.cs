@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LPRSystem.Web.API.Manager.Models.ParkingPrice
 {
-    public class ParkingPrice
+   public class ParkingPrice
     {
         public long ParkingPriceId { get; set; }
         public string? Duration { get; set; }

@@ -30,7 +30,7 @@ public class SaveParkingPriceFunction
         string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
-        SqlCommand command = new SqlCommand("", connection);
+        SqlCommand command = new SqlCommand("insert into [data].[parkingprice](Duration,Price,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsActive)values(@duration,@price,@createdby,@createdOn,@modifiedby,@modifiedOn,@isactive)", connection);
 
         //sqlCommand.CammandType = CommandType.StoredProcedure;
 
