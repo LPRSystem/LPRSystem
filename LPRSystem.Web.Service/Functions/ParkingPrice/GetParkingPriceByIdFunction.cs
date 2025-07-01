@@ -19,7 +19,10 @@ public class GetParkingPriceByIdFunction
     }
 
     [Function("GetParkingPriceByIdFunction")]
-    public IActionResult GetParkingPriceById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="parkingprice/getparkingpricebyid{parkingpriceid}")] HttpRequest req, long parkingpriceid)
+    public IActionResult GetParkingPriceById([HttpTrigger(AuthorizationLevel.Anonymous,
+        "get", 
+        Route ="parkingprice/getparkingpricebyid{parkingpriceid}")] HttpRequest req, 
+        long parkingpriceid)
     {
         _logger.LogInformation("GetParkingPriceById Function Invoked()");
 
@@ -28,15 +31,13 @@ public class GetParkingPriceByIdFunction
             if (parkingpriceid == 0)
                 return new BadRequestObjectResult("Please send valid payment id");
 
-            string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
-
             LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice parkingPrice = new LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice();
 
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
             connection.Open();
             SqlCommand command = new SqlCommand("[api].[uspGetParkingPriceById]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@parkingPriceId", parkingPriceId);
+            command.Parameters.AddWithValue("@parkingPriceId", parkingpriceid);
             SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())

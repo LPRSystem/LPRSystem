@@ -1,6 +1,4 @@
-using Azure.Core;
 using LPRSystem.Web.API.Manager;
-using LPRSystem.Web.Service.Functions.Organization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -8,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
-using System.Threading;
 
 namespace LPRSystem.Web.Service.Functions.ParkingPrice;
 
@@ -24,18 +21,13 @@ public class UpdateParkingPriceFunction
     [Function("UpdateParkingPriceFunction")]
     public async Task<IActionResult> ParkingPriceFunction([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "parkingprice/updateparkingprice/{parkingPriceId}")] HttpRequest req)
     {
+        string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+
+        // Deserialize the JSON into your request object
+        var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice>(requestBody);
         try
         {
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-
-            // Deserialize the JSON into your request object
-            var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice>(requestBody);
-
             SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
-
-        try
-        {
-            SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
             SqlCommand command = new SqlCommand("[api].[uspUpdateParkingPrice]", connection);
@@ -58,5 +50,4 @@ public class UpdateParkingPriceFunction
             throw ex;
         }
     }
-
 }
