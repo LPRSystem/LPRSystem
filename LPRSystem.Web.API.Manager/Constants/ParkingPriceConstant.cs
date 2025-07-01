@@ -13,5 +13,6 @@ namespace LPRSystem.Web.API.Manager.Constants
         public static string SaveParkingPrice => new string("[api].[uspSaveParkingPrice]");
 
         public static string UpdateParkingPrice => new string("[api].[uspUpdateParkingPrice]");
+        public static string DeleteParkingPrice => new string("[api].[uspDeleteParkingPrice]");
     }
 }

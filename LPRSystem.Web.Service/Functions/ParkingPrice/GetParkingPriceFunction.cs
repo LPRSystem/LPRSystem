@@ -59,7 +59,7 @@ public class GetParkingPriceFunction
 
                 object isActiveValue = sqlDataReader["IsActive"];
 
-                price.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+                price.IsActive = (isActiveValue != DBNull.Value) && Convert.ToBoolean(isActiveValue);
 
                 listParkingPrice.Add(price);
             }

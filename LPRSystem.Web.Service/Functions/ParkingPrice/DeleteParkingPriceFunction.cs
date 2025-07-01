@@ -19,28 +19,32 @@ public class DeleteParkingPriceFunction
     }
 
     [Function("DeleteParkingPriceFunction")]
-    public IActionResult DeleteParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route ="parkingprice/deleteparkingprice{parkingpriceid}")] HttpRequest req, long parkingpriceid)
+    public IActionResult DeleteParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route ="parkingprice/deleteparkingprice/{parkingPriceId}")] HttpRequest req, long parkingPriceId)
     {
-        _logger.LogInformation("Delete parking price invoked.");
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting)))
+            {
+                connection.Open();
 
-        bool deleted = false;
+                using (SqlCommand command = new SqlCommand("[api].[uspDeleteParkingPrice]", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
 
-        SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
+                    command.Parameters.AddWithValue("@parkingPriceId", parkingPriceId);
 
-        connection.Open();
+                    int result = command.ExecuteNonQuery();
 
-        SqlCommand sqlCommand = new SqlCommand("[api].[uspDeleteParkingPrice]", connection);
+                    connection.Close();
 
-        sqlCommand.CommandType = CommandType.StoredProcedure;
-
-        sqlCommand.Parameters.AddWithValue("@parkingpriceid", parkingpriceid);
-
-        var response = sqlCommand.ExecuteNonQuery();
-
-        connection.Close();
-
-        deleted = response == 1 ? true : false;
-
-        return new OkObjectResult(deleted);
+                    return new OkObjectResult(result == 1 ? true : false);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+       
     }
 }

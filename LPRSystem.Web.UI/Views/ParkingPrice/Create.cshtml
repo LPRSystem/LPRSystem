@@ -1,0 +1,34 @@
+﻿@model LPRSystem.Web.UI.Models.ParkingPriceViewModel
+
+@{
+    ViewData["Title"] = "ParkingPrice";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        @using (Html.BeginForm("Create", "ParkingPrice", FormMethod.Post))
+        {
+            <div class="card">
+               <div class="card-body">
+                    <div class="form-group">
+                        <label for="ParkingPriceId">ParkingPrice Id</label>
+                        @Html.TextBoxFor(x => x.ParkingPriceId, new { @class = "form-control", @id = "ParkingPriceId", placeholder = "Enter ParkingPrice Id" })
+                    </div>
+                <div class="form-group">
+                        <label for="Duration">Duration</label>
+                        @Html.TextBoxFor(x => x.Duration, new { @class = "form-control", @id = "Duration", placeholder = "Enter Duration" })
+                </div>
+                    <div class="form-group">
+                        <label for="Price">Price</label>
+                        @Html.TextBoxFor(x => x.Price, new { @class = "form-control", @id = "Price", placeholder = "Enter Price" })
+                    </div>
+               </div>
+                     <div class="card-footer">
+                      <button type="submit" class="btn btn-primary">Create</button>
+                     </div>
+            </div>
+        }
+
+    </div>
+</div>

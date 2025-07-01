@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace LPRSystem.Web.Service.Functions.ParkingPrice;
 
@@ -19,39 +19,31 @@ public class UpdateParkingPriceFunction
     }
 
     [Function("UpdateParkingPriceFunction")]
-    public async Task< IActionResult> UpdateParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="parkingprice/updateparkingprice")] HttpRequest req)
+    public async Task<IActionResult> ParkingPriceFunction([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "parkingprice/updateparkingprice/{parkingPriceId}")] HttpRequest req)
     {
-        _logger.LogInformation($"Update Parking Price Function Invoked()");
-
-        // Read the request body
         string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-        var parkingPriceToUpdate = JsonConvert.DeserializeObject<API.Manager.Models.ParkingPrice.ParkingPrice>(requestBody);
 
-        if (parkingPriceToUpdate == null)
-        {
-            return new BadRequestObjectResult("Invalid parking price data.");
-        }
-
-        string connectionString = Environment.GetEnvironmentVariable(Global.TenantSQLServerConnectionStringSetting);
-
+        // Deserialize the JSON into your request object
+        var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice>(requestBody);
         try
         {
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
             connection.Open();
+
             SqlCommand command = new SqlCommand("[api].[uspUpdateParkingPrice]", connection);
             command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@parkingPriceId", requestModel.ParkingPriceId);
+            command.Parameters.AddWithValue("@duration", requestModel.Duration);
+            command.Parameters.AddWithValue("@price", requestModel.Price);
+            command.Parameters.AddWithValue("@modifiedBy", requestModel.ModifiedBy);
+            command.Parameters.AddWithValue("@modifiedOn", requestModel.ModifiedOn ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@isActive", requestModel.IsActive);
 
-            // Add parameters
-            command.Parameters.AddWithValue("@parkingPriceId", parkingPriceToUpdate.ParkingPriceId);
-            command.Parameters.AddWithValue("@duration", parkingPriceToUpdate.Duration);
-            command.Parameters.AddWithValue("@price", parkingPriceToUpdate.Price);
-            command.Parameters.AddWithValue("@modifiedBy", parkingPriceToUpdate.ModifiedBy);
-            command.Parameters.AddWithValue("@modifiedOn", parkingPriceToUpdate.ModifiedOn);
-            command.Parameters.AddWithValue("@isActive", parkingPriceToUpdate.IsActive);
-            command.ExecuteNonQuery();
+            int response = command.ExecuteNonQuery();
+
             connection.Close();
 
-            return new OkObjectResult(parkingPriceToUpdate);
+            return new OkObjectResult(requestModel);
         }
         catch (Exception ex)
         {

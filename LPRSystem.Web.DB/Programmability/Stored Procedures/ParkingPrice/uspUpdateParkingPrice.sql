@@ -5,18 +5,21 @@
  @price                  decimal(10,2),
  @modifiedBy             bigint,
  @modifiedOn             datetimeoffset,
- @isActive               bit)
+ @isActive               bit
+ )
+
+ WITH RECOMPILE
 
  AS
 
  BEGIN
 
- update [data].[ParkingPrice] 
-		set
+ UPDATE [data].[ParkingPrice] 
+		SET
 		   Duration   = @duration,
 		   Price      = @price,
 		   ModifiedBy = @modifiedBy,
 		   ModifiedOn = @modifiedOn,
 		   IsActive  = @isActive
-		 Where ParkingPriceId = @parkingPriceId
+		 WHERE ParkingPriceId = @parkingPriceId
   END

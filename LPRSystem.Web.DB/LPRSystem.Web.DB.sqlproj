@@ -169,7 +169,7 @@
     <Build Include="Programmability\Stored Procedures\City\uspGetCities.sql" />
     <Build Include="Programmability\Stored Procedures\User\uspAuthenticateUser.sql" />
     <Build Include="Tables\Tables\ParkingPrice.sql" />
-    <Build Include="Programmability\Stored Procedures\ParkingPrice\uspSavePaymentPrice.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingPrice\uspInsertParkingPrice.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspDeleteParkingPrice.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspGetParkingPriceById.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspGetParkingPrice.sql" />
