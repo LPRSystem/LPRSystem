@@ -2,7 +2,7 @@
     ViewData["Title"] = "ParkingTicket";
     Layout = "~/Views/Shared/_ATMLayout.cshtml";
 }
-<form id="formAuthentication" class="mb-3">
+<form id="formParkingTicket" class="mb-3">
     <div class="card borderless">
         <div class="row align-items-center ">
             <div class="col-md-12">
@@ -15,7 +15,7 @@
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fa fa-car"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="carnumber" name="username" placeholder="enter car/ vehicle number" autofocus required />
+                            <input type="text" class="form-control" id="carnumber" name="carnumber" placeholder="enter car/ vehicle number" autofocus required />
                         </div>
                     </div>
                     <div class="form-group mb-4">
@@ -39,11 +39,18 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-block btn-primary mb-4" type="button" id="btnSubmit">Get ticket</button>
+                    <button class="btn btn-block btn-primary mb-4" type="submit" id="btnSubmit">Get ticket</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
 
-                            
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/ParkingTicketController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new ParkingTicketController();
+        ctrl.init();
+    });
+</script>

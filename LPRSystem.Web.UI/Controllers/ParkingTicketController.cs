@@ -1,9 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
-using LPRSystem.Web.UI.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace LPRSystem.Web.UI.Controllers
 {
