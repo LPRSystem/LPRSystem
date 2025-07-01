@@ -22,7 +22,7 @@ public class UpdateParkingPriceFunction
     }
 
     [Function("UpdateParkingPriceFunction")]
-    public async Task<IActionResult> ParkingPriceFunction([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "parkingprice/updateparkingprice/{id}")] HttpRequest req)
+    public async Task<IActionResult> ParkingPriceFunction([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "parkingprice/updateparkingprice/{parkingPriceId}")] HttpRequest req)
     {
         try
         {
@@ -48,7 +48,7 @@ public class UpdateParkingPriceFunction
 
             connection.Close();
 
-            return new OkObjectResult(response);
+            return new OkObjectResult(requestModel);
         }
         catch (Exception ex)
         {

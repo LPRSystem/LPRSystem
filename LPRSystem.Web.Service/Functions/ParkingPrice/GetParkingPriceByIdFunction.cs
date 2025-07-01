@@ -19,7 +19,7 @@ public class GetParkingPriceByIdFunction
     }
 
     [Function("GetParkingPriceByIdFunction")]
-    public IActionResult GetParkingPriceById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="parkingprice/getparkingpricebyid{parkingpriceid}")] HttpRequest req, long parkingpriceid)
+    public IActionResult GetParkingPriceById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="parkingprice/getparkingpricebyid/{parkingPriceId}")] HttpRequest req, long parkingPriceId)
     {
         _logger.LogInformation("GetParkingPriceById Function Invoked()");
 
@@ -36,7 +36,7 @@ public class GetParkingPriceByIdFunction
             connection.Open();
             SqlCommand command = new SqlCommand("[api].[uspGetParkingPriceById]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@parkingpriceid", parkingpriceid);
+            command.Parameters.AddWithValue("@parkingPriceId", parkingPriceId);
             SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())

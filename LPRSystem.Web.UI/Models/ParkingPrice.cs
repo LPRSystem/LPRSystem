@@ -6,10 +6,10 @@ namespace LPRSystem.Web.UI.Models
     {
       
         public long ParkingPriceId { get; set; }
-        [Required]
-        public string? Duration { get; set; }
-        [Required]
-        public decimal? Price { get; set; }
+        [Required(ErrorMessage = "Duration is required")]
+        public string Duration { get; set; }
+        [Required(ErrorMessage = "Price is required")]
+        public decimal Price { get; set; }
         public long? CreatedBy { get; set; }
         public DateTimeOffset? CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }

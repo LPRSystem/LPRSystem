@@ -25,6 +25,7 @@ namespace LPRSystem.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
             List<ParkingPrice> parkingPrice = new List<ParkingPrice>();
 
             var response = await _httpClient.GetAsync("parkingprice/getparkingprice");
@@ -35,8 +36,9 @@ namespace LPRSystem.Web.UI.Controllers
 
                 parkingPrice = JsonConvert.DeserializeObject<List<ParkingPrice>>(responseContent);
             }
-            
+
             return View(parkingPrice);
+
         }
 
         [HttpGet]
@@ -157,11 +159,11 @@ namespace LPRSystem.Web.UI.Controllers
             }
             return RedirectToAction("Index", "ParkingPrice", null);
         }
-        private async Task<ParkingPrice> GetParkingPriceAsync(long ParkingPriceId)
+        private async Task<ParkingPrice> GetParkingPriceAsync(long parkingPriceId)
         {
             ParkingPrice parkingPrice = new ParkingPrice();
 
-            var url = Path.Combine("parkingprice/getparkingpricebyid", ParkingPriceId.ToString());
+            var url = Path.Combine("parkingprice/getparkingpricebyid", parkingPriceId.ToString());
 
             var response = await _httpClient.GetAsync(url);
 

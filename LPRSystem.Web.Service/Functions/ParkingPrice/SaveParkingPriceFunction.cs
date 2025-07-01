@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace LPRSystem.Web.Service.Functions.ParkingPrice;
@@ -18,32 +19,42 @@ public class SaveParkingPriceFunction
     }
 
     [Function("SaveParkingPriceFunction")]
-    public async Task< IActionResult> SaveParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="parkingprice/saveparkingprice")] HttpRequest req)
+    public async Task<IActionResult> SaveParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="parkingprice/saveparkingprice")] HttpRequest req)
     {
-        _logger.LogInformation(" C# Http trigger function processed a request");
+        try
+        {
+            
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
-        string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            //Deserialize the json into your request object
+            var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice>(requestBody);
 
-        //Deserialize the json into your request object
-        var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice>(requestBody);
+            SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
+            connection.Open();
+            SqlCommand command = new SqlCommand("[api].[uspInsertParkingPrice]", connection);
 
-        string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
-        SqlConnection connection = new SqlConnection(connectionString);
-        connection.Open();
-        SqlCommand command = new SqlCommand("[api].[uspSaveParkingPrice]", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
-        //sqlCommand.CammandType = CommandType.StoredProcedure;
+            
+            command.Parameters.AddWithValue("@duration", requestModel.Duration);
+            command.Parameters.AddWithValue("@price", requestModel.Price);
+            command.Parameters.AddWithValue("@createdBy", requestModel.CreatedBy);
+            command.Parameters.AddWithValue("@createdOn", requestModel.CreatedOn);
+            command.Parameters.AddWithValue("@modifiedBy", requestModel.ModifiedBy);
+            command.Parameters.AddWithValue("@modifiedOn", requestModel.ModifiedOn);
+            command.Parameters.AddWithValue("@isActive", requestModel.IsActive);
 
-        command.Parameters.AddWithValue("@duration", requestModel.Duration);
-        command.Parameters.AddWithValue("@price", requestModel.Price);
-        command.Parameters.AddWithValue("@createdby", requestModel.CreatedBy);
-        command.Parameters.AddWithValue("@createdon", requestModel.CreatedOn);
-        command.Parameters.AddWithValue("@modifiedby", requestModel.ModifiedBy);
-        command.Parameters.AddWithValue("@modifiedon", requestModel.ModifiedOn);
-        command.Parameters.AddWithValue("@isactive", requestModel.IsActive);
-        command.ExecuteNonQuery();
-        connection.Close();
+            int response = command.ExecuteNonQuery();
 
-        return new OkObjectResult("Welcome");
+            connection.Close();
+
+            return new OkObjectResult(response);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
+
 }
+
