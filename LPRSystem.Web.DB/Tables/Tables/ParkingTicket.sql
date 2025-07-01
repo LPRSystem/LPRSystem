@@ -7,7 +7,7 @@
 	[ParkedOn]				DATETIMEOFFSET	NULL,
 	[ParkingDurationFrom]	DATETIMEOFFSET	NULL,
 	[ParkingDurationTo]		DATETIMEOFFSET	NULL,
-	[TotalDuration]			AS DATEDIFF(MINUTE, ParkingDurationFrom, ParkingDurationTo),
+	[TotalDuration]			bigint          NULL,
     [ParkingPriceId]		bigint          NULL,
 	[VehicleNumber]			VARCHAR(MAX)	NULL,
 	[PhoneNumber]			VARCHAR(MAX)	NULL,
@@ -24,4 +24,6 @@
 	[ModifiedBy]            BIGINT          NULL,
 	[ModifiedOn]            DATETIMEOFFSET  NULL,
 	[IsActive]              BIT             NULL
+	FOREIGN KEY  (ParkingPriceId) REFERENCES data.ParkingPrice(ParkingPriceId),
+	FOREIGN KEY  (ATMId) REFERENCES data.ATMMachine(ATMId)
 )

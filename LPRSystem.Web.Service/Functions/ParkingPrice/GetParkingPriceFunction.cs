@@ -18,7 +18,7 @@ public class GetParkingPriceFunction
     }
 
     [Function("GetParkingPriceFunction")]
-    public IActionResult GetParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="parkingprice/getparkingprice")] HttpRequest req)
+    public IActionResult GetParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "parkingprice/getparkingprice")] HttpRequest req)
     {
         try
         {

@@ -18,7 +18,7 @@ public class SaveParkingPriceFunction
     }
 
     [Function("SaveParkingPriceFunction")]
-    public async Task< IActionResult> SaveParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="parkingprice/saveparkingprice")] HttpRequest req)
+    public async Task<IActionResult> SaveParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "parkingprice/saveparkingprice")] HttpRequest req)
     {
         _logger.LogInformation(" C# Http trigger function processed a request");
 
