@@ -16,7 +16,7 @@ namespace LPRSystem.Web.API.Manager.Services.ParkingTicket
             
         }
 
-        public async Task<Models.ParkingTicket.ParkingTicket> ExecuteAsync(GetParkingTicketByATMIdRequest atmId)
+        public async Task<Models.ParkingTicket.ParkingTicket> ExecuteAsync(Models.ParkingTicket.GetParkingTicketByATMIdRequest atmId)
         {
             return await base.QueryFirstOrDefaultAsync<Models.ParkingTicket.ParkingTicket>(CommonConstants.CommonDB, ParkingTicketConstants.GetAllParkingTicketsByATM, atmId, null);
         }

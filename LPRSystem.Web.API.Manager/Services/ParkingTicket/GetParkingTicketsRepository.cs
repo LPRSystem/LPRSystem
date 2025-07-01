@@ -10,9 +10,9 @@ namespace LPRSystem.Web.API.Manager.Services.ParkingTicket
         {
             
         }
-        public async Task<IEnumerable<ParkingTicketModel>> ExecuteAsync()
+        public async Task<IEnumerable<Models.ParkingTicket.ParkingTicketModel>> ExecuteAsync()
         {
-            return await base.QueryAsync<ParkingTicketModel>(CommonConstants.CommonDB, ParkingTicketConstants.GetAllParkingTickets, null, null);
+            return await base.QueryAsync<Models.ParkingTicket.ParkingTicketModel>(CommonConstants.CommonDB, ParkingTicketConstants.GetAllParkingTickets, null, null);
         }
     }
 }

@@ -1,22 +1,15 @@
-﻿using LPRSystem.Web.API.Manager.Models.ParkingPrice;
-using LPRSystem.Web.API.Manager.Models.ParkingTicket;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace LPRSystem.Web.API.Manager.Converters
 {
     public static class ParkingTicketConverter
     {
-        public static ParkingTicket ToSingleParkingTicket(this IDataReader reader)
+        public static LPRSystem.Web.API.Manager.Models.ParkingTicket.ParkingTicket ToSingleParkingTicket(this IDataReader reader)
         {
-            ParkingTicket result = null;
+            LPRSystem.Web.API.Manager.Models.ParkingTicket.ParkingTicket result = null;
             if (reader.Read())
             {
-                result = new ParkingTicket();
+                result = new LPRSystem.Web.API.Manager.Models.ParkingTicket.ParkingTicket();
                 result.ATMId = reader.GetInt64(reader.GetOrdinal("ATMId"));
                 result.ParkingTicketCode = reader.SafeGetString(reader.GetOrdinal("ParkingTicketCode"));
                 result.ParkingTicketRefrence = reader.SafeGetString(reader.GetOrdinal("ParkingTicketRefrence"));
@@ -48,7 +41,7 @@ namespace LPRSystem.Web.API.Manager.Converters
             return result;
         }
 
-        public static DataTable ToDataTable(this ParkingTicket source)
+        public static DataTable ToDataTable(this LPRSystem.Web.API.Manager.Models.ParkingTicket.ParkingTicket source)
         {
             var dt = new DataTable();
             dt.Columns.Add("ParkingTicketId", typeof(long));

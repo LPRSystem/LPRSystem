@@ -1,10 +1,4 @@
-﻿using LPRSystem.Web.API.Manager.Models.ParkingTicket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace LPRSystem.Web.API.Manager.Services.ParkingTicket
 {
     public class GetAllParkingTicketByATMIdParkedOnManager : IGetAllParkingTicketByATMIdParkedOnManager
@@ -15,7 +9,7 @@ namespace LPRSystem.Web.API.Manager.Services.ParkingTicket
             _repository = repository;
         }
 
-        public async Task<Models.ParkingTicket.ParkingTicket> ExecuteAsync(GetAllParkingTicketByATMIdParkedOnRequest aTMIdRequest)
+        public async Task<Models.ParkingTicket.ParkingTicket> ExecuteAsync(Models.ParkingTicket.GetAllParkingTicketByATMIdParkedOnRequest aTMIdRequest)
         {
             return await _repository.ExecuteAsync(aTMIdRequest);
         }

@@ -15,7 +15,7 @@ namespace LPRSystem.Web.API.Manager.Services.ParkingTicket
         {
             _repository = repository;
         }
-        public async Task<Models.ParkingTicket.ParkingTicket> ExecuteAsync(GetParkingTicketByATMIdRequest atmId)
+        public async Task<Models.ParkingTicket.ParkingTicket> ExecuteAsync(Models.ParkingTicket.GetParkingTicketByATMIdRequest atmId)
         {
             return await _repository.ExecuteAsync(atmId);
         }
