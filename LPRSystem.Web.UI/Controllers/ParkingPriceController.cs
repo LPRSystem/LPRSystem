@@ -1,8 +1,8 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using LPRSystem.Web.UI.Interfaces;
 using LPRSystem.Web.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Reflection;
 using System.Text;
 
 namespace LPRSystem.Web.UI.Controllers
@@ -11,9 +11,10 @@ namespace LPRSystem.Web.UI.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly INotyfService _notyfService;
-       
+        private readonly IParkingPriceService _parkingPriceService;
 
-        public ParkingPriceController(INotyfService notyfService)
+        public ParkingPriceController(INotyfService notyfService,
+            IParkingPriceService parkingPriceService)
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:7239/api/");
@@ -21,6 +22,7 @@ namespace LPRSystem.Web.UI.Controllers
             _httpClient.Timeout = new TimeSpan(0, 0, 120);
 
             _notyfService = notyfService;
+            _parkingPriceService = parkingPriceService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -28,14 +30,7 @@ namespace LPRSystem.Web.UI.Controllers
 
             List<ParkingPrice> parkingPrice = new List<ParkingPrice>();
 
-            var response = await _httpClient.GetAsync("parkingprice/getparkingprice");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                parkingPrice = JsonConvert.DeserializeObject<List<ParkingPrice>>(responseContent);
-            }
+            parkingPrice = await _parkingPriceService.GetParkingPriceListAsync();
 
             return View(parkingPrice);
 
@@ -61,7 +56,7 @@ namespace LPRSystem.Web.UI.Controllers
                 ParkingPrice parkingPrice = new ParkingPrice();
                 parkingPrice.ParkingPriceId = 0;
                 parkingPrice.Duration = model.Duration;
-                parkingPrice.Price=model.Price;
+                parkingPrice.Price = model.Price;
                 parkingPrice.CreatedBy = -1;
                 parkingPrice.CreatedOn = DateTimeOffset.Now;
                 parkingPrice.ModifiedBy = -1;
@@ -95,7 +90,7 @@ namespace LPRSystem.Web.UI.Controllers
                 model.ParkingPriceId = response.ParkingPriceId;
                 model.Duration = response.Duration;
                 model.Price = response.Price;
-                
+
             }
             return View(model);
         }
@@ -159,6 +154,9 @@ namespace LPRSystem.Web.UI.Controllers
             }
             return RedirectToAction("Index", "ParkingPrice", null);
         }
+
+
+      
         private async Task<ParkingPrice> GetParkingPriceAsync(long parkingPriceId)
         {
             ParkingPrice parkingPrice = new ParkingPrice();
@@ -175,7 +173,9 @@ namespace LPRSystem.Web.UI.Controllers
             }
             return parkingPrice;
         }
-        
+
+
+
         private async Task<int> SaveParkingPriceAsync(ParkingPrice parkingPrice)
         {
 
@@ -194,6 +194,22 @@ namespace LPRSystem.Web.UI.Controllers
 
             }
             return isSave;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetParkingPrices()
+        {
+            try
+            {
+                var parkingPriceList = await _parkingPriceService.GetParkingPriceListAsync();
+
+                return Json(new { data = parkingPriceList });
+            }
+            catch (Exception ex)
+            {
+                _notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
     }
 }
