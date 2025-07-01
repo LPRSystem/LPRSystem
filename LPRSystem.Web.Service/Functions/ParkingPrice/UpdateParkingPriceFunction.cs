@@ -33,6 +33,9 @@ public class UpdateParkingPriceFunction
 
             SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
 
+        try
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
             SqlCommand command = new SqlCommand("[api].[uspUpdateParkingPrice]", connection);

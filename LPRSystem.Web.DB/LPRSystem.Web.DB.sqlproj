@@ -174,5 +174,13 @@
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspGetParkingPriceById.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspGetParkingPrice.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspUpdateParkingPrice.sql" />
+    <Build Include="Tables\Tables\ParkingPrice.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicket\uspGetAllParkingTicketsByATM.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicket\uspGetALllParkingTicketsByATMIdParkedOn.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingPrice\uspDeleteParkingPrice.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingPrice\uspGetParkingPrice.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingPrice\uspGetParkingPriceById.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingPrice\uspSaveParkingPrice.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingPrice\uspUpdateParkingPrice.sql" />
   </ItemGroup>
 </Project>

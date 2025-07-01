@@ -19,7 +19,7 @@ public class SaveParkingPriceFunction
     }
 
     [Function("SaveParkingPriceFunction")]
-    public async Task<IActionResult> SaveParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="parkingprice/saveparkingprice")] HttpRequest req)
+    public async Task< IActionResult> SaveParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="parkingprice/saveparkingprice")] HttpRequest req)
     {
         try
         {

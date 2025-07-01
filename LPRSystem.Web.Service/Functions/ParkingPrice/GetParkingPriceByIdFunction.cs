@@ -19,7 +19,7 @@ public class GetParkingPriceByIdFunction
     }
 
     [Function("GetParkingPriceByIdFunction")]
-    public IActionResult GetParkingPriceById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="parkingprice/getparkingpricebyid/{parkingPriceId}")] HttpRequest req, long parkingPriceId)
+    public IActionResult GetParkingPriceById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="parkingprice/getparkingpricebyid{parkingpriceid}")] HttpRequest req, long parkingpriceid)
     {
         _logger.LogInformation("GetParkingPriceById Function Invoked()");
 
