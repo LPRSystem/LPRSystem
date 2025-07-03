@@ -618,3 +618,35 @@ function generateUniqueEmail(baseName, domain) {
 
     return email;
 }
+function formatDateWithTimezone() {
+    var date = new Date();
+
+    const pad = num => num.toString().padStart(2, '0');
+
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1);
+    const year = date.getFullYear();
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+
+    const timezoneOffset = -date.getTimezoneOffset(); // in minutes
+    const tzSign = '-';
+    const tzHours = pad(Math.floor(Math.abs(timezoneOffset) / 60));
+    const tzMinutes = pad(Math.abs(timezoneOffset) % 60);
+
+    return `${day}${month}${year}${hours}${minutes}${seconds}${tzSign}${tzHours}${tzMinutes}`;
+}
+
+function formatDateForTicketCode() {
+    var date = new Date();
+    const pad = num => num.toString().padStart(2, '0');
+
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1); // Months are zero-based
+    const year = date.getFullYear();
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+
+    return `${day}${month}${year}${hours}${minutes}`;
+}

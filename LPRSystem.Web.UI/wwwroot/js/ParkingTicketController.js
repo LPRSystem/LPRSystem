@@ -2,44 +2,11 @@
 
     var self = this;
 
-    self.dbParkingPrices = [
-        { "ParkingPriceId": 2, "Duration": "0-1 hour", "Price": 2.50, "IsActive": 0 },
-        { "ParkingPriceId": 3, "Duration": "1-2 hours", "Price": 4.00, "IsActive": 0 },
-        { "ParkingPriceId": 4, "Duration": "2-3 hours", "Price": 5.50, "IsActive": 0 },
-        { "ParkingPriceId": 5, "Duration": "3-4 hours", "Price": 7.00, "IsActive": 0 },
-        { "ParkingPriceId": 6, "Duration": "4-5 hours", "Price": 8.50, "IsActive": 0 },
-        { "ParkingPriceId": 7, "Duration": "5-6 hours", "Price": 10.00, "IsActive": 0 },
-        { "ParkingPriceId": 8, "Duration": "6-12 hours", "Price": 12.00, "IsActive": 0 },
-        { "ParkingPriceId": 9, "Duration": "12-24 hours", "Price": 15.00, "IsActive": 0 },
-        { "ParkingPriceId": 10, "Duration": "Weekend Rate", "Price": 20.00, "IsActive": 0 },
-        { "ParkingPriceId": 12, "Duration": "0-1 hour", "Price": 3.50, "IsActive": 0 },
-        { "ParkingPriceId": 13, "Duration": "1-2", "Price": 8.00, "IsActive": 0 },
-        { "ParkingPriceId": 14, "Duration": "1-2", "Price": 8.00, "IsActive": 0 },
-        { "ParkingPriceId": 15, "Duration": "30 mins", "Price": 1.00, "IsActive": 1 },
-        { "ParkingPriceId": 16, "Duration": "60 mins (1hr)", "Price": 2.00, "IsActive": 1 },
-        { "ParkingPriceId": 17, "Duration": "90 mins (1.5hr)", "Price": 3.00, "IsActive": 1 },
-        { "ParkingPriceId": 18, "Duration": "120 mins (2hr)", "Price": 4.00, "IsActive": 1 },
-        { "ParkingPriceId": 19, "Duration": "180 mins (3hr)", "Price": 5.00, "IsActive": 1 },
-        { "ParkingPriceId": 20, "Duration": "240 mins (4hr)", "Price": 6.00, "IsActive": 1 },
-        { "ParkingPriceId": 21, "Duration": "Daily (24hr)", "Price": 20.00, "IsActive": 1 },
-        { "ParkingPriceId": 22, "Duration": "Overnight (12hr)", "Price": 15.00, "IsActive": 1 },
-        { "ParkingPriceId": 23, "Duration": "Weekly", "Price": 100.00, "IsActive": 1 },
-        { "ParkingPriceId": 24, "Duration": "Monthly", "Price": 350.00, "IsActive": 1 },
-        { "ParkingPriceId": 25, "Duration": "15 mins", "Price": 0.50, "IsActive": 1 },
-        { "ParkingPriceId": 26, "Duration": "45 mins", "Price": 1.50, "IsActive": 1 },
-        { "ParkingPriceId": 27, "Duration": "2 hrs", "Price": 4.00, "IsActive": 1 },
-        { "ParkingPriceId": 28, "Duration": "3 hrs", "Price": 5.50, "IsActive": 1 },
-        { "ParkingPriceId": 29, "Duration": "4 hrs", "Price": 7.00, "IsActive": 1 },
-        { "ParkingPriceId": 30, "Duration": "5 hrs", "Price": 8.50, "IsActive": 1 },
-        { "ParkingPriceId": 31, "Duration": "6 hrs", "Price": 10.00, "IsActive": 1 },
-        { "ParkingPriceId": 32, "Duration": "7 hrs", "Price": 11.50, "IsActive": 1 },
-        { "ParkingPriceId": 33, "Duration": "8 hrs", "Price": 13.00, "IsActive": 1 },
-        { "ParkingPriceId": 34, "Duration": "10 hrs", "Price": 15.00, "IsActive": 1 }
-    ]
-        ;
     self.dbParkingPrices = [];
 
     self.currentUser = {};
+
+    self.formatDateForTicketCode = {};
 
     makeFormGeneric("#formParkingTicket", "#btnSubmit");
 
@@ -72,13 +39,77 @@
 
 
         $('#formParkingTicket').on('submit', function (e) {
-            console.log("buttong submited");
+
+            e.preventDefault();
+
+            console.log("button submited");
 
             var carnumber = $("#carnumber").val();
             var phone = $("#phonenumber").val();
             var duration = $("#duration").val();
 
-            console.log(carnumber, phone, duration);
+
+
+            var refernaceNumber = formatDateWithTimezone();
+            console.log(refernaceNumber);
+
+            var referanceCode = formatDateForTicketCode();
+            console.log(referanceCode);
+
+
+            var refernaceNumberATM = self.currentUser.FirstName + "-" + refernaceNumber;
+            console.log(refernaceNumberATM);
+
+            var referenceNumberCode = self.currentUser.FirstName + "_" + referanceCode;
+            console.log(referenceNumberCode);
+
+            const currentDate = new Date();
+
+            var parkingPrice = self.dbParkingPrices.filter(x => x.ParkingPriceId == parseInt(duration))[0];
+            console.log(parkingPrice);
+
+            var miniutes = 0;
+
+            if (parkingPrice.Duration === "60 mins - $1.00") {
+                miniutes = 60;
+            } else if (parkingPrice.Duration === "30 mins - $1.00") {
+                miniutes = 30;
+            }
+
+            if (ticket.ParkingDurationFrom.HasValue && ticket.ParkingDurationTo.HasValue) {
+                var span = ticket.ParkingDurationTo.Value - ticket.ParkingDurationFrom.Value;
+                ticket.TotalDuration = (long)span.TotalMinutes;   // or TotalSeconds/Hours
+            }
+            else {
+                ticket.TotalDuration = null;
+            }
+
+            var parkingTicket = {
+                ParkingTicketId: 0,
+                ATMId: 0,
+                ParkingTicketCode: referenceNumberCode,
+                ParkingTicketRefrence: refernaceNumberATM,
+                ParkedOn: currentDate,
+                ParkingDurationFrom: currentDate,
+                ParkingDurationTo: currentDate.setMinutes(currentDate.getMinutes() + miniutes),
+                TotalDuration: ParkingDurationTo - ParkingDurationFrom,
+                ParkingPriceId: parkingPrice.ParkingPriceId,
+                vehicleNumber: carnumber,
+                PhoneNumber: phone,
+                IsExtended: false,
+                ExtendedOn: null,
+                ExtendedDurationFrom: "",
+                ExtendedDurationTo: "",
+                ActualAmount: parkingPrice.Price,
+                ExtendeAmount: 0,
+                TotalAmount: parkingPrice.Price,
+                Status: "Draft"
+            };
+            console.log("parkingTicket..." + JSON.stringify(parkingTicket));
+
+            var parkingTicketInfo = addCommonProperties(parkingTicket);
+
+            console.log("parkingTicketInfo..." + JSON.stringify(parkingTicketInfo));
         });
     }
 
@@ -103,4 +134,5 @@
 
         $dropdown.trigger('change');
     }
+
 }
