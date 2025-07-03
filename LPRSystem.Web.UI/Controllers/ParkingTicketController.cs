@@ -10,7 +10,8 @@ namespace LPRSystem.Web.UI.Controllers
         private readonly IParkingTicketService _parkingTicketService;
         private readonly INotyfService _notyfService;
 
-        public ParkingTicketController(IParkingTicketService parkingTicketService, INotyfService notyfService)
+        public ParkingTicketController(IParkingTicketService parkingTicketService,
+            INotyfService notyfService)
         {
             _parkingTicketService = parkingTicketService;
             _notyfService = notyfService;
