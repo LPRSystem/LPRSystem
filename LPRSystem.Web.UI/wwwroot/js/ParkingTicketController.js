@@ -1,4 +1,5 @@
 ﻿function ParkingTicketController() {
+
     var self = this;
 
     self.dbParkingPrices = [
@@ -36,30 +37,52 @@
         { "ParkingPriceId": 34, "Duration": "10 hrs", "Price": 15.00, "IsActive": 1 }
     ]
         ;
+    self.dbParkingPrices = [];
+
+    self.currentUser = {};
+
+    makeFormGeneric("#formParkingTicket", "#btnSubmit");
+
     self.init = function () {
 
+        var appUser = storageService.get('ApplicationUser');
+        if (appUser) {
+            self.currentUser = appUser;
+            console.log(self.currentUser);
+        }
 
-        //$.ajax({
-        //    url: "",
-        //    type: "",
-        //    success: function (response) {
-        //        self.dbParkingPrices = response && response.data ? response.data : [];
-        //        self.bindParkingPriceDropdown(self.dbParkingPrices);
-        //    },
-        //    error: function (error) {
+        $.ajax({
+            type: "GET",
+            url: "/ParkingPrice/GetParkingPrices",
+            success: function (response) {
 
-        //    }
-        //});
+                console.log(response);
 
-        self.bindParkingPriceDropdown();
+                self.dbParkingPrices = response.data;
+
+                self.BindDurationDropDown(self.dbParkingPrices);
+
+                /*genarateDropdown("duration", self.dbParkingPrices, "ParkingPriceId", "Duration");*/
+
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
 
 
-        makeFormGeneric("#formAuthentication","#btnSubmit")
+        $('#formParkingTicket').on('submit', function (e) {
+            console.log("buttong submited");
 
+            var carnumber = $("#carnumber").val();
+            var phone = $("#phonenumber").val();
+            var duration = $("#duration").val();
+
+            console.log(carnumber, phone, duration);
+        });
     }
 
-    self.bindParkingPriceDropdown = function () {
-
+    self.BindDurationDropDown = function (data) {
 
         var $dropdown = $('#duration');
         $dropdown.empty();
@@ -70,14 +93,14 @@
         });
         $dropdown.append($defaultOption);
 
-        $.each(self.dbParkingPrices, function (index, item) {
+        $.each(data, function (index, item) {
             var $option = $('<option>', {
                 value: item["ParkingPriceId"],
-                text: item["Duration"] + " - " + "$" + item["Price"]
+                text: item["Duration"]
             });
             $dropdown.append($option);
         });
 
         $dropdown.trigger('change');
-    };
+    }
 }

@@ -9,7 +9,8 @@
     }
   },
   "profiles": {
-    "http": {
+    //"http": {
+    "LPRSystem.Web.UI" : {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

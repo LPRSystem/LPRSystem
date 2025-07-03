@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LPRSystem.Web.API.Manager.Models.ParkingPrice
+namespace LPRSystem.Web.UI.Models
 {
-   public class ParkingPrice
-   {
+    public class ParkingPrice
+    {
+      
         public long ParkingPriceId { get; set; }
         [Required(ErrorMessage = "Duration is required")]
         public string Duration { get; set; }
@@ -19,5 +15,5 @@ namespace LPRSystem.Web.API.Manager.Models.ParkingPrice
         public long? ModifiedBy { get; set; }
         public DateTimeOffset? ModifiedOn { get; set; }
         public bool IsActive { get; set; }
-   }
+    }
 }

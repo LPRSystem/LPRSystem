@@ -1,0 +1,68 @@
+﻿@model List<LPRSystem.Web.UI.Models.ParkingPrice>
+
+
+@{
+    ViewData["Title"] = "ParkingPrice";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header card-header-padding">
+                <div class="float-left">
+                    <a id="addBtn" class="padding-rigt custom-cursor btn btn-success" href="@Url.Action("Create", "ParkingPrice", null)">
+                        <i class="fa fa-plus-circle" title="add"></i>
+                    </a>
+                </div>
+            </div>
+            @* <partial name="~/Views/Shared/_gridHeaderPartial.cshtml" /> *@
+            <div class="card-body card-body-padding">
+                <div id="ParkingPrice">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAll" />
+                                </th>
+                                <th scope="col">ParkingPriceId</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">ParkingPrice</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">IsActive</th>
+                                <th scope="col">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                   
+                                    <td>
+                                        <input type="checkbox" class="rowCheckbox" value="@item.ParkingPriceId" />
+                                    </td>
+
+                                    <th scope="row">@item.ParkingPriceId</th>                                
+                                    <td>@item.Duration</td>
+                                        <td>@($"{item.Duration} - ${item.Price:F2}")</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.IsActive</td>
+                                    <td>
+                                        <a id="editBtn" class="padding-rigt custom-cursor btn btn-primary" href="@Url.Action("Edit", "ParkingPrice", new { ParkingPriceId = item.ParkingPriceId }, null)">
+
+                                            <i class="fa fa-pencil" title="edit"></i>
+                                        </a>
+                                        <a id="deleteBtn" class="padding-rigt custom-cursor btn btn-danger" href="@Url.Action("Delete", "ParkingPrice", new { ParkingPriceId = item.ParkingPriceId }, null)">
+
+                                            <i class="fa fa-trash" title="delete"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

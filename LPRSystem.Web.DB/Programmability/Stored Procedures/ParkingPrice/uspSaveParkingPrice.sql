@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [api].[uspSaveParkingPrice]
+﻿﻿CREATE PROCEDURE [api].[uspSaveParkingPrice]
 	(
 		 @duartion varchar(max),
 		 @price  decimal(10,2),

@@ -18,7 +18,7 @@ public class GetParkingPriceFunction
     }
 
     [Function("GetParkingPriceFunction")]
-    public IActionResult GetParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="parkingprice/getparkingprice")] HttpRequest req)
+    public IActionResult GetParkingPrice([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "parkingprice/getparkingprice")] HttpRequest req)
     {
         try
         {
@@ -59,7 +59,7 @@ public class GetParkingPriceFunction
 
                 object isActiveValue = sqlDataReader["IsActive"];
 
-                price.IsActive = (isActiveValue != DBNull.Value && isActiveValue == "1") ? true : false;
+                price.IsActive = (isActiveValue != DBNull.Value) && Convert.ToBoolean(isActiveValue);
 
                 listParkingPrice.Add(price);
             }

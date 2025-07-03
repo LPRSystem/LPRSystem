@@ -1,11 +1,13 @@
 ﻿CREATE PROCEDURE [api].[uspDeleteParkingPrice]
-(@parkingPriceId  bigint)
+(
+@parkingPriceId  bigint
+)
 
 AS
 
 BEGIN
 
-update [data].[ParkingPrice] 
-       set  IsActive = 0
+DELETE FROM [data].[ParkingPrice] 
+       
        WHERE ParkingPriceId = @parkingPriceId
 END
