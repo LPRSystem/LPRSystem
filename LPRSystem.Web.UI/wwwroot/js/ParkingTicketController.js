@@ -11,7 +11,7 @@
     makeFormGeneric("#formParkingTicket", "#btnSubmit");
 
     self.init = function () {
-
+        
         var appUser = storageService.get('ApplicationUser');
         if (appUser) {
             self.currentUser = appUser;
@@ -30,7 +30,6 @@
                 self.BindDurationDropDown(self.dbParkingPrices);
 
                 /*genarateDropdown("duration", self.dbParkingPrices, "ParkingPriceId", "Duration");*/
-
             },
             error: function (error) {
                 console.error(error);
@@ -47,7 +46,7 @@
             var carnumber = $("#carnumber").val();
             var phone = $("#phonenumber").val();
             var duration = $("#duration").val();
-
+            
 
 
             var refernaceNumber = formatDateWithTimezone();
@@ -68,31 +67,29 @@
             var parkingPrice = self.dbParkingPrices.filter(x => x.ParkingPriceId == parseInt(duration))[0];
             console.log(parkingPrice);
 
-            var miniutes = 0;
+            var minutes = 0;
 
             if (parkingPrice.Duration === "60 mins - $1.00") {
-                miniutes = 60;
+                minutes = 60;
             } else if (parkingPrice.Duration === "30 mins - $1.00") {
-                miniutes = 30;
+                minutes = 30;
             }
 
-            if (ticket.ParkingDurationFrom.HasValue && ticket.ParkingDurationTo.HasValue) {
-                var span = ticket.ParkingDurationTo.Value - ticket.ParkingDurationFrom.Value;
-                ticket.TotalDuration = (long)span.TotalMinutes;   // or TotalSeconds/Hours
-            }
-            else {
-                ticket.TotalDuration = null;
-            }
-
+            
+            var parkingDurationFrom = currentDate;   
+            
+            var parkingDurationTo = currentDate.setMinutes(currentDate.getMinutes() + minutes);
+            var totalDuration = Math.floor((parkingDurationTo - parkingDurationFrom) / 60000);
+           
             var parkingTicket = {
                 ParkingTicketId: 0,
                 ATMId: 0,
                 ParkingTicketCode: referenceNumberCode,
                 ParkingTicketRefrence: refernaceNumberATM,
                 ParkedOn: currentDate,
-                ParkingDurationFrom: currentDate,
-                ParkingDurationTo: currentDate.setMinutes(currentDate.getMinutes() + miniutes),
-                TotalDuration: ParkingDurationTo - ParkingDurationFrom,
+                ParkingDurationFrom: currentDate, 
+                ParkingDurationTo: parkingDurationTo /*currentDate.setMinutes(currentDate.getMinutes() + miniutes)*/,
+                TotalDuration: totalDuration.toString(),
                 ParkingPriceId: parkingPrice.ParkingPriceId,
                 vehicleNumber: carnumber,
                 PhoneNumber: phone,
@@ -110,7 +107,10 @@
             var parkingTicketInfo = addCommonProperties(parkingTicket);
 
             console.log("parkingTicketInfo..." + JSON.stringify(parkingTicketInfo));
+            console.log(parkingTicket);
         });
+
+
     }
 
     self.BindDurationDropDown = function (data) {
