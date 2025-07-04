@@ -36,14 +36,21 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> MakePayment(long parkingTicketId)
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> InserOrUpdateParkingTicket(ParkingTicket parkingTicket)
+        public async Task<IActionResult> InserOrUpdateParkingTicket([FromBody] ParkingTicket parkingTicket)
         {
             try
             {
-                await _parkingTicketService.InserOrUpdateParkingTicketAsync(parkingTicket);
-                _notyfService.Success("ParkingTicket insertOrUpdate Successfully.");
-                return Json(new { data = true });
+                var response = await _parkingTicketService.InserOrUpdateParkingTicketAsync(parkingTicket);
+
+                return Json(new { data = response });
             }
             catch (Exception ex)
             {
@@ -51,6 +58,7 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
+
 
         [HttpDelete]
         public async Task<IActionResult> DeleteParkingTicket(long parkingTicketId)
@@ -71,4 +79,5 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
-    }    }
+    }
+}
