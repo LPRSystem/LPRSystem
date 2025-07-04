@@ -49,7 +49,7 @@ namespace LPRSystem.Web.UI.Repository
         {
             ParkingTicket parkingTicket = new ParkingTicket();
 
-            var url = Path.Combine("ParkingTicket/GetParkingTicketById", parkingTicketId.ToString());
+            var url = Path.Combine("parkingticket/getallparkingticketbyid", parkingTicketId.ToString());
 
             var responseContent = await _httpClient.GetAsync(url);
 
@@ -63,23 +63,23 @@ namespace LPRSystem.Web.UI.Repository
             return parkingTicket;
         }
 
-        public async Task<ParkingTicket> InserOrUpdateParkingTicketAsync(ParkingTicket parkingTicket)
+        public async Task<long> InserOrUpdateParkingTicketAsync(ParkingTicket parkingTicket)
         {
             var inputParkingTicket =JsonConvert.SerializeObject(parkingTicket);
 
             var requestParkingTicket = new StringContent(inputParkingTicket,Encoding.UTF8,"application/json");
 
-            var response = await _httpClient.PostAsync("ParkingTicket/InserOrUpdateParkingTicket", requestParkingTicket);
+            var response = await _httpClient.PostAsync("parkingticket/saveparkingticket", requestParkingTicket);
 
             if (response.IsSuccessStatusCode)
             {
                 var content= await response.Content.ReadAsStringAsync();
 
-                var responseParkingTicket = JsonConvert.DeserializeObject<ParkingTicket>(content);
+                var responseParkingTicket = JsonConvert.DeserializeObject<long>(content);
 
                 return responseParkingTicket;
             }
-            return null;
+            return 0;
         }
 
         public async Task<ParkingTicket> UpdateParkingticketAsync(ParkingTicket parkingTicket)

@@ -1,12 +1,16 @@
-﻿--CREATE PROCEDURE [api].[uspGetParkingTicket]
-	
---	WITH RECOMPILE
+﻿CREATE PROCEDURE [api].[uspGetParkingTicketById]
+  (
+     @ParkingTicketId BIGINT
+  )
+	WITH RECOMPILE
 
---	As
---	BEGIN
+	AS
+
+	BEGIN
 
 	SELECT 
 	      [ParkingTicketId],
+		  [ATMId],
 		  [ParkingTicketCode],
 		  [ParkingTicketRefrence],
 		  [ParkedOn],
@@ -30,4 +34,6 @@
 		  [ModifiedOn],
 		  [IsActive]
 		  FROM [data].[ParkingTicket]
+		  WHERE 
+		  ParkingTicketId=@ParkingTicketId
    END

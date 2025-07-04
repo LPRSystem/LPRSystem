@@ -15,13 +15,16 @@ namespace LPRSystem.Web.UI.Controllers
         public readonly IUserService _userService;
         private readonly INotyfService _notyfService;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IATMMachineService _atmService;
         public AccountController(IUserService userService,
             INotyfService notyfService,
-            IHttpContextAccessor contextAccessor)
+            IHttpContextAccessor contextAccessor,
+            IATMMachineService atmService)
         {
             _userService = userService;
             _notyfService = notyfService;
             _contextAccessor = contextAccessor;
+            _atmService = atmService;
         }
 
         public IActionResult Index()
@@ -40,10 +43,25 @@ namespace LPRSystem.Web.UI.Controllers
         {
             var response = await _userService.AuthenticationAsync(authenticate);
 
+
+            var atmResponse = new ATMMachinesData();
+
+
             if (response != null)
             {
                 if (response.Status)
                 {
+                    if (response.RoleId == 15)
+                    {
+                        var atms = await _atmService.FetchAllATMMachines();
+
+                        if (atms.Any())
+                        {
+                            atmResponse = atms.Where(x => x.ATMCode == response.FirstName).FirstOrDefault();
+                        }
+                    }
+
+
                     _contextAccessor.HttpContext.Session.SetString("ApplicationUser", JsonConvert.SerializeObject(response));
 
                     var claimsIdentity = UserPrincipal.GenarateUserPrincipal(response);
@@ -55,6 +73,7 @@ namespace LPRSystem.Web.UI.Controllers
                                                                                   IsPersistent = true,
                                                                                   ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
                                                                               });
+
                 }
                 else
                 {
@@ -62,7 +81,7 @@ namespace LPRSystem.Web.UI.Controllers
                 }
             }
 
-            return Json(new { data = response });
+            return Json(new { data = response, atm = atmResponse });
         }
 
         public async Task<IActionResult> Logout()
