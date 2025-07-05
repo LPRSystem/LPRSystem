@@ -1,11 +1,11 @@
 ﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Data;
 using LPRSystem.Web.API.Manager;
+using Microsoft.Azure.Functions.Worker;
 
 namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
 {
@@ -81,12 +81,7 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
             {
                 throw ex;
             }
-
-        }
-        
-
-
-                
+        }  
     }
 }
                 
