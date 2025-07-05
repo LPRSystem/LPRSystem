@@ -79,6 +79,7 @@
     <Folder Include="Programmability\Stored Procedures\ParkingTicket" />
     <Folder Include="Programmability\Stored Procedures\ParkingPlace" />
     <Folder Include="Programmability\Stored Procedures\ParkingPrice" />
+    <Folder Include="Programmability\Stored Procedures\ParkingTicketPayment" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\User-Defined-Types\Role.sql" />
@@ -182,5 +183,11 @@
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspGetParkingPriceById.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspSaveParkingPrice.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingPrice\uspUpdateParkingPrice.sql" />
+    <Build Include="Tables\Tables\ParkingTicketPayment.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicketPayment\uspGetAllParkingTicketPayment.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicketPayment\uspGetATMById.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicketPayment\uspGetParkingTicketById.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicketPayment\uspGetParkingTicketPaymentId.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicketPayment\uspSaveParkingTicketPayment.sql" />
   </ItemGroup>
 </Project>
