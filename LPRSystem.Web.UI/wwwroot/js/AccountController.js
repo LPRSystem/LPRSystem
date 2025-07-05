@@ -35,6 +35,18 @@
 
                 storageService.set('ApplicationUser', applicationUser);
 
+
+                if (applicationUser.RoleId === 15) {
+                    var atmInfo = storageService.get('ATMMachine');
+                    if (atmInfo) {
+                        storageService.remove('ATMMachine');
+                    }
+
+                    var aTMMachine = response.atm;
+
+                    storageService.set('ATMMachine', aTMMachine);
+                }
+
                 if (applicationUser.RoleId === 15)
                     window.location.href = "/ParkingTicket/Index";
                 else
