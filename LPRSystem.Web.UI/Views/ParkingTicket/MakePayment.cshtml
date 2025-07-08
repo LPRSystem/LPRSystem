@@ -2,49 +2,101 @@
     ViewData["Title"] = "ParkingTicket";
     Layout = "~/Views/Shared/_ATMLayout.cshtml";
 }
+
 <form id="formMakePaymentParkingTicket" class="mb-3">
-    <div class="card borderless">
-        <div class="row align-items-center ">
-            <div class="col-md-12">
-                <div class="card-body">
-                    <h4 class="mb-3 f-w-400">Make payment your Parking ticket</h4>
-                    <hr />
-                    <div class="form-group mb-4">
-                        <label for="carnumber" class="form-label text-left" style="float: left">Car/Vehicle Number</label>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fa fa-car"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="carnumber" name="carnumber" placeholder="enter car/ vehicle number" autofocus required />
-                        </div>
+    <div class="container">
+        <h4 class="mb-4 fw-bold">Make Payment for Your Parking Ticket</h4>
+        <div class="row g-4">
+            <!-- Ticket Information -->
+            <div class="col-md-9">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Ticket Information</h5>
                     </div>
-                    <div class="form-group mb-4">
-                        <label for="phonenumber" class="form-label text-left" style="float: left">Phone Number</label>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="enter phone number" autofocus required />
-                        </div>
+                    <div class="card-body">
+                        <table class="table table-bordered mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Ticket ID</th>
+                                    <td><label id="TicketId" class="form-label mb-0"></label></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Vehicle No</th>
+                                    <td><span id="VehicleNo"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Phone No</th>
+                                    <td><span id="PhoneNo"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Parking From</th>
+                                    <td><span id="DurationFrom"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Parking To</th>
+                                    <td><span id="DurationTo"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total Duration</th>
+                                    <td><span id="TotalDuration"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td><span id="Status"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
+            </div>
 
-                    <div class="form-group mb-4">
-                        <label for="duration" class="form-label text-left" style="float: left">Duration</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
+            <!-- Payment Details -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Payment Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-4">
+                            <label for="amount" class="form-label text-left" style="float: left">Amount</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-car"></i></span>
+                                </div>
+                                <input type="number" class="form-control" id="amount" name="amount"  readonly />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paymentType" class="form-label">Payment Type</label>
+                            <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                                <select class="form-control" id="paymentType" name="paymentType" required>
+                                    <option value="">Select payment type</option>
+                                    <!-- Options added dynamically -->
+                                </select>
                             </div>
-                            <select class="form-control" id="duration" required autofocus>
-                            </select>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="paymentReference" class="form-label text-left" style="float: left">Payment Reference No</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-tag"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="paymentReference" name="paymentReference" placeholder="ABCD12345" required />
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary" type="submit" id="btnSubmit">Submit Payment</button>
                         </div>
                     </div>
-
-                    <button class="btn btn-block btn-primary mb-4" type="submit" id="btnSubmit">Get ticket</button>
                 </div>
             </div>
         </div>
     </div>
+
 </form>
+
+<!-- Scripts -->
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/js/MakePaymentParkingTicketController.js"></script>
 <script type="text/javascript">

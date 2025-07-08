@@ -19,7 +19,7 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicket
 
         [Function("GetParkingTicketByIdFunction")]
         public async Task<IActionResult> GetParkingTicketById([HttpTrigger(AuthorizationLevel.Anonymous, "get",
-            Route = "parkingticket/getallparkingticketbyid/{parkingticketid}")] HttpRequest req, long parkingticketid)
+            Route = "parkingticket/getparkingticketbyid/{parkingticketid}")] HttpRequest req, long parkingticketid)
         {
             _logger.LogInformation("GetParkingPriceById Function Invoked()");
 

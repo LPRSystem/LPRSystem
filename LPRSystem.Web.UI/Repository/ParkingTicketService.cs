@@ -49,7 +49,7 @@ namespace LPRSystem.Web.UI.Repository
         {
             ParkingTicket parkingTicket = new ParkingTicket();
 
-            var url = Path.Combine("parkingticket/getallparkingticketbyid", parkingTicketId.ToString());
+            var url = Path.Combine("parkingticket/getparkingticketbyid", parkingTicketId.ToString());
 
             var responseContent = await _httpClient.GetAsync(url);
 

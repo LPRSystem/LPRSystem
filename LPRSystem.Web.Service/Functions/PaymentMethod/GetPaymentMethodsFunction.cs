@@ -1,4 +1,4 @@
-using LPRSystem.Web.API.Manager;
+    using LPRSystem.Web.API.Manager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;

@@ -79,5 +79,22 @@ namespace LPRSystem.Web.UI.Controllers
                 throw ex;
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> FetchParkingTicketById(long parkigTicketId)
+        {
+            try
+
+            {
+                var response = await _parkingTicketService.GetParkingTicketByIdAsync(parkigTicketId);
+                return Json(new { data = response });
+            }
+            catch (Exception ex)
+            {
+                _notyfService.Error(ex.Message);
+                throw ex;
+            }
+        }
+
     }
 }
