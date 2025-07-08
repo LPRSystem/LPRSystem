@@ -43,6 +43,12 @@ namespace LPRSystem.Web.UI.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> PrintParkingTicket(long parkingTicketId)
+        {
+            return View("~/Views/ParkingTicket/Print.cshtml");
+        }
+
         [HttpPost]
         public async Task<IActionResult> InserOrUpdateParkingTicket([FromBody] ParkingTicket parkingTicket)
         {

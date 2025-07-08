@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "ParkingTicket";
+    Layout = "~/Views/Shared/_ATMLayout.cshtml";
+}
+
+<form id="formParkingTicketPaymentDetails" class="mb-3">
+    <div class="container">
+        <h4 class="mb-4 fw-bold">Parking Ticket Payment Details</h4>
+        <div class="row g-4">
+            <!-- Ticket Information -->
+            <div class="col-md-9">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Ticket Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Ticket ID</th>
+                                    <td><label id="TicketId" class="form-label mb-0"></label></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Vehicle No</th>
+                                    <td><span id="VehicleNo"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Phone No</th>
+                                    <td><span id="PhoneNo"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Parking From</th>
+                                    <td><span id="DurationFrom"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Parking To</th>
+                                    <td><span id="DurationTo"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total Duration</th>
+                                    <td><span id="TotalDuration"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td><span id="Status"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Details -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Parking Ticket Receipt</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-4">
+                            <label for="amount" class="form-label text-left" style="float: left">Amount</label>
+                            <div class="input-group">
+                                
+                                <input type="number" class="form-control" id="amount" name="amount" readonly />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paymentType" class="form-label">Payment Type</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                                <select class="form-control" id="paymentType" name="paymentType" required>
+                                    <option value="">Select payment type</option>
+                                    <!-- Options added dynamically -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                      <div class="button-container">
+                        <button class="btn btn-primary" type="submit" id="btnPrint">Print</button>
+                      </<div>
+                      <div>
+                        <button class="btn btn-primary" type="submit" id="btnExtend">Extend</button>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<!-- Scripts -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/MakePaymentParkingTicketController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new MakePaymentParkingTicketController();
+        ctrl.init();
+    });
+</script>
