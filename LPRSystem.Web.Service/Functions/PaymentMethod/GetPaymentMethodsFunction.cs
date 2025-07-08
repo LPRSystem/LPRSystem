@@ -21,7 +21,7 @@ public class GetPaymentMethodsFunction
     public IActionResult GetPaymentMethods([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "paymentmethod/getpaymentmethods")] HttpRequest req)
     {
         _logger.LogInformation("GetPaymentMethods Function Invoked.");
-
+        
         List<LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod> paymentMethods = new List<API.Manager.Models.PaymentMethod.PaymentMethod>();
 
         LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod paymentMethod = null;

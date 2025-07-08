@@ -64,6 +64,7 @@ public class GetParkingPriceFunction
                 listParkingPrice.Add(price);
             }
 
+            
             return new OkObjectResult(listParkingPrice);
         }
         catch (Exception ex)
