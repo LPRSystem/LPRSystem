@@ -36,7 +36,7 @@ public class AuthenticationFunction
             // Deserialize the JSON into your request object
             var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.Authentication.Authenticate>(requestBody);
 
-            SqlConnection sqlConnection = new SqlConnection(Environment.GetEnvironmentVariable(Global.TenantSQLServerConnectionStringSetting));
+            SqlConnection sqlConnection = new SqlConnection("Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;");
 
             sqlConnection.Open();
 
