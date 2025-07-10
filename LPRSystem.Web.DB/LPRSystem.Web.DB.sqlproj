@@ -190,5 +190,6 @@
     <Build Include="Programmability\Stored Procedures\ParkingTicketPayment\uspGetParkingTicketPaymentId.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingTicketPayment\uspSaveParkingTicketPayment.sql" />
     <Build Include="Programmability\Stored Procedures\ParkingTicket\uspSaveParkingTicket.sql" />
+    <Build Include="Programmability\Stored Procedures\ParkingTicket\uspGetParkingTicketDetails.sql" />
   </ItemGroup>
 </Project>
