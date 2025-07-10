@@ -44,6 +44,12 @@ namespace LPRSystem.Web.UI.Controllers
         }
 
         [HttpGet]
+        public async Task <IActionResult> GetTicketDetails(string searchString,long atmId)
+        {
+            return View(searchString,atmId);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> PrintParkingTicket(long parkingTicketId)
         {
             return View("~/Views/ParkingTicket/Print.cshtml");
@@ -90,7 +96,6 @@ namespace LPRSystem.Web.UI.Controllers
         public async Task<IActionResult> FetchParkingTicketById(long parkigTicketId)
         {
             try
-
             {
                 var response = await _parkingTicketService.GetParkingTicketByIdAsync(parkigTicketId);
                 return Json(new { data = response });

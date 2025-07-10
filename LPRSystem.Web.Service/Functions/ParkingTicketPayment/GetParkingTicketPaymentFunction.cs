@@ -16,8 +16,8 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
         {
             _logger = logger;
         }
-        [Function("GetParkingTicketPayment")]
 
+        [Function("GetParkingTicketPayment")]
         public IActionResult GetParkingTicketPayment([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ParkingTicketPayment/GetParkingTicketPayment")] HttpRequest req)
         {
             try
