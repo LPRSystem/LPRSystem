@@ -29,7 +29,7 @@ public class ProcessCountryFunction
         // Deserialize the JSON into your request object
         var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.Country.Country>(requestBody);
 
-        string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+        string connectionString = "Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;";
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
         SqlCommand sqlCommand = new SqlCommand("insert into [data].[country](Name,Description,CountryCode,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy,IsActive)values(@name,@description,@code,@createdon,@createdby,@modifiedon,@modifiedby,@isactive)", connection);

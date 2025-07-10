@@ -22,7 +22,7 @@ public class DeleteParkingSlotFunction
 
         try
         {
-            using (SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting)))
+            using (SqlConnection connection = new SqlConnection("Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;"))
             {
                 connection.Open();
 

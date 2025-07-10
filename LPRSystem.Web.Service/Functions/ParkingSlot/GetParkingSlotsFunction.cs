@@ -27,7 +27,7 @@ public class GetParkingSlotsFunction
 
             ParkingSlotDetails parkingSlotDetails = null;
 
-            SqlConnection sqlConnection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
+            SqlConnection sqlConnection = new SqlConnection("Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;");
 
             sqlConnection.Open();
 
