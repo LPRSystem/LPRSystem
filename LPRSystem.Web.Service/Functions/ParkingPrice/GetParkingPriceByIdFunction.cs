@@ -33,7 +33,7 @@ public class GetParkingPriceByIdFunction
 
             LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice parkingPrice = new LPRSystem.Web.API.Manager.Models.ParkingPrice.ParkingPrice();
 
-            SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
+            SqlConnection connection = new SqlConnection("Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;");
             connection.Open();
             SqlCommand command = new SqlCommand("[api].[uspGetParkingPriceById]", connection);
             command.CommandType = CommandType.StoredProcedure;

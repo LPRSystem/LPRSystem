@@ -42,7 +42,7 @@ public class SaveUserFunction
 
         }
 
-        string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+        string connectionString = "Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;";
 
         SqlConnection sqlConnection = new SqlConnection(connectionString);
         sqlConnection.Open();

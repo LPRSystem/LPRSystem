@@ -22,7 +22,7 @@ public class GetCountriesFunction
     public async Task<IActionResult> GetCountries([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "country/getcountries")] HttpRequest req)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
-        string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+        string connectionString = "Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;";
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
         SqlCommand sqlCommand = new SqlCommand("[api].[uspGetCountry]", connection);

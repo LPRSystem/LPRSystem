@@ -26,7 +26,7 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
 
                 LPRSystem.Web.API.Manager.Models.ParkingTicketPayment.ParkingTicketPayment parkingTicketPayment = null;
 
-                SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
+                SqlConnection connection = new SqlConnection("Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;");
 
                 connection.Open();
 

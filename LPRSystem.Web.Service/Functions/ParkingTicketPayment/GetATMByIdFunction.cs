@@ -31,7 +31,7 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
                 if (ATMId == 0)
                     return new BadRequestObjectResult("Please send valid payment id");
 
-                string connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+                string connectionString = "Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;";
 
                 LPRSystem.Web.API.Manager.Models.ParkingTicketPayment.ParkingTicketPayment parkingTicketPayment = new LPRSystem.Web.API.Manager.Models.ParkingTicketPayment.ParkingTicketPayment();
 
