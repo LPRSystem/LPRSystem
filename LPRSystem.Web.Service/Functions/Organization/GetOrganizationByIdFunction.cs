@@ -25,7 +25,7 @@ public class GetOrganizationByIdFunction
             LPRSystem.Web.API.Manager.Models.Organization.Organization organization = new LPRSystem.Web.API.Manager.Models.Organization.Organization();
 
 
-            SqlConnection sqlConnection = new SqlConnection(Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting));
+            SqlConnection sqlConnection = new SqlConnection("Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;");
 
 
             sqlConnection.Open();

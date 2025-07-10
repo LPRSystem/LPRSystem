@@ -18,7 +18,7 @@ namespace LPRSystem.Web.API.Manager
 
             if (string.IsNullOrEmpty(tenantId))
             {
-                connectionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+                connectionString = "Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;";
             }
             else
             {

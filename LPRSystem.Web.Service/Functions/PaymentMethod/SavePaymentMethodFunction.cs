@@ -32,7 +32,7 @@ namespace LPRSystem.Web.Service.Functions.PaymentMethod
             //Deserialize the json into your request object
             var requestModel = JsonConvert.DeserializeObject<LPRSystem.Web.API.Manager.Models.PaymentMethod.PaymentMethod>(requestBody);
              
-            string connectionString =Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+            string connectionString ="Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;";
             SqlConnection connection=new SqlConnection(connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand("insert into [data].[paymentMethod](Name,Code,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsActive)values(@name,@code,@createdby,@createdOn,@modifiedby,@modifiedOn,@isactive)", connection);

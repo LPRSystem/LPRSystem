@@ -9,6 +9,7 @@
     self.parkingTicketId = 0;
 
     self.dbPaymentMethod = [];
+
     self.parkingTicket = {};
 
     makeFormGeneric("#formMakePaymentParkingTicket", "#btnSubmit");
@@ -77,6 +78,52 @@
                 console.error(error);
             }
         });
-        //get all payment mthods from db
+
+        $('#formMakePaymentParkingTicket').on('submit', function (e) {
+            e.preventDefault();
+            showLoader();
+
+            console.log("button submited");
+
+            var amount = $('#Amount').val();
+            var paymentMethod = $('#paymentType').val();
+            var paymentReference = $('paymentReference').val();
+
+            var parkingTicketPayment = {
+                ParkingTicketPaymentId: 0,
+                ATMId: self.currentAtm.ATMId,
+                PaymentMethodId: paymentMethod,
+                ParkingTicketId: self.parkingTicketId,
+                PaymentReference: paymentReference,
+                TotalAmount: amount, 
+                PaidAmount: paidAmount,
+                DueAmount: dueAmount,
+                Status: "Draft"
+            }
+
+            console.log("parkingTicketPayment..." + JSON.stringify(parkingTicketPayment));
+            var parkingTicketPaymentInfo = addCommonProperties(parkingTicketPayment);
+            console.log("parkingTicketPaymentInfo..." + JSON.stringify(parkingTicketPaymentInfo));
+            console.log(parkingTicketPayment);
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/ParkingTicketPayment/InsertParkingTicketPayment",
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(parkingTicketPayment),
+                success: function (response) {
+                   // $('#ParkingTicketPrintForm')[0].reset();
+                    $('#sidebar').removeClass('show');
+                    $('.modal-backdrop').remove();
+                    table.setData();
+                    hideLoader();
+                }, error: function (error) {
+                    console.error(error);
+                }
+            })
+        });
     }
 };

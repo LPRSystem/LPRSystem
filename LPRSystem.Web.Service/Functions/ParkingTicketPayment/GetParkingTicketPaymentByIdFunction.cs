@@ -27,7 +27,7 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
                 if (parkingTicketPaymentId == 0)
                     return new BadRequestObjectResult("please send valid parkingTicketPaymentId");
 
-                string connctionString = Environment.GetEnvironmentVariable(Global.CommonSQLServerConnectionStringSetting);
+                string connctionString = "Data Source=104.243.32.43;Initial Catalog=LPRSystemDB;User ID=LPRSystemDBUser;Password=DubaiDutyFree@2025;TrustServerCertificate=true;";
 
                 LPRSystem.Web.API.Manager.Models.ParkingTicketPayment.ParkingTicketPayment parkingTicketPayment = new LPRSystem.Web.API.Manager.Models.ParkingTicketPayment.ParkingTicketPayment();
 
