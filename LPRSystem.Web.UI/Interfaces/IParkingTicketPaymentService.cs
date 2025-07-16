@@ -7,7 +7,7 @@ namespace LPRSystem.Web.UI.Interfaces
         Task<List<ParkingTicketPayment>> GetParkingTicketPaymentAsync();
         Task<ParkingTicketPayment> GetATMByIdAsync(long aTMId);
         Task<ParkingTicketPayment> GetParkingTicketPaymentByIdAsync(long parkingTicketPaymentId);
-        Task<ParkingTicketPayment> InsertParkingTicketPaymentAsync(ParkingTicketPayment parkingTicketPayment);
+        Task<long> InsertParkingTicketPaymentAsync(ParkingTicketPayment parkingTicketPayment);
         Task<ParkingTicketPayment> UpdateParkingTicketPaymentAsync(ParkingTicketPayment parkingTicketPayment);
        
     }

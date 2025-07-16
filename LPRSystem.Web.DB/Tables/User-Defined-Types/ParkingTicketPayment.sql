@@ -1,6 +1,6 @@
-﻿CREATE TABLE [data].[ParkingTicketPayment]
+﻿Create TYPE [api].[ParkingTicketPayment] AS TABLE
 (
-	[ParkingTicketPaymentId]   BIGINT         NOT NULL  PRIMARY KEY   IDENTITY(1,1),
+    [ParkingTicketPaymentId]   BIGINT         NULL,
 	[ParkingTicketId]          BIGINT         NULL,
 	[ATMId]                    BIGINT         NULL,
 	[PaymentMethodId]          BIGINT         NULL,
@@ -14,7 +14,4 @@
 	[ModifiedBy]               BIGINT         NULL,
 	[ModifiedOn]               DATETIMEOFFSET NULL,
 	[IsActive]                 BIT            NULL
-	FOREIGN KEY  (ParkingTicketId) REFERENCES data.ParkingTicket(ParkingTicketId),
-	FOREIGN KEY  (ATMId) REFERENCES data.ATMMachine(ATMId),
-	FOREIGN KEY  (PaymentMethodId) REFERENCES data.PaymentMethod(Id)
 )

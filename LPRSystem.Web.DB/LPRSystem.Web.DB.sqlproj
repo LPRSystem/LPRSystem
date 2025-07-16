@@ -103,6 +103,7 @@
     <None Include="Programmability\Stored Procedures\Organization\uspGetOrganizationById.sql" />
     <None Include="Programmability\Stored Procedures\Organization\uspInsertOrganization.sql" />
     <None Include="Programmability\Stored Procedures\Organization\uspUpdateOrganization.sql" />
+    <None Include="Tables\User-Defined-Types\ParkingTicketPayment.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Tables\Role.sql" />
