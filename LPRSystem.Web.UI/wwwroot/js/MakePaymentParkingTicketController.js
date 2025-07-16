@@ -12,6 +12,8 @@
 
     self.parkingTicket = {};
 
+    self.currectSelectedParkingTicketPayment = {};
+
     makeFormGeneric("#formMakePaymentParkingTicket", "#btnSubmit");
 
     self.init = function () {
@@ -57,7 +59,7 @@
                 $("#Status").text(self.parkingTicket.Status);
 
 
-                $("#amount").val(parseFloat(self.parkingTicket.TotalAmount).toFixed(2));
+                $("#Amount").val(parseFloat(self.parkingTicket.TotalAmount).toFixed(2));
 
                 //genarateDropdown("parkingMethod", self.dbPaymentMethod, "ParkingMethodId", "ParkingMethod");
             },
@@ -72,7 +74,7 @@
             success: function (response) {
                 console.log(response);
                 self.dbPaymentMethod = response.data;
-                genarateDropdown("paymentType", self.dbPaymentMethod, "Id", "Name");
+                genarateDropdown("PaymentType", self.dbPaymentMethod, "Id", "Name");
             },
             error: function (error) {
                 console.error(error);
@@ -86,8 +88,8 @@
             console.log("button submited");
 
             var amount = $('#Amount').val();
-            var paymentMethod = $('#paymentType').val();
-            var paymentReference = $('paymentReference').val();
+            var paymentMethod = $('#PaymentType').val();
+            var paymentReference = $('#PaymentReference').val();
 
             var parkingTicketPayment = {
                 ParkingTicketPaymentId: 0,
@@ -95,10 +97,10 @@
                 PaymentMethodId: paymentMethod,
                 ParkingTicketId: self.parkingTicketId,
                 PaymentReference: paymentReference,
-                TotalAmount: amount, 
-                PaidAmount: paidAmount,
-                DueAmount: dueAmount,
-                Status: "Draft"
+                TotalAmount: self.parkingTicket.TotalAmount, 
+                PaidAmount: amount,
+                DueAmount: 0,
+                Status: "Paid"
             }
 
             console.log("parkingTicketPayment..." + JSON.stringify(parkingTicketPayment));
@@ -115,15 +117,16 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(parkingTicketPayment),
                 success: function (response) {
-                   // $('#ParkingTicketPrintForm')[0].reset();
+                    console.log(response);
+                    //$('#formParkingTicketPaymentDetails')[0].reset();
                     $('#sidebar').removeClass('show');
                     $('.modal-backdrop').remove();
-                    table.setData();
+                    //table.setData();
                     hideLoader();
                 }, error: function (error) {
                     console.error(error);
                 }
-            })
+            });
         });
     }
 };

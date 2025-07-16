@@ -1,51 +1,53 @@
 ﻿CREATE PROCEDURE [api].[uspSaveParkingTicketPayment]
-	(
-	  @ParkingTicketId    BigInt,
-	  @ATMId              BigInt,
-	  @PaymentMethodId    BigInt,
-	  @PaymentReference   varchar(max),
-	  @TotalAmount        Decimal,
-	  @PaidAmount         Decimal,
-	  @DueAmount          Decimal,
-	  @Status             varchar(max),
-	  @CreatedBy          BigInt,
-	  @CreatedOn          DateTimeOffSet,
-	  @ModifiedBy         BigInt,
-	  @ModifiedOn         DateTimeOffSet,
-	  @IsActive           Bit
-	)
-	AS
+(
+    @ParkingTicketId     BIGINT,
+    @ATMId               BIGINT,
+    @PaymentMethodId     BIGINT,
+    @PaymentReference    VARCHAR(MAX),
+    @TotalAmount         DECIMAL(10, 2),
+    @PaidAmount          DECIMAL(10, 2),
+    @DueAmount           DECIMAL(10, 2),
+    @Status              VARCHAR(MAX),
+    @CreatedBy           BIGINT,
+    @CreatedOn           DATETIMEOFFSET,
+    @ModifiedBy          BIGINT,
+    @ModifiedOn          DATETIMEOFFSET,
+    @IsActive            BIT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
 
-	BEGIN
-
-	INSERT INTO [data].[ParkingTicketPayment]
-	(
-	ParkingTicketId,
-	ATMId,
-	PaymentMethodId,
-	PaymentReference,
-	TotalAmount,
-	PaidAmount,
-	DueAmount,
-	Status,
-	CreatedBy,
-	CreatedOn,
-	ModifiedBy,
-	ModifiedOn,
-	IsActive)
-	Values
-	(
-	@ParkingTicketId,
-	@ATMId,
-	@PaymentMethodId,
-	@PaymentReference,
-	@TotalAmount,
-	@DueAmount,
-	@Status,
-	@CreatedBy,
-	@CreatedOn,
-	@ModifiedBy,
-	@ModifiedOn,
-	@IsActive)
-
+    INSERT INTO [data].[ParkingTicketPayment]
+    (
+        ParkingTicketId,
+        ATMId,
+        PaymentMethodId,
+        PaymentReference,
+        TotalAmount,
+        PaidAmount,
+        DueAmount,
+        Status,
+        CreatedBy,
+        CreatedOn,
+        ModifiedBy,
+        ModifiedOn,
+        IsActive
+    )
+    VALUES
+    (
+        @ParkingTicketId,
+        @ATMId,
+        @PaymentMethodId,
+        @PaymentReference,
+        @TotalAmount,
+        @PaidAmount,           
+        @DueAmount,
+        @Status,
+        @CreatedBy,
+        @CreatedOn,
+        @ModifiedBy,
+        @ModifiedOn,
+        @IsActive
+    )
 END

@@ -72,23 +72,23 @@ namespace LPRSystem.Web.UI.Repository
             return parkingTicketPayment;
         }
 
-        public async Task<ParkingTicketPayment> InsertParkingTicketPaymentAsync(ParkingTicketPayment parkingTicketPayment)
+        public async Task<long> InsertParkingTicketPaymentAsync(ParkingTicketPayment parkingTicketPayment)
         {
             var inputParkingTicketPayment = JsonConvert.SerializeObject(parkingTicketPayment);
 
             var requestParkingTicketPayment = new StringContent(inputParkingTicketPayment, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("ParkingTicketPayment/SaveParkingTicketPayment", requestParkingTicketPayment);
+            var response = await _httpClient.PostAsync("ParkingTicketPayment/SaveParkingTicketPayment",  requestParkingTicketPayment);
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                var responseParkingTicketPayment = JsonConvert.DeserializeObject<ParkingTicketPayment>(content);
+                var responseParkingTicketPayment = JsonConvert.DeserializeObject<long>(content);
 
                 return responseParkingTicketPayment;
             }
-            return null;
+            return 0;
         }
 
         public async Task<ParkingTicketPayment> UpdateParkingTicketPaymentAsync(ParkingTicketPayment parkingTicketPayment)

@@ -24,11 +24,11 @@ namespace LPRSystem.Web.UI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> InsertParkingTicketPayment([FromBody] ParkingTicketPayment parkingTicketPayment)
+        public async Task<IActionResult> InsertParkingTicketPayment([FromBody] ParkingTicketPayment model)
         {
             try
             {
-                var response = await _paymentService.InsertParkingTicketPaymentAsync(parkingTicketPayment);
+                var response = await _paymentService.InsertParkingTicketPaymentAsync(model);
 
                 return Json(new { data = response });
             }

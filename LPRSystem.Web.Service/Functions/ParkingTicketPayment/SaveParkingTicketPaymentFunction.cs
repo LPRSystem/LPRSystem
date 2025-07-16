@@ -33,7 +33,7 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
 
                sqlConnection.Open();
 
-                SqlCommand command = new SqlCommand("[api].[uspSaveParkingTicketPayment],connection");
+                SqlCommand command = new SqlCommand("[api].[uspSaveParkingTicketPayment]",sqlConnection);
 
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -46,6 +46,8 @@ namespace LPRSystem.Web.Service.Functions.ParkingTicketPayment
                 command.Parameters.AddWithValue("@PaymentReference", requestModel.PaymentReference);
 
                 command.Parameters.AddWithValue("@TotalAmount", requestModel.TotalAmount);
+
+                command.Parameters.AddWithValue("@PaidAmount", requestModel.PaidAmount);
 
                 command.Parameters.AddWithValue("@DueAmount", requestModel.DueAmount);
 
